@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: dums
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: zhenghai
+    database: 3
+  profiles:
+    active: dev
+server:
+  port: 8765

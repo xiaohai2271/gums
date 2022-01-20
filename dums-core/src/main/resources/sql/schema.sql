@@ -2,7 +2,7 @@ drop table if exists dums_login_history;
 drop table if exists dums_permission;
 drop table if exists dums_role;
 drop table if exists dums_role_permission;
-drop table if exists dums_service;
+drop table if exists dums_mservice;
 drop table if exists dums_service_cfg;
 drop table if exists dums_user;
 drop table if exists dums_user_role;
@@ -28,7 +28,7 @@ comment on column dums_service_cfg.update_dt is '更新日期';
 comment on column dums_service_cfg.remark is '备注';
 
 
-create table dums_service
+create table dums_mservice
 (
     id           serial primary key,
     service_name varchar,
@@ -36,12 +36,12 @@ create table dums_service
     update_dt    date    default null,
     remark       varchar default null
 );
-comment on table dums_service is '服务信息表';
-comment on column dums_service.id is '主键';
-comment on column dums_service.service_name is '服务名称';
-comment on column dums_service.create_dt is '创建日期';
-comment on column dums_service.update_dt is '更新日期';
-comment on column dums_service.remark is '备注';
+comment on table dums_mservice is '服务信息表';
+comment on column dums_mservice.id is '主键';
+comment on column dums_mservice.service_name is '服务名称';
+comment on column dums_mservice.create_dt is '创建日期';
+comment on column dums_mservice.update_dt is '更新日期';
+comment on column dums_mservice.remark is '备注';
 
 create table dums_user
 (

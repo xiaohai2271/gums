@@ -1,6 +1,6 @@
 package cn.celess.dums.service;
 
-import cn.celess.dums.entity.Service;
+import cn.celess.dums.entity.Mservice;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author 禾几海
- * @since 2022-01-20
+ * @since 2022/01/20
  */
-public interface ServiceService extends IService<Service> {
+public interface MserviceService extends IService<Mservice> {
 
 }

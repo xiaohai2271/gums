@@ -13,13 +13,13 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 禾几海
- * @since 2022-01-20
+ * @since 2022/01/20
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("dums_service")
-public class Service implements Serializable {
+@TableName("dums_mservice")
+public class Mservice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

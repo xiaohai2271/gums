@@ -1,6 +1,6 @@
 package cn.celess.dums.mapper;
 
-import cn.celess.dums.entity.Service;
+import cn.celess.dums.entity.Mservice;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author 禾几海
- * @since 2022-01-20
+ * @since 2022/01/20
  */
-public interface ServiceMapper extends BaseMapper<Service> {
+public interface MserviceMapper extends BaseMapper<Mservice> {
 
 }
