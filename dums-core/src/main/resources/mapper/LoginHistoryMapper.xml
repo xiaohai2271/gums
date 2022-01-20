@@ -2,4 +2,16 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.celess.dums.mapper.LoginHistoryMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.celess.dums.entity.LoginHistory">
+        <id column="id" property="id" />
+        <id column="user_id" property="userId" />
+        <result column="service_id" property="serviceId" />
+        <result column="platform" property="platform" />
+        <result column="ip" property="ip" />
+        <result column="browser" property="browser" />
+        <result column="create_dt" property="createDt" />
+        <result column="remark" property="remark" />
+    </resultMap>
+
 </mapper>

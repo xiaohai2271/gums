@@ -36,7 +36,7 @@ public class LoginProcessorFactory {
         checkAndInitProcessors();
         DataProcessorUtil.handlerLoginData(loginDto);
         for (LoginProcessor processor : loginProcessors) {
-            if (processor.enable() && Objects.equals(processor.getLoginType(), loginDto.getType())) {
+            if (processor.enable() && Objects.equals(processor.getLoginType(), loginDto.getLoginType())) {
                 return processor.doLogin(loginDto);
             }
         }

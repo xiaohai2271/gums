@@ -2,4 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.celess.dums.mapper.PermissionMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.celess.dums.entity.Permission">
+        <id column="id" property="id"/>
+        <id column="permission_code" property="permissionCode"/>
+        <result column="permission_name" property="permissionName"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="create_dt" property="createDt"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+    <select id="getPermissionByRoleId" resultType="cn.celess.dums.entity.Permission">
+        SELECT *
+        FROM dums_permission
+        WHERE id IN (SELECT prm_id FROM dums_role_permission WHERE role_id = #{roleId})
+    </select>
+
 </mapper>

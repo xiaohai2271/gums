@@ -7,15 +7,14 @@ import cn.celess.dums.dto.UserResetPwdDto;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.login.LoginProcessorFactory;
 import cn.celess.dums.mapper.UserMapper;
-import cn.celess.dums.mapper.UserRoleMapper;
 import cn.celess.dums.page.PageVO;
 import cn.celess.dums.service.UserService;
+import cn.celess.dums.util.ValidUtil;
 import cn.celess.dums.vo.CommonUserVO;
 import cn.celess.dums.vo.LoginUserVO;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 
 /**
  * <p>
@@ -29,15 +28,14 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    private final UserRoleMapper userPermissionDao;
+    private final UserMapper userMapper;
     private final LoginProcessorFactory loginProcessorFactory;
 
 
     @Override
     public LoginUserVO login(UserLoginDto loginDto) {
-//        ValidUtil.validLoginArgs(loginDto);
-//        return loginProcessorFactory.login(loginDto);
-        return null;
+        ValidUtil.validLoginArgs(loginDto);
+        return loginProcessorFactory.login(loginDto);
     }
 
     @Override

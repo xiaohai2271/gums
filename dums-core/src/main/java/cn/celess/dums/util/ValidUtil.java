@@ -7,6 +7,7 @@ import cn.celess.dums.dto.SmsDto;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.dto.UserRegDto;
 import cn.celess.dums.dto.UserResetPwdDto;
+import cn.celess.dums.enums.LoginType;
 import cn.celess.dums.exception.ArgumentException;
 import cn.celess.dums.exception.ArgumentMissingException;
 import cn.celess.dums.response.ResponseConstant;
@@ -31,26 +32,26 @@ public class ValidUtil {
             }
         };
 
-        if (loginDto.getType() == null) {
+        if (loginDto.getLoginType() == null) {
             throw new ArgumentMissingException();
         }
         // CUSTOM_LOGIN: 账户 + 密码 + <图形验证码>
-        if (Objects.equals(loginDto.getType(), UserConstant.CUSTOM_LOGIN)) {
-            if (StringUtils.isBlank(loginDto.getAccount()) || StringUtils.isBlank(loginDto.getPassword())) {
+        if (Objects.equals(loginDto.getLoginType(), LoginType.CUSTOM_LOGIN)) {
+            if (StringUtils.isBlank(loginDto.getUsername()) || StringUtils.isBlank(loginDto.getPassword())) {
                 throw new ArgumentMissingException();
             }
-            if (Boolean.TRUE.equals(WebUtil.getHttpSession().getAttribute(loginDto.getAccount()))) {
+            if (Boolean.TRUE.equals(WebUtil.getHttpSession().getAttribute(loginDto.getUsername()))) {
                 checkImageCode.accept(loginDto);
             }
-            if (!RegexUtil.accountMatch(loginDto.getAccount())) {
+            if (!RegexUtil.accountMatch(loginDto.getUsername())) {
                 throw new ArgumentException(ResponseConstant.ACCOUNT_FORMAT_ERROR);
             }
-            if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(loginDto.getPassword(), loginDto.getAccount()))) {
+            if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(loginDto.getPassword(), loginDto.getUsername()))) {
                 throw new ArgumentException(ResponseConstant.PASSWORD_FORMAT_ERROR);
             }
         }
         // CUSTOM_LOGIN: 手机号 + 手机验证码 + <图形验证码>
-        if (Objects.equals(loginDto.getType(), UserConstant.MOBILE_LOGIN)) {
+        if (Objects.equals(loginDto.getLoginType(), LoginType.MOBILE_LOGIN)) {
             if (StringUtils.isBlank(loginDto.getPhone()) || StringUtils.isBlank(loginDto.getCode())) {
                 throw new ArgumentMissingException();
             }
@@ -83,7 +84,7 @@ public class ValidUtil {
     }
 
     public static void validRegistrationArgs(UserRegDto regDto) {
-        if (StringUtils.isBlank(regDto.getAccount())
+        if (StringUtils.isBlank(regDto.getUsername())
                 || StringUtils.isBlank(regDto.getPassword())
                 || StringUtils.isBlank(regDto.getConfirmPassword())
                 || StringUtils.isBlank(regDto.getPhone())
@@ -93,10 +94,10 @@ public class ValidUtil {
         if (!Objects.equals(regDto.getPassword(), regDto.getConfirmPassword())) {
             throw new ArgumentException(ResponseConstant.CONFIRM_PASSWORD_NOT_MATCH);
         }
-        if (!RegexUtil.accountMatch(regDto.getAccount())) {
+        if (!RegexUtil.accountMatch(regDto.getUsername())) {
             throw new ArgumentException(ResponseConstant.ACCOUNT_FORMAT_ERROR);
         }
-        if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(regDto.getPassword(), regDto.getAccount()))) {
+        if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(regDto.getPassword(), regDto.getUsername()))) {
             throw new ArgumentException(ResponseConstant.PASSWORD_FORMAT_ERROR);
         }
         if (!RegexUtil.phoneMatch(regDto.getPhone())) {

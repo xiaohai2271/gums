@@ -2,4 +2,25 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.celess.dums.mapper.RoleMapper">
 
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.celess.dums.entity.Role">
+        <id column="id" property="id" />
+        <id column="role_code" property="roleCode" />
+        <result column="role_name" property="roleName" />
+        <result column="p_role_id" property="pRoleId" />
+        <result column="service_id" property="serviceId" />
+        <result column="create_dt" property="createDt" />
+        <result column="update_dt" property="updateDt" />
+        <result column="remark" property="remark" />
+        <collection property="permissions"
+                    ofType="cn.celess.dums.entity.Permission" column="id"
+                    select="cn.celess.dums.mapper.PermissionMapper.getPermissionByRoleId" />
+    </resultMap>
+
+
+    <select id="getRoleByUid" resultType="cn.celess.dums.entity.Role">
+        SELECT *
+        FROM dums_role
+        WHERE id IN (SELECT role_id FROM dums_user_role WHERE user_id = #{uId})
+    </select>
 </mapper>

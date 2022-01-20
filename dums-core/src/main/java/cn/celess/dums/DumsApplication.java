@@ -1,6 +1,7 @@
 package cn.celess.dums;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,8 +15,9 @@ import org.springframework.core.SpringVersion;
  *
  * @author 禾几海
  */
-@SpringBootApplication
 @Slf4j
+@MapperScan("cn.celess.dums.mapper")
+@SpringBootApplication
 public class DumsApplication {
     public static void main(String[] args) {
         new SpringApplicationBuilder(DumsApplication.class)

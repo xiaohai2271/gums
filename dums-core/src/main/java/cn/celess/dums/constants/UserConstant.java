@@ -14,17 +14,6 @@ import java.util.Base64;
  * @author 禾几海
  */
 public class UserConstant {
-    /**
-     * 常规登录  账户+密码
-     * User.account + User.password
-     */
-    public static final Integer CUSTOM_LOGIN = 1;
-
-    /**
-     * 手机登录  手机+验证码
-     * User.phone + UserLoginDto.code
-     */
-    public static final Integer MOBILE_LOGIN = 2;
 
     /**
      * session中存图形验证码的key

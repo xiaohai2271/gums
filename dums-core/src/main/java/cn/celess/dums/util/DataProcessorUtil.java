@@ -10,6 +10,7 @@ import cn.celess.dums.exception.CommonException;
 import cn.celess.dums.page.Pageable;
 import cn.celess.dums.response.ResponseConstant;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.DigestUtils;
 
 import java.lang.reflect.Field;
@@ -29,21 +30,21 @@ public class DataProcessorUtil {
     }
 
 
-    /*public static String handlerPassword(AbstractUserDto user) {
-        if (StringUtils.isBlank(user.getAccount()) || StringUtils.isBlank(user.getPassword())) {
+    public static String handlerPassword(String account, String password) {
+        if (StringUtils.isBlank(account) || StringUtils.isBlank(password)) {
             throw new ArgumentMissingException();
         }
         // TODO: 账户
         // 字符串处理
-        user.setAccount(user.getAccount().toLowerCase(Locale.ROOT));
+        account = account.toLowerCase(Locale.ROOT);
         // 得到原始密码
-        String originPassword = AesEncryptUtil.decrypt(user.getPassword(), user.getAccount());
+        String originPassword = AesEncryptUtil.decrypt(password, account);
         if (StringUtils.isBlank(originPassword)) {
             return "";
         }
         // MD5(账号+原始密码+应用盐)
-        return DigestUtils.md5DigestAsHex((user.getAccount() + originPassword + ApplicationConstant.APPLICATION_SALT).getBytes(StandardCharsets.UTF_8));
-    }*/
+        return DigestUtils.md5DigestAsHex((account + originPassword + ApplicationConstant.APPLICATION_NAME).getBytes(StandardCharsets.UTF_8));
+    }
 
     /**
      * 校验并删除手机验证码

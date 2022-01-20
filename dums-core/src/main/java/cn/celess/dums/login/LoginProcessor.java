@@ -1,6 +1,7 @@
 package cn.celess.dums.login;
 
 import cn.celess.dums.dto.UserLoginDto;
+import cn.celess.dums.enums.LoginType;
 import cn.celess.dums.exception.LoginFailedException;
 import cn.celess.dums.vo.LoginUserVO;
 
@@ -12,14 +13,11 @@ import cn.celess.dums.vo.LoginUserVO;
 public interface LoginProcessor {
     /**
      * 获取登录类型
-     * CUSTOM_LOGIN : 1
-     * MOBILE_LOGIN : 1
      *
-     * @return type
-     * @see UserConstant#CUSTOM_LOGIN
-     * @see UserConstant#MOBILE_LOGIN
+     * @return loginType
+     * @see LoginType
      */
-    Integer getLoginType();
+    LoginType getLoginType();
 
     /**
      * 处理登录的逻辑

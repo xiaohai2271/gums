@@ -46,6 +46,7 @@ public class MybatisGenerator {
                             .enableChainModel(); // 开启链式模式
                     builder.serviceBuilder().formatServiceFileName("%sService")
                                     .formatServiceImplFileName("%sServiceImpl");
+                    builder.mapperBuilder().enableBaseResultMap();
                     builder.addInclude(TABLE_NAME) // 设置需要生成的表名
                             .addTablePrefix("dums_"); // 设置过滤表前缀
                 })

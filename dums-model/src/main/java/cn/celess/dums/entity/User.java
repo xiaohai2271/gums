@@ -1,8 +1,11 @@
 package cn.celess.dums.entity;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -18,7 +21,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("dums_user")
+@TableName(value = "dums_user",resultMap = "BaseResultMap")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -68,5 +71,5 @@ public class User implements Serializable {
      */
     private String remark;
 
-
+    private transient List<Role> roles;
 }

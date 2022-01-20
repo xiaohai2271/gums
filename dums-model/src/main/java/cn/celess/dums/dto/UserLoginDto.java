@@ -1,5 +1,6 @@
 package cn.celess.dums.dto;
 
+import cn.celess.dums.enums.LoginType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,7 +22,7 @@ public class UserLoginDto extends UserMobileVerifyDto {
     /**
      * 登录的类型
      */
-    private Integer type;
+    private LoginType loginType;
 
     /**
      * 是否 (记住设备 / 保持登录)

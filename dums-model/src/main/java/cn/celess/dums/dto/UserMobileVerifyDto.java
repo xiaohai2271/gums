@@ -22,7 +22,7 @@ public class UserMobileVerifyDto {
     /**
      * 账户账号
      */
-    private String account;
+    private String username;
 
     /**
      * 密码

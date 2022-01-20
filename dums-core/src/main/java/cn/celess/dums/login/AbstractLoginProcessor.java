@@ -1,21 +1,39 @@
 package cn.celess.dums.login;
 
 
+import cn.celess.dums.config.ApplicationConfig;
 import cn.celess.dums.constants.UserConstant;
+import cn.celess.dums.convert.UserConvert;
 import cn.celess.dums.dto.UserLoginDto;
+import cn.celess.dums.entity.LoginHistory;
+import cn.celess.dums.entity.Permission;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.exception.ArgumentMissingException;
 import cn.celess.dums.exception.LoginFailedException;
+import cn.celess.dums.mapper.LoginHistoryMapper;
+import cn.celess.dums.mapper.PermissionMapper;
+import cn.celess.dums.mapper.RoleMapper;
 import cn.celess.dums.mapper.UserMapper;
-import cn.celess.dums.mapper.UserRoleMapper;
+import cn.celess.dums.model.UserDetail;
 import cn.celess.dums.response.ResponseConstant;
+import cn.celess.dums.util.JwtUtil;
+import cn.celess.dums.util.RedisUtil;
 import cn.celess.dums.util.WebUtil;
 import cn.celess.dums.vo.LoginUserVO;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 /**
  * 2021/11/14
@@ -28,11 +46,10 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public abstract class AbstractLoginProcessor {
 
-    /**
-     * Dao层服务
-     */
     protected UserMapper userDao;
-    protected UserRoleMapper userPermissionDao;
+    protected PermissionMapper permissionMapper;
+    protected LoginHistoryMapper loginHistoryMapper;
+    protected StringRedisTemplate redisTemplate;
 
     /**
      * 校验图形验证码
@@ -66,10 +83,8 @@ public abstract class AbstractLoginProcessor {
      */
     protected Boolean isUserLocked(User user) {
         String key = UserConstant.getCacheNameOfLoginFailedRecord(user);
-//        String loginFailedCountStr = RedisUtil.get(key);
-//        return !StringUtils.isBlank(loginFailedCountStr) && Integer.parseInt(loginFailedCountStr) < ApplicationConfig.getInstance().maxLoginFailedTimes;
-        // todo:
-        return false;
+        String loginFailedCountStr = RedisUtil.get(key);
+        return !StringUtils.isBlank(loginFailedCountStr) && Integer.parseInt(loginFailedCountStr) < ApplicationConfig.getInstance().maxLoginFailedTimes;
     }
 
     /**
@@ -78,14 +93,14 @@ public abstract class AbstractLoginProcessor {
      * @param u 数据库用户信息
      */
     protected void loginFailedAction(User u) {
-       /* String key = UserConstant.getCacheNameOfLoginFailedRecord(u);
+        String key = UserConstant.getCacheNameOfLoginFailedRecord(u);
         String loginFailedCountStr = RedisUtil.get(key);
         if (StringUtils.isBlank(loginFailedCountStr)) {
             // 第一次登录失败，进行记录
             RedisUtil.setEx(key, String.valueOf(1), ApplicationConfig.getInstance().temporaryLockTime, TimeUnit.SECONDS);
         } else if (Integer.parseInt(loginFailedCountStr) > ApplicationConfig.getInstance().maxLoginFailedTimes) {
             // 账户被锁定，记录log
-            log.info("用户{}:{}:{}登录错误次数达{}，现临时锁定{}秒", u.getId(), u.getAccount(), u.getPhone(), ApplicationConfig.getInstance().maxLoginFailedTimes, ApplicationConfig.getInstance().temporaryLockTime);
+            log.info("用户{}:{}:{}登录错误次数达{}，现临时锁定{}秒", u.getId(), u.getUsername(), u.getPhone(), ApplicationConfig.getInstance().maxLoginFailedTimes, ApplicationConfig.getInstance().temporaryLockTime);
         } else {
             // 已有登录失败记录，但是未到锁定地步，增加错误次数,更新截至时间
             RedisUtil.incrBy(key, 1);
@@ -93,10 +108,9 @@ public abstract class AbstractLoginProcessor {
 
             if (Integer.parseInt(loginFailedCountStr) + 1 >= ApplicationConfig.getInstance().showImgCodedThreshold) {
                 // 登录失败次数超过错误阈值，须进行图行验证码验证
-                WebUtil.getHttpSession().setAttribute(UserConstant.getCacheNameOfDisplayableImgCode(u.getAccount()), Boolean.TRUE);
+                WebUtil.getHttpSession().setAttribute(UserConstant.getCacheNameOfDisplayableImgCode(u.getUsername()), Boolean.TRUE);
             }
-        }*/
-        // todo::
+        }
     }
 
     /**
@@ -107,61 +121,59 @@ public abstract class AbstractLoginProcessor {
      * @return 用户信息模型
      */
     protected LoginUserVO loginSuccessAction(User user, UserLoginDto loginDto) {
-//        LoginUserVO userVO = UserModelConverter.toLoginUserVO(user);
-//
-//        WebUtil.getHttpSession().removeAttribute(UserConstant.getCacheNameOfDisplayableImgCode(user.getAccount()));
-//
-//        ObjectMapper om = new ObjectMapper();
+        LoginUserVO userVO = UserConvert.INSTANCE.toVo(user);
+
+        WebUtil.getHttpSession().removeAttribute(UserConstant.getCacheNameOfDisplayableImgCode(user.getUsername()));
+
+        ObjectMapper om = new ObjectMapper();
 //        // 查用户权限
-//        List<Permission> permissionList = userPermissionDao.queryAll(new UserPermission().setUserId(user.getId()))
-//                .stream()
-//                .map(UserPermission::getPermission)
-//                .map(s -> {
-//                    try {
-//                        return Permission.valueOf(s.toUpperCase(Locale.ROOT));
-//                    } catch (IllegalArgumentException e) {
-//                        return null;
-//                    }
-//                })
-//                .collect(Collectors.toList());
-//
-//        permissionList.removeIf(Objects::isNull);
-//        UserDetail userDetail = new UserDetail(user, permissionList);
-//
-//        // 写缓存
-//        try {
-//            RedisUtil.setEx(
-//                    UserConstant.getCacheNameOfUser(user.getId()),
-//                    om.writeValueAsString(userDetail),
-//                    loginDto.isRememberMe() ?
-//                            ApplicationConfig.getInstance().loginTokenExpirationTimeWithRememberMe
-//                            : ApplicationConfig.getInstance().loginTokenExpirationTime,
-//                    TimeUnit.SECONDS
-//            );
-//        } catch (JsonProcessingException e) {
-//            log.info("写入缓存数据失败: [{}]", user);
-//            e.printStackTrace();
-//        }
-//
+        List<Permission> permissionList = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            List<Permission> permissionByRoleId = permissionMapper.getPermissionByRoleId(role.getId());
+            role.setPermissions(permissionByRoleId);
+            permissionList.addAll(permissionByRoleId);
+        });
+
+        UserDetail userDetail = new UserDetail().setUser(user)
+                .setRoles(user.getRoles())
+                .setAllPermissions(permissionList);
+
+        // 写缓存
+        try {
+            RedisUtil.setEx(
+                    UserConstant.getCacheNameOfUser(user.getId()),
+                    om.writeValueAsString(userDetail),
+                    loginDto.isRememberMe() ?
+                            ApplicationConfig.getInstance().loginTokenExpirationTimeWithRememberMe
+                            : ApplicationConfig.getInstance().loginTokenExpirationTime,
+                    TimeUnit.SECONDS
+            );
+        } catch (JsonProcessingException e) {
+            log.info("写入缓存数据失败: [{}]", user);
+            e.printStackTrace();
+        }
+
 //        UserContextUtil.setUser(userDetail);
-//
-//        RedisUtil.delete(UserConstant.getCacheNameOfLoginFailedRecord(new User().setAccount(user.getAccount())));
-//        RedisUtil.delete(UserConstant.getCacheNameOfLoginFailedRecord(new User().setAccount(user.getPhone())));
-//        // 更新最后登录日期
-//        User updateDt = new User()
-//                .setId(user.getId())
-//                .setLastLoginDt(new Date());
-//
-//        if (userDao.updateById(updateDt) == 0) {
-//            log.info("更新登录日期失败，uid: {}, from: {} -> to: {}", user.getId(), user.getLastLoginDt(), updateDt.getLastLoginDt());
-//        }
-//
-//        // 生成Token
-//        String token = JwtUtil.generateToken(user, loginDto.isRememberMe());
-//        userVO.setToken(token);
-//        return userVO;
-        // todo:
-        return null;
+
+        RedisUtil.delete(UserConstant.getCacheNameOfLoginFailedRecord(new User().setUsername(user.getUsername())));
+        RedisUtil.delete(UserConstant.getCacheNameOfLoginFailedRecord(new User().setUsername(user.getPhone())));
+        // 更新最后登录日期
+        User updateDt = new User()
+                .setId(user.getId());
+
+        LoginHistory loginHistory = new LoginHistory()
+                .setUserId(user.getId())
+                .setCreateDt(LocalDate.now())
+                .setServiceId(-1); // todo:
+
+        if (loginHistoryMapper.insert(loginHistory) == 0) {
+            log.info("更新登录日期失败，uid: {}, date: {} ", user.getId(), loginHistory.getCreateDt());
+        }
+
+        // 生成Token
+        String token = JwtUtil.generateToken(user, loginDto.isRememberMe());
+        userVO.setToken(token);
+        return userVO;
     }
 
 }
