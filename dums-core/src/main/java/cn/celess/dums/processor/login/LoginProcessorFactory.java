@@ -36,7 +36,10 @@ public class LoginProcessorFactory {
         checkAndInitProcessors();
         DataProcessorUtil.handlerLoginData(loginDto);
         for (LoginProcessor processor : loginProcessors) {
-            if (processor.enable() && Objects.equals(processor.getLoginType(), loginDto.getLoginType())) {
+            if (Objects.equals(processor.getLoginType(), loginDto.getLoginType())) {
+                if (!processor.enable()) {
+                    throw new LoginFailedException(ResponseConstant.LOGIN_TYPE_NOT_SUPPORT);
+                }
                 processor.checkArg(loginDto);
                 return processor.doLogin(loginDto);
             }
