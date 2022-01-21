@@ -1,5 +1,6 @@
 package cn.celess.dums.aop;
 
+import cn.celess.dums.util.PrivacyConverterUtil;
 import cn.celess.dums.util.WebUtil;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,8 +54,8 @@ public class LogAspect {
         log.debug(
                 logTemplate.toString(),
                 methodName,
-                objectMapper.writeValueAsString(joinPoint.getArgs()),
-                objectMapper.writeValueAsString(result)
+                objectMapper.writeValueAsString(PrivacyConverterUtil.handlePrivacy(joinPoint.getArgs())),
+                objectMapper.writeValueAsString(PrivacyConverterUtil.handlePrivacy(result))
         );
         log.info("<===> 执行方法[{}]耗时：{}ms", methodName, (endTime - startTime) * 1.0 / 1e6);
         MDC.clear();
