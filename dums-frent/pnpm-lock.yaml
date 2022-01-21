@@ -20,6 +20,7 @@ specifiers:
   karma-coverage: ~2.1.0
   karma-jasmine: ~4.0.0
   karma-jasmine-html-reporter: ~1.7.0
+  ng-zorro-antd: ^13.0.1
   rxjs: ~7.4.0
   tslib: ^2.3.0
   typescript: ~4.5.2
@@ -34,6 +35,7 @@ dependencies:
   '@angular/platform-browser': 13.1.3_47bff6b1806823127bc866f6d85d7c19
   '@angular/platform-browser-dynamic': 13.1.3_9d2c7eee1846907b90db43b8b519ad6e
   '@angular/router': 13.1.3_bcd8877345386b079e6b2b1f8a57ecb7
+  ng-zorro-antd: 13.0.1_c1a7d6340be8e0740dcfc84fe698256e
   rxjs: 7.4.0
   tslib: 2.3.1
   zone.js: 0.11.4
@@ -239,6 +241,21 @@ packages:
       tslib: 2.3.1
     dev: false
 
+  /@angular/cdk/13.1.3_8e7d0534739d84c27c16c2229aa6e2ef:
+    resolution: {integrity: sha512-Psuri2mc6W+xKtZr39FHL+cDz7Le9kKTo8ziCtUiydikBBdqfOu6AnWUrEMEGFxS2wt8nolFXDAGUaMUAE3Ekg==, tarball: '@angular/cdk/download/@angular/cdk-13.1.3.tgz'}
+    peerDependencies:
+      '@angular/common': ^13.0.0 || ^14.0.0-0
+      '@angular/core': ^13.0.0 || ^14.0.0-0
+      rxjs: ^6.5.3 || ^7.4.0
+    dependencies:
+      '@angular/common': 13.1.3_@angular+core@13.1.3+rxjs@7.4.0
+      '@angular/core': 13.1.3_rxjs@7.4.0+zone.js@0.11.4
+      rxjs: 7.4.0
+      tslib: 2.3.1
+    optionalDependencies:
+      parse5: 5.1.1
+    dev: false
+
   /@angular/cli/13.1.4:
     resolution: {integrity: sha512-PP9xpvDDCHhLTIZjewQQzzf+JbpF2s5mXTW2AgIL/E53ukaVvXwwjFMt9dQvECwut/LDpThoc3OfqcGrmwtqnA==, tarball: '@angular/cli/download/@angular/cli-13.1.4.tgz'}
     engines: {node: ^12.20.0 || ^14.15.0 || >=16.10.0, npm: ^6.11.0 || ^7.5.6 || >=8.0.0, yarn: '>= 1.13.0'}
@@ -386,6 +403,28 @@ packages:
       '@angular/common': 13.1.3_@angular+core@13.1.3+rxjs@7.4.0
       '@angular/core': 13.1.3_rxjs@7.4.0+zone.js@0.11.4
       '@angular/platform-browser': 13.1.3_47bff6b1806823127bc866f6d85d7c19
+      rxjs: 7.4.0
+      tslib: 2.3.1
+    dev: false
+
+  /@ant-design/colors/5.1.1:
+    resolution: {integrity: sha1-gAshhrHifmZDLmfQPtlq8+IdiUA=, tarball: '@ant-design/colors/download/@ant-design/colors-5.1.1.tgz'}
+    dependencies:
+      '@ctrl/tinycolor': 3.4.0
+    dev: false
+
+  /@ant-design/icons-angular/13.0.2_bcd8877345386b079e6b2b1f8a57ecb7:
+    resolution: {integrity: sha512-5ub/tVR9Y1xAMeYzrfavL+Cma6SjpMYaKOn7Aa02P9vDEHIAwJHsgB2NbO+hlwyHmGX5MeCCVymrVf9US3W2iQ==, tarball: '@ant-design/icons-angular/download/@ant-design/icons-angular-13.0.2.tgz'}
+    peerDependencies:
+      '@angular/common': ^13.0.1
+      '@angular/core': ^13.0.0
+      '@angular/platform-browser': ^13.0.1
+      rxjs: ^6.4.0 || ^7.4.0
+    dependencies:
+      '@angular/common': 13.1.3_@angular+core@13.1.3+rxjs@7.4.0
+      '@angular/core': 13.1.3_rxjs@7.4.0+zone.js@0.11.4
+      '@angular/platform-browser': 13.1.3_47bff6b1806823127bc866f6d85d7c19
+      '@ant-design/colors': 5.1.1
       rxjs: 7.4.0
       tslib: 2.3.1
     dev: false
@@ -1534,7 +1573,7 @@ packages:
     dev: true
 
   /@babel/preset-modules/0.1.5_@babel+core@7.16.0:
-    resolution: {integrity: sha1-75Odbn8miCfhhBY43G/5VRXhFdk=, tarball: '@babel/preset-modules/download/@babel/preset-modules-0.1.5.tgz?cache=0&sync_timestamp=1635096440681&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40babel%2Fpreset-modules%2Fdownload%2F%40babel%2Fpreset-modules-0.1.5.tgz'}
+    resolution: {integrity: sha1-75Odbn8miCfhhBY43G/5VRXhFdk=, tarball: '@babel/preset-modules/download/@babel/preset-modules-0.1.5.tgz'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
@@ -1596,6 +1635,11 @@ packages:
       '@babel/helper-validator-identifier': 7.16.7
       to-fast-properties: 2.0.0
     dev: true
+
+  /@ctrl/tinycolor/3.4.0:
+    resolution: {integrity: sha1-w8WuVDyJfKqcKmhjC+01W+X5mQ8=, tarball: '@ctrl/tinycolor/download/@ctrl/tinycolor-3.4.0.tgz'}
+    engines: {node: '>=10'}
+    dev: false
 
   /@discoveryjs/json-ext/0.5.6:
     resolution: {integrity: sha512-ws57AidsDvREKrZKYffXddNkyaF14iHNHm8VQnZH6t99E8gczjNN0GpvcGny0imC80yQ0tHz1xVUKk/KFQSUyA==, tarball: '@discoveryjs/json-ext/download/@discoveryjs/json-ext-0.5.6.tgz'}
@@ -1782,7 +1826,7 @@ packages:
     dev: true
 
   /@types/json-schema/7.0.9:
-    resolution: {integrity: sha1-l+3JA36gw4WFMgsolk3eOznkZg0=, tarball: '@types/json-schema/download/@types/json-schema-7.0.9.tgz?cache=0&sync_timestamp=1637272400115&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fjson-schema%2Fdownload%2F%40types%2Fjson-schema-7.0.9.tgz'}
+    resolution: {integrity: sha1-l+3JA36gw4WFMgsolk3eOznkZg0=, tarball: '@types/json-schema/download/@types/json-schema-7.0.9.tgz'}
     dev: true
 
   /@types/node/12.20.42:
@@ -1790,7 +1834,7 @@ packages:
     dev: true
 
   /@types/parse-json/4.0.0:
-    resolution: {integrity: sha1-L4u0QUNNFjs1+4/9zNcTiSf/uMA=, tarball: '@types/parse-json/download/@types/parse-json-4.0.0.tgz'}
+    resolution: {integrity: sha1-L4u0QUNNFjs1+4/9zNcTiSf/uMA=, tarball: '@types/parse-json/download/@types/parse-json-4.0.0.tgz?cache=0&sync_timestamp=1637393019617&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2F%40types%2Fparse-json%2Fdownload%2F%40types%2Fparse-json-4.0.0.tgz'}
     dev: true
 
   /@types/retry/0.12.1:
@@ -2765,6 +2809,11 @@ packages:
     resolution: {integrity: sha1-XQKkaFCt8bSjF5RqOSj8y1v9BCU=, tarball: custom-event/download/custom-event-1.0.1.tgz}
     dev: true
 
+  /date-fns/2.28.0:
+    resolution: {integrity: sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==, tarball: date-fns/download/date-fns-2.28.0.tgz}
+    engines: {node: '>=0.11'}
+    dev: false
+
   /date-format/4.0.3:
     resolution: {integrity: sha512-7P3FyqDcfeznLZp2b+OMitV9Sz2lUnsT87WaTat9nVwqsBkTzPG3lPLNwW3en6F4pHUiWzr6vb8CLhjdK9bcxQ==, tarball: date-format/download/date-format-4.0.3.tgz}
     engines: {node: '>=4.0'}
@@ -3282,12 +3331,12 @@ packages:
     dev: true
 
   /events/3.3.0:
-    resolution: {integrity: sha1-Mala0Kkk4tLEGagTrrLE6HjqdAA=, tarball: events/download/events-3.3.0.tgz?cache=0&sync_timestamp=1636449574923&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fevents%2Fdownload%2Fevents-3.3.0.tgz}
+    resolution: {integrity: sha1-Mala0Kkk4tLEGagTrrLE6HjqdAA=, tarball: events/download/events-3.3.0.tgz}
     engines: {node: '>=0.8.x'}
     dev: true
 
   /execa/5.1.1:
-    resolution: {integrity: sha1-+ArZy/Qpj3vR1MlVXCHpN0HEEd0=, tarball: execa/download/execa-5.1.1.tgz}
+    resolution: {integrity: sha1-+ArZy/Qpj3vR1MlVXCHpN0HEEd0=, tarball: execa/download/execa-5.1.1.tgz?cache=0&sync_timestamp=1637153129678&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fexeca%2Fdownload%2Fexeca-5.1.1.tgz}
     engines: {node: '>=10'}
     dependencies:
       cross-spawn: 7.0.3
@@ -3455,7 +3504,7 @@ packages:
     dev: true
 
   /fs-extra/10.0.0:
-    resolution: {integrity: sha1-n/YbZV3eU/s0qC34S7IUzoAuF8E=, tarball: fs-extra/download/fs-extra-10.0.0.tgz}
+    resolution: {integrity: sha1-n/YbZV3eU/s0qC34S7IUzoAuF8E=, tarball: fs-extra/download/fs-extra-10.0.0.tgz?cache=0&sync_timestamp=1633191065970&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Ffs-extra%2Fdownload%2Ffs-extra-10.0.0.tgz}
     engines: {node: '>=12'}
     dependencies:
       graceful-fs: 4.2.9
@@ -4053,7 +4102,7 @@ packages:
     dev: true
 
   /istanbul-lib-report/3.0.0:
-    resolution: {integrity: sha1-dRj+UupE3jcvRgp2tezan/tz2KY=, tarball: istanbul-lib-report/download/istanbul-lib-report-3.0.0.tgz?cache=0&sync_timestamp=1633005105722&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fistanbul-lib-report%2Fdownload%2Fistanbul-lib-report-3.0.0.tgz}
+    resolution: {integrity: sha1-dRj+UupE3jcvRgp2tezan/tz2KY=, tarball: istanbul-lib-report/download/istanbul-lib-report-3.0.0.tgz}
     engines: {node: '>=8'}
     dependencies:
       istanbul-lib-coverage: 3.2.0
@@ -4467,20 +4516,20 @@ packages:
     dev: true
 
   /mime-types/2.1.34:
-    resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==, tarball: mime-types/download/mime-types-2.1.34.tgz?cache=0&sync_timestamp=1636432606654&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fmime-types%2Fdownload%2Fmime-types-2.1.34.tgz}
+    resolution: {integrity: sha512-6cP692WwGIs9XXdOO4++N+7qjqv0rqxxVvJ3VHPh/Sc9mVZcQP+ZGhkKiTvWMQRr2tbHkJP/Yn7Y0npb3ZBs4A==, tarball: mime-types/download/mime-types-2.1.34.tgz}
     engines: {node: '>= 0.6'}
     dependencies:
       mime-db: 1.51.0
     dev: true
 
   /mime/1.6.0:
-    resolution: {integrity: sha1-Ms2eXGRVO9WNGaVor0Uqz/BJgbE=, tarball: mime/download/mime-1.6.0.tgz?cache=0&sync_timestamp=1636370946189&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fmime%2Fdownload%2Fmime-1.6.0.tgz}
+    resolution: {integrity: sha1-Ms2eXGRVO9WNGaVor0Uqz/BJgbE=, tarball: mime/download/mime-1.6.0.tgz}
     engines: {node: '>=4'}
     hasBin: true
     dev: true
 
   /mime/2.6.0:
-    resolution: {integrity: sha1-oqaCqVzU0MsdYlfij4PafjWAA2c=, tarball: mime/download/mime-2.6.0.tgz?cache=0&sync_timestamp=1636370946189&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fmime%2Fdownload%2Fmime-2.6.0.tgz}
+    resolution: {integrity: sha1-oqaCqVzU0MsdYlfij4PafjWAA2c=, tarball: mime/download/mime-2.6.0.tgz}
     engines: {node: '>=4.0.0'}
     hasBin: true
     dev: true
@@ -4505,7 +4554,7 @@ packages:
     dev: true
 
   /minimatch/3.0.4:
-    resolution: {integrity: sha1-UWbihkV/AzBgZL5Ul+jbsMPTIIM=, tarball: minimatch/download/minimatch-3.0.4.tgz}
+    resolution: {integrity: sha1-UWbihkV/AzBgZL5Ul+jbsMPTIIM=, tarball: minimatch/download/minimatch-3.0.4.tgz?cache=0&sync_timestamp=1633019263052&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fminimatch%2Fdownload%2Fminimatch-3.0.4.tgz}
     dependencies:
       brace-expansion: 1.1.11
     dev: true
@@ -4642,6 +4691,30 @@ packages:
   /neo-async/2.6.2:
     resolution: {integrity: sha1-tKr7k+OustgXTKU88WOrfXMIMF8=, tarball: neo-async/download/neo-async-2.6.2.tgz}
     dev: true
+
+  /ng-zorro-antd/13.0.1_c1a7d6340be8e0740dcfc84fe698256e:
+    resolution: {integrity: sha512-ZoxzQ+VdkiUjbYeEIAvelLZPHFVfFiNE50Mkh2sCY5W/7R06DS/nVm+RRUgoy6gcZfBrpc757rDtrjrKDnkvaQ==, tarball: ng-zorro-antd/download/ng-zorro-antd-13.0.1.tgz}
+    peerDependencies:
+      '@angular/animations': ^13.0.1
+      '@angular/common': ^13.0.1
+      '@angular/core': ^13.0.1
+      '@angular/forms': ^13.0.1
+      '@angular/platform-browser': ^13.0.1
+      '@angular/router': ^13.0.1
+    dependencies:
+      '@angular/animations': 13.1.3_@angular+core@13.1.3
+      '@angular/cdk': 13.1.3_8e7d0534739d84c27c16c2229aa6e2ef
+      '@angular/common': 13.1.3_@angular+core@13.1.3+rxjs@7.4.0
+      '@angular/core': 13.1.3_rxjs@7.4.0+zone.js@0.11.4
+      '@angular/forms': 13.1.3_bcd8877345386b079e6b2b1f8a57ecb7
+      '@angular/platform-browser': 13.1.3_47bff6b1806823127bc866f6d85d7c19
+      '@angular/router': 13.1.3_bcd8877345386b079e6b2b1f8a57ecb7
+      '@ant-design/icons-angular': 13.0.2_bcd8877345386b079e6b2b1f8a57ecb7
+      date-fns: 2.28.0
+      tslib: 2.3.1
+    transitivePeerDependencies:
+      - rxjs
+    dev: false
 
   /nice-napi/1.0.2:
     resolution: {integrity: sha1-3Aq1oerCDOVIgC/FaG6qa8ZUkns=, tarball: nice-napi/download/nice-napi-1.0.2.tgz}
@@ -4796,7 +4869,7 @@ packages:
     dev: true
 
   /object-assign/4.1.1:
-    resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=, tarball: object-assign/download/object-assign-4.1.1.tgz}
+    resolution: {integrity: sha1-IQmtx5ZYh8/AXLvUQsrIv7s2CGM=, tarball: object-assign/download/object-assign-4.1.1.tgz?cache=0&sync_timestamp=1633019262657&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fobject-assign%2Fdownload%2Fobject-assign-4.1.1.tgz}
     engines: {node: '>=0.10.0'}
     dev: true
 
@@ -4955,7 +5028,7 @@ packages:
     dev: true
 
   /parse-json/5.2.0:
-    resolution: {integrity: sha1-x2/Gbe5UIxyWKyK8yKcs8vmXU80=, tarball: parse-json/download/parse-json-5.2.0.tgz?cache=0&sync_timestamp=1637476739355&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fparse-json%2Fdownload%2Fparse-json-5.2.0.tgz}
+    resolution: {integrity: sha1-x2/Gbe5UIxyWKyK8yKcs8vmXU80=, tarball: parse-json/download/parse-json-5.2.0.tgz}
     engines: {node: '>=8'}
     dependencies:
       '@babel/code-frame': 7.16.7
@@ -4987,6 +5060,12 @@ packages:
     dependencies:
       parse5: 6.0.1
     dev: true
+
+  /parse5/5.1.1:
+    resolution: {integrity: sha1-9o5OW6GFKsLK3AD0VV//bCq7YXg=, tarball: parse5/download/parse5-5.1.1.tgz}
+    requiresBuild: true
+    dev: false
+    optional: true
 
   /parse5/6.0.1:
     resolution: {integrity: sha1-4aHAhcVps9wIMhGE8Zo5zCf3wws=, tarball: parse5/download/parse5-6.0.1.tgz}
@@ -5846,23 +5925,23 @@ packages:
     dev: true
 
   /semver/5.7.1:
-    resolution: {integrity: sha1-qVT5Ma66UI0we78Gnv8MAclhFvc=, tarball: semver/download/semver-5.7.1.tgz}
+    resolution: {integrity: sha1-qVT5Ma66UI0we78Gnv8MAclhFvc=, tarball: semver/download/semver-5.7.1.tgz?cache=0&sync_timestamp=1633019236635&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fsemver%2Fdownload%2Fsemver-5.7.1.tgz}
     hasBin: true
     dev: true
     optional: true
 
   /semver/6.3.0:
-    resolution: {integrity: sha1-7gpkyK9ejO6mdoexM3YeG+y9HT0=, tarball: semver/download/semver-6.3.0.tgz}
+    resolution: {integrity: sha1-7gpkyK9ejO6mdoexM3YeG+y9HT0=, tarball: semver/download/semver-6.3.0.tgz?cache=0&sync_timestamp=1633019236635&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fsemver%2Fdownload%2Fsemver-6.3.0.tgz}
     hasBin: true
     dev: true
 
   /semver/7.0.0:
-    resolution: {integrity: sha1-XzyjV2HkfgWyBsba/yz4FPAxa44=, tarball: semver/download/semver-7.0.0.tgz}
+    resolution: {integrity: sha1-XzyjV2HkfgWyBsba/yz4FPAxa44=, tarball: semver/download/semver-7.0.0.tgz?cache=0&sync_timestamp=1633019236635&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fsemver%2Fdownload%2Fsemver-7.0.0.tgz}
     hasBin: true
     dev: true
 
   /semver/7.3.5:
-    resolution: {integrity: sha1-C2Ich5NI2JmOSw5L6Us/EuYBjvc=, tarball: semver/download/semver-7.3.5.tgz}
+    resolution: {integrity: sha1-C2Ich5NI2JmOSw5L6Us/EuYBjvc=, tarball: semver/download/semver-7.3.5.tgz?cache=0&sync_timestamp=1633019236635&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fsemver%2Fdownload%2Fsemver-7.3.5.tgz}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -5949,7 +6028,7 @@ packages:
     dev: true
 
   /signal-exit/3.0.6:
-    resolution: {integrity: sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==, tarball: signal-exit/download/signal-exit-3.0.6.tgz}
+    resolution: {integrity: sha512-sDl4qMFpijcGw22U5w63KmD3cZJfBuFlVNbVMKje2keoKML7X2UzWbc4XrmEbDwg0NXJc3yv4/ox7b+JWb57kQ==, tarball: signal-exit/download/signal-exit-3.0.6.tgz?cache=0&sync_timestamp=1637393005670&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fsignal-exit%2Fdownload%2Fsignal-exit-3.0.6.tgz}
     dev: true
 
   /slash/3.0.0:
@@ -6156,14 +6235,14 @@ packages:
     dev: true
 
   /strip-ansi/6.0.1:
-    resolution: {integrity: sha1-nibGPTD1NEPpSJSVshBdN7Z6hdk=, tarball: strip-ansi/download/strip-ansi-6.0.1.tgz}
+    resolution: {integrity: sha1-nibGPTD1NEPpSJSVshBdN7Z6hdk=, tarball: strip-ansi/download/strip-ansi-6.0.1.tgz?cache=0&sync_timestamp=1633019258042&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fstrip-ansi%2Fdownload%2Fstrip-ansi-6.0.1.tgz}
     engines: {node: '>=8'}
     dependencies:
       ansi-regex: 5.0.1
     dev: true
 
   /strip-ansi/7.0.1:
-    resolution: {integrity: sha1-YXQKCM42th5Q5lZT8HBg0ACXX7I=, tarball: strip-ansi/download/strip-ansi-7.0.1.tgz}
+    resolution: {integrity: sha1-YXQKCM42th5Q5lZT8HBg0ACXX7I=, tarball: strip-ansi/download/strip-ansi-7.0.1.tgz?cache=0&sync_timestamp=1633019258042&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fstrip-ansi%2Fdownload%2Fstrip-ansi-7.0.1.tgz}
     engines: {node: '>=12'}
     dependencies:
       ansi-regex: 6.0.1
@@ -6728,12 +6807,12 @@ packages:
     dev: true
 
   /yargs-parser/20.2.9:
-    resolution: {integrity: sha1-LrfcOwKJcY/ClfNidThFxBoMlO4=, tarball: yargs-parser/download/yargs-parser-20.2.9.tgz?cache=0&sync_timestamp=1637031489825&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fyargs-parser%2Fdownload%2Fyargs-parser-20.2.9.tgz}
+    resolution: {integrity: sha1-LrfcOwKJcY/ClfNidThFxBoMlO4=, tarball: yargs-parser/download/yargs-parser-20.2.9.tgz}
     engines: {node: '>=10'}
     dev: true
 
   /yargs-parser/21.0.0:
-    resolution: {integrity: sha512-z9kApYUOCwoeZ78rfRYYWdiU/iNL6mwwYlkkZfJoyMR1xps+NEBX5X7XmRpxkZHhXJ6+Ey00IwKxBBSW9FIjyA==, tarball: yargs-parser/download/yargs-parser-21.0.0.tgz?cache=0&sync_timestamp=1637031489825&other_urls=https%3A%2F%2Fregistry.npmmirror.com%2Fyargs-parser%2Fdownload%2Fyargs-parser-21.0.0.tgz}
+    resolution: {integrity: sha512-z9kApYUOCwoeZ78rfRYYWdiU/iNL6mwwYlkkZfJoyMR1xps+NEBX5X7XmRpxkZHhXJ6+Ey00IwKxBBSW9FIjyA==, tarball: yargs-parser/download/yargs-parser-21.0.0.tgz}
     engines: {node: '>=12'}
     dev: true
 
