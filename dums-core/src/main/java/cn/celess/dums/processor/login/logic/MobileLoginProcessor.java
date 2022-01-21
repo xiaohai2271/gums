@@ -1,4 +1,4 @@
-package cn.celess.dums.login.logic;
+package cn.celess.dums.processor.login.logic;
 
 
 import cn.celess.dums.config.ApplicationConfig;
@@ -7,17 +7,18 @@ import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.enums.LoginType;
 import cn.celess.dums.exception.LoginFailedException;
-import cn.celess.dums.login.AbstractLoginProcessor;
-import cn.celess.dums.login.LoginProcessor;
+import cn.celess.dums.processor.login.AbstractLoginProcessor;
+import cn.celess.dums.processor.login.LoginProcessor;
 import cn.celess.dums.response.ResponseConstant;
 import cn.celess.dums.util.DataProcessorUtil;
 import cn.celess.dums.util.RedisUtil;
-import cn.celess.dums.util.WebUtil;
 import cn.celess.dums.vo.LoginUserVO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
+import org.assertj.core.util.Strings;
 import org.springframework.stereotype.Component;
+
+import java.util.Objects;
 
 /**
  * 2021/11/14
@@ -27,41 +28,38 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-public class CustomLoginProcessor extends AbstractLoginProcessor implements LoginProcessor {
-
+public class MobileLoginProcessor extends AbstractLoginProcessor implements LoginProcessor {
     @Override
     public LoginType getLoginType() {
-        return LoginType.CUSTOM_LOGIN;
+        return LoginType.MOBILE_LOGIN;
     }
 
     @Override
     public LoginUserVO doLogin(UserLoginDto loginDto) throws LoginFailedException {
-        User user;
+        User user = new User();
         // 判断登录失败次数
         String loginFailedCountStr = RedisUtil.get(UserConstant.getCacheNameOfLoginFailedRecord(loginDto.getUsername(), loginDto.getPhone()));
-        if (!StringUtils.isBlank(loginFailedCountStr) && Integer.parseInt(loginFailedCountStr) > ApplicationConfig.getInstance().maxLoginFailedTimes) {
+        if (!Strings.isNullOrEmpty(loginFailedCountStr) && Integer.parseInt(loginFailedCountStr) > ApplicationConfig.getInstance().maxLoginFailedTimes) {
             throw new LoginFailedException(ResponseConstant.ACCOUNT_TEMP_LOCKED);
         }
 
-        // 校验图形验证码
-        if (Boolean.TRUE.equals(WebUtil.getHttpSession().getAttribute(UserConstant.getCacheNameOfDisplayableImgCode(loginDto.getUsername())))) {
-            validImageCode(loginDto);
-        }
-
+        user.setPhone(loginDto.getPhone());
         // 查询账户信息
-        user = userDao.selectOne(new LambdaQueryWrapper<User>().eq(User::getUsername, loginDto.getUsername()));
+        user = userDao.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, loginDto.getPhone()));
+
         if (user == null) {
-            throw new LoginFailedException(ResponseConstant.LOGIN_FAILED);
+            throw new LoginFailedException(ResponseConstant.PHONE_NOT_REGISTERED);
         }
 
         if (isUserLocked(user)) {
             throw new LoginFailedException(ResponseConstant.ACCOUNT_TEMP_LOCKED);
         }
 
-        String encryptionPassword = DataProcessorUtil.handlerPassword(loginDto.getUsername(), loginDto.getPassword());
-        if (!encryptionPassword.equals(user.getPassword())) {
+        // 校验手机验证码
+        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(loginDto);
+        if (!Objects.equals(code, loginDto.getSmsCode())) {
             loginFailedAction(user);
-            throw new LoginFailedException(ResponseConstant.LOGIN_FAILED);
+            throw new LoginFailedException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);
         }
         return loginSuccessAction(user, loginDto);
     }

@@ -1,4 +1,4 @@
-package cn.celess.dums.login;
+package cn.celess.dums.processor.login;
 
 
 import cn.celess.dums.config.ApplicationConfig;

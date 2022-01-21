@@ -30,11 +30,8 @@ public class LogAspect {
 
     @Resource
     ObjectMapper objectMapper;
-//    = new ObjectMapper()
-//            .disable(SerializationFeature.FAIL_ON_EMPTY_BEANS)
-//            .setSerializationInclusion(JsonInclude.Include.NON_NULL);
 
-    @Pointcut("execution(* cn.celess.*.*.controller.*.*(..))")
+    @Pointcut("execution(* cn.celess.*.controller.*.*(..))")
     public void pointcut() {
     }
 

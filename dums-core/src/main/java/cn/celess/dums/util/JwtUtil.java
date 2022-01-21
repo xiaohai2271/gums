@@ -21,10 +21,12 @@ import java.util.Map;
 @Slf4j
 public class JwtUtil {
     private static final String USER_ID = "uid";
+    private static final String USER_NAME = "uname";
 
     public static String generateToken(User user, boolean isRemember) {
         Map<String, Object> claims = new HashMap<>(16);
         claims.put(USER_ID, user.getId());
+        claims.put(USER_NAME, user.getUsername());
 
         return Jwts.builder()
                 .setClaims(claims)

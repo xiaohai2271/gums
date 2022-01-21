@@ -55,14 +55,13 @@ public class DataProcessorUtil {
      */
     public static String handlerAndRemoveVerifyCode(UserMobileVerifyDto userDto) throws CommonException {
         // 校验手机验证码
-      /*  String phoneVerifyCode = RedisUtil.get(UserConstant.getCacheNameOfMobileVerifyCode(userDto.getPhone()));
+        String phoneVerifyCode = RedisUtil.get(UserConstant.getCacheNameOfMobileVerifyCode(userDto.getPhone()));
         if (StringUtils.isBlank(phoneVerifyCode)) {
             throw new CommonException(ResponseConstant.SEND_VERIFY_CODE_FIRST);
         }
         // 删除验证码缓存
         RedisUtil.delete(UserConstant.getCacheNameOfMobileVerifyCode(userDto.getPhone()));
-        return phoneVerifyCode;*/
-        return null;
+        return phoneVerifyCode;
     }
 
     public static Pageable handlePageable(Pageable pageable) {

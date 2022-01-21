@@ -10,6 +10,7 @@ import cn.celess.dums.response.ResponseConstant;
  */
 public class ArgumentMissingException extends CommonException{
     public ArgumentMissingException() {
+        super(ResponseConstant.ARGUMENT_ERROR);
     }
 
     public ArgumentMissingException(ResponseConstant constant) {

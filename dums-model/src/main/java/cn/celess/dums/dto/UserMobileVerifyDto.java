@@ -12,11 +12,6 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 public class UserMobileVerifyDto {
     /**
-     * id
-     */
-    private Integer id;
-
-    /**
      * 手机号
      */
     private String phone;
@@ -30,10 +25,10 @@ public class UserMobileVerifyDto {
      * 密码
      */
     private String password;
+
     /**
      * 短信验证码
      */
-    private String code;
-
+    private String smsCode;
 
 }

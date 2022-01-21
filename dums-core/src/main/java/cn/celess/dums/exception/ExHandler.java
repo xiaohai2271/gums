@@ -2,6 +2,7 @@ package cn.celess.dums.exception;
 
 import cn.celess.dums.response.Response;
 import cn.celess.dums.response.ResponseConstant;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -14,10 +15,16 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author 禾几海
  */
 @ControllerAdvice
+@Slf4j
 public class ExHandler {
     @ExceptionHandler(value = CommonException.class)
     @ResponseBody
     public static Response<Object> handleBaseGlobalException(CommonException e) {
+        String msg = e.getMessage();
+        if (msg == null) {
+            msg = e.getResponse().getMessage();
+        }
+        log.info("捕获到全局CommonException：{}", msg);
         return e.getResponse() == null ? Response.error(ResponseConstant.UNKNOWN_ERROR) : e.getResponse();
     }
 

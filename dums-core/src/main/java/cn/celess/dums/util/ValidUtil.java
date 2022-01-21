@@ -52,14 +52,14 @@ public class ValidUtil {
         }
         // CUSTOM_LOGIN: 手机号 + 手机验证码 + <图形验证码>
         if (Objects.equals(loginDto.getLoginType(), LoginType.MOBILE_LOGIN)) {
-            if (StringUtils.isBlank(loginDto.getPhone()) || StringUtils.isBlank(loginDto.getCode())) {
+            if (StringUtils.isBlank(loginDto.getPhone()) || StringUtils.isBlank(loginDto.getSmsCode())) {
                 throw new ArgumentMissingException();
             }
 //            checkImageCode.accept(loginDto);
             if (!RegexUtil.phoneMatch(loginDto.getPhone())) {
                 throw new ArgumentException(ResponseConstant.PHONE_FORMAT_ERROR);
             }
-            if (!RegexUtil.verifyCodeMatch(loginDto.getCode())) {
+            if (!RegexUtil.verifyCodeMatch(loginDto.getSmsCode())) {
                 throw new ArgumentException(ResponseConstant.VERIFY_CODE_FORMAT_ERROR);
             }
         }
@@ -88,7 +88,7 @@ public class ValidUtil {
                 || StringUtils.isBlank(regDto.getPassword())
                 || StringUtils.isBlank(regDto.getConfirmPassword())
                 || StringUtils.isBlank(regDto.getPhone())
-                || StringUtils.isBlank(regDto.getCode())) {
+                || StringUtils.isBlank(regDto.getSmsCode())) {
             throw new ArgumentMissingException();
         }
         if (!Objects.equals(regDto.getPassword(), regDto.getConfirmPassword())) {
@@ -103,7 +103,7 @@ public class ValidUtil {
         if (!RegexUtil.phoneMatch(regDto.getPhone())) {
             throw new ArgumentException(ResponseConstant.PHONE_FORMAT_ERROR);
         }
-        if (!RegexUtil.verifyCodeMatch(regDto.getCode())) {
+        if (!RegexUtil.verifyCodeMatch(regDto.getSmsCode())) {
             throw new ArgumentException(ResponseConstant.VERIFY_CODE_FORMAT_ERROR);
         }
     }
@@ -112,7 +112,7 @@ public class ValidUtil {
         if (StringUtils.isBlank(regDto.getPassword())
                 || StringUtils.isBlank(regDto.getConfirmPassword())
                 || StringUtils.isBlank(regDto.getPhone())
-                || StringUtils.isBlank(regDto.getCode())) {
+                || StringUtils.isBlank(regDto.getSmsCode())) {
             throw new ArgumentMissingException();
         }
         if (!Objects.equals(regDto.getPassword(), regDto.getConfirmPassword())) {
@@ -121,7 +121,7 @@ public class ValidUtil {
         if (!RegexUtil.phoneMatch(regDto.getPhone())) {
             throw new ArgumentException(ResponseConstant.PHONE_FORMAT_ERROR);
         }
-        if (!RegexUtil.verifyCodeMatch(regDto.getCode())) {
+        if (!RegexUtil.verifyCodeMatch(regDto.getSmsCode())) {
             throw new ArgumentException(ResponseConstant.VERIFY_CODE_FORMAT_ERROR);
         }
     }
