@@ -15,6 +15,8 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
+
 /**
  * <p>date: 2022/01/20</P>
  * <p>desc: </p>
@@ -25,10 +27,10 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/user")
 @Api(tags = "用户接口")
-@RequiredArgsConstructor
 public class UserController {
 
-    private final UserService userService;
+    @Resource
+    private UserService userService;
 
     @PostMapping("/login")
     @ApiOperation("用户登录")

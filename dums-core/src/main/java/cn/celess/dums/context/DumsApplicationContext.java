@@ -28,6 +28,7 @@ public class DumsApplicationContext implements ApplicationContextAware {
     }
 
     @Override
-    public  void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
+    public void setApplicationContext(@NonNull ApplicationContext applicationContext) throws BeansException {
+        DumsApplicationContext.applicationContext = applicationContext;
     }
 }

@@ -30,6 +30,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
@@ -43,13 +44,16 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 @Component
-@RequiredArgsConstructor
 public abstract class AbstractLoginProcessor {
 
+    @Resource
     protected UserMapper userDao;
+    @Resource
     protected PermissionMapper permissionMapper;
+    @Resource
     protected LoginHistoryMapper loginHistoryMapper;
-    protected StringRedisTemplate redisTemplate;
+    @Resource
+    protected ObjectMapper objectMapper;
 
     /**
      * 校验图形验证码
@@ -125,7 +129,6 @@ public abstract class AbstractLoginProcessor {
 
         WebUtil.getHttpSession().removeAttribute(UserConstant.getCacheNameOfDisplayableImgCode(user.getUsername()));
 
-        ObjectMapper om = new ObjectMapper();
 //        // 查用户权限
         List<Permission> permissionList = new ArrayList<>();
         user.getRoles().forEach(role -> {
@@ -142,7 +145,7 @@ public abstract class AbstractLoginProcessor {
         try {
             RedisUtil.setEx(
                     UserConstant.getCacheNameOfUser(user.getId()),
-                    om.writeValueAsString(userDetail),
+                    objectMapper.writeValueAsString(userDetail),
                     loginDto.isRememberMe() ?
                             ApplicationConfig.getInstance().loginTokenExpirationTimeWithRememberMe
                             : ApplicationConfig.getInstance().loginTokenExpirationTime,

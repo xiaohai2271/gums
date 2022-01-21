@@ -26,4 +26,11 @@ public class ApplicationConstant {
      * 配置文件路径,完整路径为:  ApplicationConfig.homeEnv + ApplicationConfig.configPath + ...
      */
     public static final String CONFIG_FILE_PATH = "/config/";
+
+    /** 默认日期时间格式 */
+    public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    /** 默认日期格式 */
+    public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
+    /** 默认时间格式 */
+    public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 }
