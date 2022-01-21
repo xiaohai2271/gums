@@ -8,12 +8,16 @@ import cn.celess.dums.response.ResponseConstant;
  *
  * @author 禾几海
  */
-public class ArgumentMissingException extends CommonException{
+public class ArgumentMissingException extends CommonException {
     public ArgumentMissingException() {
-        super(ResponseConstant.ARGUMENT_ERROR);
+        super(ResponseConstant.MISSING_ARGUMENT);
     }
 
     public ArgumentMissingException(ResponseConstant constant) {
         super(constant);
+    }
+
+    public ArgumentMissingException(String message) {
+        super(ResponseConstant.MISSING_ARGUMENT, "参数[" + message + "]缺失");
     }
 }

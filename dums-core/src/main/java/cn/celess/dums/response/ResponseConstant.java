@@ -15,13 +15,13 @@ public enum ResponseConstant {
     FAILED(1, "fail"),
 
     MISSING_ARGUMENT(1000, "缺失请求参数"),
+    ARGUMENT_FORMAT_ERROR(1100, "参数格式错误"),
+
     SEND_VERIFY_CODE_FIRST(1011, "请先获取手机验证码"),
     VERIFY_IMAGE_CODE_FIRST(1012, "请先验证图形验证码"),
     REQUEST_TOKEN_FIRST(1013, "token不存在或已过期"), // 请先获取token
     NO_IMAGE_CODE(1014, "图形验证码不能为空"),
     NO_PK(1014, "ID不能为空"),
-
-
 
     LOGIN_FAILED(2000, "用户名或者密码错误"),
     WRONG_MOBILE_VERIFY_CODE(2001, "短信验证码不正确"),

@@ -2,6 +2,8 @@ package cn.celess.dums.processor.login;
 
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.enums.LoginType;
+import cn.celess.dums.exception.ArgumentMissingException;
+import cn.celess.dums.exception.CommonException;
 import cn.celess.dums.exception.LoginFailedException;
 import cn.celess.dums.vo.LoginUserVO;
 
@@ -36,5 +38,12 @@ public interface LoginProcessor {
      */
     default Boolean enable() {
         return true;
+    }
+
+
+    default void checkArg(UserLoginDto loginDto) throws CommonException {
+        if (loginDto.getLoginType() == null) {
+            throw new ArgumentMissingException("登录类型");
+        }
     }
 }

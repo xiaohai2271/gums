@@ -38,7 +38,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public LoginUserVO login(UserLoginDto loginDto) {
-        ValidUtil.validLoginArgs(loginDto);
         return loginProcessorFactory.login(loginDto);
     }
 

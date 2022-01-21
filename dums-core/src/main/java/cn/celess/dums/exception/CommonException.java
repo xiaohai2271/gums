@@ -35,4 +35,9 @@ public class CommonException extends RuntimeException {
         this.response = Response.error(constant);
     }
 
+    public CommonException(ResponseConstant constant, String message) {
+        super(message);
+        this.response = Response.error(constant);
+    }
+
 }

@@ -6,15 +6,20 @@ import cn.celess.dums.constants.UserConstant;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.enums.LoginType;
+import cn.celess.dums.exception.ArgumentException;
+import cn.celess.dums.exception.ArgumentMissingException;
+import cn.celess.dums.exception.CommonException;
 import cn.celess.dums.exception.LoginFailedException;
 import cn.celess.dums.processor.login.AbstractLoginProcessor;
 import cn.celess.dums.processor.login.LoginProcessor;
 import cn.celess.dums.response.ResponseConstant;
 import cn.celess.dums.util.DataProcessorUtil;
 import cn.celess.dums.util.RedisUtil;
+import cn.celess.dums.util.RegexUtil;
 import cn.celess.dums.vo.LoginUserVO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Strings;
 import org.springframework.stereotype.Component;
 
@@ -54,7 +59,6 @@ public class MobileLoginProcessor extends AbstractLoginProcessor implements Logi
         if (isUserLocked(user)) {
             throw new LoginFailedException(ResponseConstant.ACCOUNT_TEMP_LOCKED);
         }
-
         // 校验手机验证码
         String code = DataProcessorUtil.handlerAndRemoveVerifyCode(loginDto);
         if (!Objects.equals(code, loginDto.getSmsCode())) {
@@ -62,5 +66,22 @@ public class MobileLoginProcessor extends AbstractLoginProcessor implements Logi
             throw new LoginFailedException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);
         }
         return loginSuccessAction(user, loginDto);
+    }
+
+    @Override
+    public void checkArg(UserLoginDto loginDto) throws CommonException {
+        LoginProcessor.super.checkArg(loginDto);
+        if (StringUtils.isBlank(loginDto.getPhone())) {
+            throw new ArgumentMissingException("手机号");
+        }
+        if (StringUtils.isBlank(loginDto.getSmsCode())) {
+            throw new ArgumentMissingException("短信验证码");
+        }
+        if (!RegexUtil.phoneMatch(loginDto.getPhone())) {
+            throw new ArgumentException(ResponseConstant.PHONE_FORMAT_ERROR);
+        }
+        if (!RegexUtil.verifyCodeMatch(loginDto.getSmsCode())) {
+            throw new ArgumentException(ResponseConstant.VERIFY_CODE_FORMAT_ERROR);
+        }
     }
 }

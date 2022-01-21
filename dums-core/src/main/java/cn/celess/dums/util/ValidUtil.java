@@ -24,44 +24,13 @@ import java.util.function.Consumer;
  */
 public class ValidUtil {
 
-    public static void validLoginArgs(UserLoginDto loginDto) {
-        // 校验图片验证码参数
-        Consumer<UserLoginDto> checkImageCode = (dto) -> {
-            if (StringUtils.isBlank(dto.getImgCode())) {
-                throw new ArgumentMissingException(ResponseConstant.NO_IMAGE_CODE);
-            }
-        };
-
-        if (loginDto.getLoginType() == null) {
-            throw new ArgumentMissingException();
-        }
-        // CUSTOM_LOGIN: 账户 + 密码 + <图形验证码>
-        if (Objects.equals(loginDto.getLoginType(), LoginType.CUSTOM_LOGIN)) {
-            if (StringUtils.isBlank(loginDto.getUsername()) || StringUtils.isBlank(loginDto.getPassword())) {
-                throw new ArgumentMissingException();
-            }
-            if (Boolean.TRUE.equals(WebUtil.getHttpSession().getAttribute(loginDto.getUsername()))) {
-                checkImageCode.accept(loginDto);
-            }
-            if (!RegexUtil.accountMatch(loginDto.getUsername())) {
-                throw new ArgumentException(ResponseConstant.ACCOUNT_FORMAT_ERROR);
-            }
-            if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(loginDto.getPassword(), loginDto.getUsername()))) {
-                throw new ArgumentException(ResponseConstant.PASSWORD_FORMAT_ERROR);
-            }
-        }
-        // CUSTOM_LOGIN: 手机号 + 手机验证码 + <图形验证码>
-        if (Objects.equals(loginDto.getLoginType(), LoginType.MOBILE_LOGIN)) {
-            if (StringUtils.isBlank(loginDto.getPhone()) || StringUtils.isBlank(loginDto.getSmsCode())) {
-                throw new ArgumentMissingException();
-            }
-//            checkImageCode.accept(loginDto);
-            if (!RegexUtil.phoneMatch(loginDto.getPhone())) {
-                throw new ArgumentException(ResponseConstant.PHONE_FORMAT_ERROR);
-            }
-            if (!RegexUtil.verifyCodeMatch(loginDto.getSmsCode())) {
-                throw new ArgumentException(ResponseConstant.VERIFY_CODE_FORMAT_ERROR);
-            }
+    /**
+     * 校验图片验证码参数
+     * @param loginDto 信息
+     */
+    public static void checkImageCode(UserLoginDto loginDto) {
+        if (StringUtils.isBlank(loginDto.getImgCode())) {
+            throw new ArgumentMissingException(ResponseConstant.NO_IMAGE_CODE);
         }
     }
 
