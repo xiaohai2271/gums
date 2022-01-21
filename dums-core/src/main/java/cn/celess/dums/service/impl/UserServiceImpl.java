@@ -8,6 +8,7 @@ import cn.celess.dums.dto.UserRegDto;
 import cn.celess.dums.dto.UserResetPwdDto;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.enums.SmsCodeType;
+import cn.celess.dums.exception.ArgumentException;
 import cn.celess.dums.exception.CommonException;
 import cn.celess.dums.model.UserDetail;
 import cn.celess.dums.processor.login.LoginProcessorFactory;
@@ -15,10 +16,7 @@ import cn.celess.dums.mapper.UserMapper;
 import cn.celess.dums.page.PageVO;
 import cn.celess.dums.response.ResponseConstant;
 import cn.celess.dums.service.UserService;
-import cn.celess.dums.util.DataProcessorUtil;
-import cn.celess.dums.util.RedisUtil;
-import cn.celess.dums.util.UserContextUtil;
-import cn.celess.dums.util.ValidUtil;
+import cn.celess.dums.util.*;
 import cn.celess.dums.vo.CommonUserVO;
 import cn.celess.dums.vo.LoginUserVO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -71,12 +69,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String encryptionPassword = DataProcessorUtil.handlerPassword(regDto.getUsername(), regDto.getPassword());
 
         User insertUser = new User();
-        insertUser.setUsername(regDto.getUsername())
-                .setPassword(encryptionPassword)
-                .setPhone(regDto.getPhone())
-                .setPhoneStatus(true)
-                .setServiceId(regDto.getServiceId())
-                .setCreateDt(LocalDateTime.now());
+        insertUser.setUsername(regDto.getUsername()).setPassword(encryptionPassword).setPhone(regDto.getPhone()).setPhoneStatus(true).setServiceId(regDto.getServiceId()).setCreateDt(LocalDateTime.now());
         baseMapper.insert(insertUser);
 
         return UserConvert.INSTANCE.toCommonUserVO(insertUser);
@@ -105,34 +98,32 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public void resetPassword(UserResetPwdDto userRegDto) {
-//        ValidUtil.validResetPasswordArgs(userRegDto);
-//        // 校验手机验证码
-//        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(userRegDto);
-//        if (!Objects.equals(code, userRegDto.getCode())) {
-//            throw new ArgumentException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);
-//        }
-//
-//        // 更新用户信息
-//        User user = new User();
-//        user.setPhone(userRegDto.getPhone());
-//
-//        user = baseMapper.queryByUniqueKey(user);
-//
-//        if (user == null) {
-//            // 此处不会出现这个错误，因为在发送验证码时就已有校验过手机号是否存在
-//            throw new CommonException(ResponseConstant.PHONE_NOT_REGISTERED);
-//        }
-//
-//        // 校验密码是否格式
-//        if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(userRegDto.getPassword(), user.getAccount()))) {
-//            throw new ArgumentException(ResponseConstant.PASSWORD_FORMAT_ERROR);
-//        }
-//
-//        userRegDto.setUsername(user.getAccount());
-//        User updateUser = new User();
-//        updateUser.setId(user.getId());
-//        updateUser.setPassword(DataProcessorUtil.handlerPassword(userRegDto));
-//        baseMapper.updateById(updateUser);
+        ValidUtil.validResetPasswordArgs(userRegDto);
+        // 校验手机验证码
+        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(userRegDto, SmsCodeType.RESET_PASSWORD_VERIFY_CODE);
+        if (!Objects.equals(code, userRegDto.getSmsCode())) {
+            throw new ArgumentException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);
+        }
+
+        // 更新用户信息
+        User user = baseMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, userRegDto.getPhone()));
+
+        if (user == null) {
+            // 此处不会出现这个错误，因为在发送验证码时就已有校验过手机号是否存在
+            throw new CommonException(ResponseConstant.PHONE_NOT_REGISTERED);
+        }
+
+        // 校验密码是否格式
+        if (!RegexUtil.passwordMatch(AesEncryptUtil.decrypt(userRegDto.getPassword(), user.getUsername()))) {
+            throw new ArgumentException(ResponseConstant.PASSWORD_FORMAT_ERROR);
+        }
+
+        userRegDto.setUsername(user.getUsername());
+        User updateUser = new User();
+        updateUser.setId(user.getId());
+        updateUser.setPassword(DataProcessorUtil.handlerPassword(userRegDto.getUsername(), userRegDto.getPassword()));
+        updateUser.setUpdateDt(LocalDateTime.now());
+        baseMapper.updateById(updateUser);
     }
 
     /**

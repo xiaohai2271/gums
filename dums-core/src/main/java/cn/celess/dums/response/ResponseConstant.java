@@ -39,7 +39,7 @@ public enum ResponseConstant {
     JWT_NOT_SUPPORT(2113, "不支持的Token"),
 
     ARGUMENT_ERROR(2200, "参数错误"),
-    ARGUMENT_OF_TYPE_ERROR(2201, "登录类型参数错误"),
+    ARGUMENT_OF_TYPE_ERROR(2201, "类型参数错误"),
     CONFIRM_PASSWORD_NOT_MATCH(2202, "确认密码不匹配"),
 
     ACCOUNT_EXIST(2300, "账户已存在"),
