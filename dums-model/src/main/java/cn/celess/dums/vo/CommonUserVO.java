@@ -1,6 +1,7 @@
 package cn.celess.dums.vo;
 
 
+import cn.celess.dums.entity.LoginHistory;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -37,7 +38,17 @@ public class CommonUserVO {
     private String username;
 
     /**
+     * 上次登录信息
+     */
+    private LoginHistory longinHistory;
+
+    /**
      * 账户创建日期
      */
     private Date createDt;
+
+    /**
+     * 账户登录日期
+     */
+    private Date updateDt;
 }

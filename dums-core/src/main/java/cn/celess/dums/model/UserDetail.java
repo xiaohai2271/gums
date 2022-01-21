@@ -1,5 +1,6 @@
 package cn.celess.dums.model;
 
+import cn.celess.dums.entity.LoginHistory;
 import cn.celess.dums.entity.Permission;
 import cn.celess.dums.entity.Role;
 import cn.celess.dums.entity.User;
@@ -21,6 +22,8 @@ import java.util.List;
 @NoArgsConstructor
 public class UserDetail {
     private User user;
+
+    private LoginHistory loginHistory;
 
     private List<Permission> allPermissions;
 

@@ -18,6 +18,7 @@ import cn.celess.dums.model.UserDetail;
 import cn.celess.dums.response.ResponseConstant;
 import cn.celess.dums.util.JwtUtil;
 import cn.celess.dums.util.RedisUtil;
+import cn.celess.dums.util.UserContextUtil;
 import cn.celess.dums.util.WebUtil;
 import cn.celess.dums.vo.LoginUserVO;
 
@@ -132,40 +133,8 @@ public abstract class AbstractLoginProcessor {
 
         WebUtil.getHttpSession().removeAttribute(UserConstant.getCacheNameOfDisplayableImgCode(user.getUsername()));
 
-//        // 查用户权限
-        List<Permission> permissionList = new ArrayList<>();
-        user.getRoles().forEach(role -> {
-            List<Permission> permissionByRoleId = permissionMapper.getPermissionByRoleId(role.getId());
-            role.setPermissions(permissionByRoleId);
-            permissionList.addAll(permissionByRoleId);
-        });
-
-        UserDetail userDetail = new UserDetail().setUser(user)
-                .setRoles(user.getRoles())
-                .setAllPermissions(permissionList);
-
-        // 写缓存
-        try {
-            RedisUtil.setEx(
-                    UserConstant.getCacheNameOfUser(user.getId()),
-                    objectMapper.writeValueAsString(userDetail),
-                    loginDto.isRememberMe() ?
-                            ApplicationConfig.getInstance().loginTokenExpirationTimeWithRememberMe
-                            : ApplicationConfig.getInstance().loginTokenExpirationTime,
-                    TimeUnit.SECONDS
-            );
-        } catch (JsonProcessingException e) {
-            log.info("写入缓存数据失败: [{}]", user);
-            e.printStackTrace();
-        }
-
-//        UserContextUtil.setUser(userDetail);
-
         RedisUtil.delete(UserConstant.getCacheNameOfLoginFailedRecord(new User().setUsername(user.getUsername())));
         RedisUtil.delete(UserConstant.getCacheNameOfLoginFailedRecord(new User().setUsername(user.getPhone())));
-        // 更新最后登录日期
-        User updateDt = new User()
-                .setId(user.getId());
 
         LoginHistory history = null;
         Page<LoginHistory> loginHistoryPage = loginHistoryMapper.selectPage(new Page<>(1, 1), new LambdaQueryWrapper<LoginHistory>()
@@ -186,6 +155,39 @@ public abstract class AbstractLoginProcessor {
         }
 
         userVO.setLonginHistory(history);
+
+//        // 查用户权限
+        List<Permission> permissionList = new ArrayList<>();
+        user.getRoles().forEach(role -> {
+            List<Permission> permissionByRoleId = permissionMapper.getPermissionByRoleId(role.getId());
+            role.setPermissions(permissionByRoleId);
+            permissionList.addAll(permissionByRoleId);
+        });
+
+        UserDetail userDetail = new UserDetail().setUser(user)
+                .setRoles(user.getRoles())
+                .setLoginHistory(history)
+                .setAllPermissions(permissionList);
+
+        user.setRoles(null);
+
+        // 写缓存
+        try {
+            RedisUtil.setEx(
+                    UserConstant.getCacheNameOfUser(user.getId()),
+                    objectMapper.writeValueAsString(userDetail),
+                    loginDto.isRememberMe() ?
+                            ApplicationConfig.getInstance().loginTokenExpirationTimeWithRememberMe
+                            : ApplicationConfig.getInstance().loginTokenExpirationTime,
+                    TimeUnit.SECONDS
+            );
+        } catch (JsonProcessingException e) {
+            log.info("写入缓存数据失败: [{}]", user);
+            e.printStackTrace();
+        }
+
+        UserContextUtil.setUser(userDetail);
+
         // 生成Token
         String token = JwtUtil.generateToken(user, loginDto.isRememberMe());
         userVO.setToken(token);

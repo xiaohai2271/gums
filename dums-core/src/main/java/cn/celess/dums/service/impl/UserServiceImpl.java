@@ -1,5 +1,6 @@
 package cn.celess.dums.service.impl;
 
+import cn.celess.dums.constants.UserConstant;
 import cn.celess.dums.convert.UserConvert;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.dto.UserPageQueryDto;
@@ -8,12 +9,15 @@ import cn.celess.dums.dto.UserResetPwdDto;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.enums.SmsCodeType;
 import cn.celess.dums.exception.CommonException;
+import cn.celess.dums.model.UserDetail;
 import cn.celess.dums.processor.login.LoginProcessorFactory;
 import cn.celess.dums.mapper.UserMapper;
 import cn.celess.dums.page.PageVO;
 import cn.celess.dums.response.ResponseConstant;
 import cn.celess.dums.service.UserService;
 import cn.celess.dums.util.DataProcessorUtil;
+import cn.celess.dums.util.RedisUtil;
+import cn.celess.dums.util.UserContextUtil;
 import cn.celess.dums.util.ValidUtil;
 import cn.celess.dums.vo.CommonUserVO;
 import cn.celess.dums.vo.LoginUserVO;
@@ -80,21 +84,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public void logout() {
-//        User currentUser = UserContextUtil.getUser();
-//        if (currentUser == null) {
-//            return;
-//        }
-//        RedisUtil.delete(UserConstant.getCacheNameOfUser(currentUser.getId()));
+        UserDetail currentUser = UserContextUtil.getUser();
+        if (currentUser == null) {
+            return;
+        }
+        RedisUtil.delete(UserConstant.getCacheNameOfUser(currentUser.getUser().getId()));
     }
 
     @Override
     public CommonUserVO getUserInfo() {
-//        User currentUser = UserContextUtil.getUser();
-//        if (currentUser == null) {
-//            throw new CommonException(ResponseConstant.USER_NOT_LOGIN);
-//        }
-//        return UserModelConverter.toCommonUserVO(currentUser);
-        return null;
+        UserDetail currentUser = UserContextUtil.getUser();
+        if (currentUser == null) {
+            throw new CommonException(ResponseConstant.USER_NOT_LOGIN);
+        }
+        CommonUserVO userVO = UserConvert.INSTANCE.toCommonUserVO(currentUser.getUser());
+        userVO.setLonginHistory(currentUser.getLoginHistory());
+        return userVO;
     }
 
     @Override
