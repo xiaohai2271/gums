@@ -88,6 +88,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         if (currentUser == null) {
             return;
         }
+        UserContextUtil.clear();
         RedisUtil.delete(UserConstant.getCacheNameOfUser(currentUser.getUser().getId()));
     }
 

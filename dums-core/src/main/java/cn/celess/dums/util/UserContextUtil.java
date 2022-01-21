@@ -3,6 +3,7 @@ package cn.celess.dums.util;
 
 import cn.celess.dums.entity.Permission;
 import cn.celess.dums.model.UserDetail;
+import org.springframework.lang.NonNull;
 
 /**
  * 2021/12/04
@@ -17,9 +18,16 @@ public class UserContextUtil {
      *
      * @param userDetail 用户信息
      */
-    public static void setUser(UserDetail userDetail) {
+    public static void setUser(@NonNull UserDetail userDetail) {
         userDetail.getUser().setRoles(null);
         userThreadLocal.set(userDetail);
+    }
+
+    /**
+     * 清除用户
+     */
+    public static void clear() {
+        userThreadLocal.set(null);
     }
 
     /**

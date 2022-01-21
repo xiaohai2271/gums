@@ -9,6 +9,7 @@ import cn.celess.dums.util.UserContextUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.assertj.core.util.Strings;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -41,9 +42,12 @@ public class UserContextFilter implements Filter {
                 String token = auth.replaceFirst(ApplicationConstant.AUTH_HEADER_VALUE_PREFIX, "");
                 String userJson = RedisUtil.get(UserConstant.getCacheNameOfUser(JwtUtil.getUserIdFromToken(token)));
                 try {
-                    UserContextUtil.setUser(
-                            Strings.isNullOrEmpty(userJson) ? null : objectMapper.readValue(userJson, UserDetail.class)
-                    );
+                    if (StringUtils.isNoneBlank(userJson)) {
+                        UserContextUtil.setUser(objectMapper.readValue(userJson, UserDetail.class));
+                    } else {
+                        UserContextUtil.clear();
+                    }
+
                 } catch (JsonProcessingException e) {
                     log.info("解析缓存的用户数据失败: [{}]", userJson);
                     e.printStackTrace();
