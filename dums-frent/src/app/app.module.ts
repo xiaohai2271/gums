@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { DumsLoginComponent } from './view/dums-login/dums-login.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DumsLoginComponent
   ],
   imports: [
     BrowserModule,
