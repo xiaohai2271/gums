@@ -1,5 +1,7 @@
 package cn.celess.dums.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -26,6 +28,7 @@ public class LoginHistory implements Serializable {
     /**
      * 主键
      */
+    @TableId(type= IdType.AUTO)
     private Integer id;
 
     /**

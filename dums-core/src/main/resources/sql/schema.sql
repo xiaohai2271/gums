@@ -45,15 +45,16 @@ comment on column dums_mservice.remark is '备注';
 
 create table dums_user
 (
-    id         serial primary key,
-    username   varchar,
-    phone      varchar(11),
-    email      varchar,
-    password   varchar,
-    service_id int  not null,
-    create_dt  date not null,
-    update_dt  date    default null,
-    remark     varchar default null
+    id           serial primary key,
+    username     varchar,
+    phone        varchar(11),
+    phone_status bool    default false,
+    email        varchar,
+    password     varchar,
+    service_id   int  not null,
+    create_dt    date not null,
+    update_dt    date    default null,
+    remark       varchar default null
 );
 comment on table dums_user is '用户信息表';
 comment on column dums_user.id is '主键';

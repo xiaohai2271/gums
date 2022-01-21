@@ -1,6 +1,7 @@
 package cn.celess.dums.dto;
 
 import lombok.Data;
+import lombok.experimental.Accessors;
 
 /**
  * 2021/11/17
@@ -8,6 +9,7 @@ import lombok.Data;
  * @author 禾几海
  */
 @Data
+@Accessors(chain = true)
 public class UserMobileVerifyDto {
     /**
      * id

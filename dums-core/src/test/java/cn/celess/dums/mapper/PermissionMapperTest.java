@@ -1,5 +1,6 @@
 package cn.celess.dums.mapper;
 
+import cn.celess.dums.BaseTest;
 import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -17,9 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author 禾几海
  */
-@SpringBootTest
-@RunWith(SpringRunner.class)
-class RoleMapperTest {
+class RoleMapperTest extends BaseTest {
     @Resource
     private RoleMapper roleMapper;
     @Resource

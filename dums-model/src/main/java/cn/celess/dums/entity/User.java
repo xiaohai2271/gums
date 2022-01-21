@@ -1,5 +1,7 @@
 package cn.celess.dums.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
@@ -21,7 +23,7 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName(value = "dums_user",resultMap = "BaseResultMap")
+@TableName(value = "dums_user", resultMap = "BaseResultMap")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -29,6 +31,7 @@ public class User implements Serializable {
     /**
      * 主键
      */
+    @TableId(type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -40,6 +43,8 @@ public class User implements Serializable {
      * 手机号
      */
     private String phone;
+
+    private Boolean phoneStatus;
 
     /**
      * 邮箱

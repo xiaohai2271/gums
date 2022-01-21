@@ -1,5 +1,6 @@
 package cn.celess.dums.vo;
 
+import cn.celess.dums.entity.LoginHistory;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -25,17 +26,12 @@ public class LoginUserVO {
     /**
      * 手机号验证状态
      */
-    private Boolean phoneVerifyStatus;
+    private Boolean phoneStatus;
 
     /**
      * 账户
      */
-    private String account;
-
-    /**
-     * 展示昵称
-     */
-    private String displayName;
+    private String username;
 
     /**
      * 展示头像
@@ -45,7 +41,7 @@ public class LoginUserVO {
     /**
      * 上次登录日期
      */
-    private Date lastLoginDt;
+    private LoginHistory longinHistory;
 
     /**
      * 账户创建日期
@@ -56,7 +52,6 @@ public class LoginUserVO {
      * 账户登录日期
      */
     private Date updateDt;
+
     private String token;
-
-
 }

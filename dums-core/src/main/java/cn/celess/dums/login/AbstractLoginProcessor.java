@@ -21,6 +21,7 @@ import cn.celess.dums.util.RedisUtil;
 import cn.celess.dums.util.WebUtil;
 import cn.celess.dums.vo.LoginUserVO;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -88,7 +89,7 @@ public abstract class AbstractLoginProcessor {
     protected Boolean isUserLocked(User user) {
         String key = UserConstant.getCacheNameOfLoginFailedRecord(user);
         String loginFailedCountStr = RedisUtil.get(key);
-        return !StringUtils.isBlank(loginFailedCountStr) && Integer.parseInt(loginFailedCountStr) < ApplicationConfig.getInstance().maxLoginFailedTimes;
+        return !StringUtils.isBlank(loginFailedCountStr) && Integer.parseInt(loginFailedCountStr) > ApplicationConfig.getInstance().maxLoginFailedTimes;
     }
 
     /**
@@ -164,15 +165,21 @@ public abstract class AbstractLoginProcessor {
         User updateDt = new User()
                 .setId(user.getId());
 
+        LoginHistory history = loginHistoryMapper.selectList(new LambdaQueryWrapper<LoginHistory>()
+                .eq(LoginHistory::getUserId, user.getId())
+                .orderByDesc(LoginHistory::getCreateDt)
+        ).get(0);
+        history = Optional.ofNullable(history).orElse(new LoginHistory());
         LoginHistory loginHistory = new LoginHistory()
                 .setUserId(user.getId())
                 .setCreateDt(LocalDate.now())
                 .setServiceId(-1); // todo:
 
         if (loginHistoryMapper.insert(loginHistory) == 0) {
-            log.info("更新登录日期失败，uid: {}, date: {} ", user.getId(), loginHistory.getCreateDt());
+            log.info("更新登录日期失败，uid: {}, from: {} to:{} ", user.getId(), history.getCreateDt(), loginHistory.getCreateDt());
         }
 
+        userVO.setLonginHistory(history);
         // 生成Token
         String token = JwtUtil.generateToken(user, loginDto.isRememberMe());
         userVO.setToken(token);

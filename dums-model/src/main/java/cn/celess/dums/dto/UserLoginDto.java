@@ -3,6 +3,7 @@ package cn.celess.dums.dto;
 import cn.celess.dums.enums.LoginType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
 
 /**
  * 2021/11/11
@@ -12,6 +13,7 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
+@Accessors(chain = true)
 public class UserLoginDto extends UserMobileVerifyDto {
 
     /**

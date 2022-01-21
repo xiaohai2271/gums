@@ -48,7 +48,7 @@ public enum ResponseConstant {
     PHONE_NOT_REGISTERED(2303, "手机号未注册"),
 
 
-    ACCOUNT_TEMP_LOCKED(2200, "多次登录失败，暂时锁定账户请稍后再试"),
+    ACCOUNT_TEMP_LOCKED(2304, "多次登录失败，暂时锁定账户请稍后再试"),
 
 
     USER_NOT_LOGIN(2300, "用户未登录"),
