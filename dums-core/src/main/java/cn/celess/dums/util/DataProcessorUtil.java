@@ -2,6 +2,7 @@ package cn.celess.dums.util;
 
 import cn.celess.dums.config.ApplicationConfig;
 import cn.celess.dums.constants.ApplicationConstant;
+import cn.celess.dums.enums.SmsCodeType;
 import cn.celess.dums.constants.UserConstant;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.dto.UserMobileVerifyDto;
@@ -53,14 +54,15 @@ public class DataProcessorUtil {
      * @return 验证码
      * @throws CommonException
      */
-    public static String handlerAndRemoveVerifyCode(UserMobileVerifyDto userDto) throws CommonException {
+    public static String handlerAndRemoveVerifyCode(UserMobileVerifyDto userDto, SmsCodeType codeType) throws CommonException {
         // 校验手机验证码
-        String phoneVerifyCode = RedisUtil.get(UserConstant.getCacheNameOfMobileVerifyCode(userDto.getPhone()));
+        String verifyCodeKey = UserConstant.getCacheNameOfMobileVerifyCode(userDto.getPhone(), codeType);
+        String phoneVerifyCode = RedisUtil.get(verifyCodeKey);
         if (StringUtils.isBlank(phoneVerifyCode)) {
             throw new CommonException(ResponseConstant.SEND_VERIFY_CODE_FIRST);
         }
         // 删除验证码缓存
-        RedisUtil.delete(UserConstant.getCacheNameOfMobileVerifyCode(userDto.getPhone()));
+        RedisUtil.delete(verifyCodeKey);
         return phoneVerifyCode;
     }
 

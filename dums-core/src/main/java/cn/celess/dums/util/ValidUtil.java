@@ -1,13 +1,11 @@
 package cn.celess.dums.util;
 
 
-import cn.celess.dums.constants.CommonConstant;
-import cn.celess.dums.constants.UserConstant;
+import cn.celess.dums.enums.SmsCodeType;
 import cn.celess.dums.dto.SmsDto;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.dto.UserRegDto;
 import cn.celess.dums.dto.UserResetPwdDto;
-import cn.celess.dums.enums.LoginType;
 import cn.celess.dums.exception.ArgumentException;
 import cn.celess.dums.exception.ArgumentMissingException;
 import cn.celess.dums.response.ResponseConstant;
@@ -15,7 +13,6 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.function.Consumer;
 
 /**
  * 2021/11/14
@@ -26,6 +23,7 @@ public class ValidUtil {
 
     /**
      * 校验图片验证码参数
+     *
      * @param loginDto 信息
      */
     public static void checkImageCode(UserLoginDto loginDto) {
@@ -35,13 +33,13 @@ public class ValidUtil {
     }
 
     public static void validRequestTokenArgs(Integer type) {
-        if (Arrays.stream(CommonConstant.TokenType.values()).noneMatch(t -> Objects.equals(t.code, type))) {
+        if (Arrays.stream(SmsCodeType.values()).noneMatch(t -> Objects.equals(t.code, type))) {
             throw new ArgumentException(ResponseConstant.ARGUMENT_OF_TYPE_ERROR);
         }
     }
 
     public static void validRequestSmsArgs(SmsDto smsDto) {
-        if (smsDto.getType() == null
+        if (smsDto.getSmsCodeType() == null
                 || StringUtils.isBlank(smsDto.getPhone())
                 || StringUtils.isBlank(smsDto.getImgCode())
                 || StringUtils.isBlank(smsDto.getToken())) {
@@ -53,12 +51,20 @@ public class ValidUtil {
     }
 
     public static void validRegistrationArgs(UserRegDto regDto) {
-        if (StringUtils.isBlank(regDto.getUsername())
-                || StringUtils.isBlank(regDto.getPassword())
-                || StringUtils.isBlank(regDto.getConfirmPassword())
-                || StringUtils.isBlank(regDto.getPhone())
-                || StringUtils.isBlank(regDto.getSmsCode())) {
-            throw new ArgumentMissingException();
+        if (StringUtils.isBlank(regDto.getUsername())) {
+            throw new ArgumentMissingException("用户名");
+        }
+        if (StringUtils.isBlank(regDto.getPassword())) {
+            throw new ArgumentMissingException("密码");
+        }
+        if (StringUtils.isBlank(regDto.getConfirmPassword())) {
+            throw new ArgumentMissingException("确认密码");
+        }
+        if (StringUtils.isBlank(regDto.getPhone())) {
+            throw new ArgumentMissingException("手机号");
+        }
+        if (StringUtils.isBlank(regDto.getSmsCode())) {
+            throw new ArgumentMissingException("短信验证码");
         }
         if (!Objects.equals(regDto.getPassword(), regDto.getConfirmPassword())) {
             throw new ArgumentException(ResponseConstant.CONFIRM_PASSWORD_NOT_MATCH);

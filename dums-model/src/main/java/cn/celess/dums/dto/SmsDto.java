@@ -1,11 +1,11 @@
 package cn.celess.dums.dto;
 
+import cn.celess.dums.enums.SmsCodeType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
 /**
  * 2021/11/15
- * TODO
  *
  * @author 禾几海
  */
@@ -27,5 +27,5 @@ public class SmsDto {
     /**
      * 业务类型
      */
-    private Integer type;
+    private SmsCodeType smsCodeType;
 }

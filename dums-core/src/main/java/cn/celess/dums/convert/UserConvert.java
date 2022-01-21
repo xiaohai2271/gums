@@ -1,6 +1,7 @@
 package cn.celess.dums.convert;
 
 import cn.celess.dums.entity.User;
+import cn.celess.dums.vo.CommonUserVO;
 import cn.celess.dums.vo.LoginUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -17,7 +18,12 @@ import org.mapstruct.factory.Mappers;
  */
 @Mapper()
 public interface UserConvert {
-    public final static UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
+    UserConvert INSTANCE = Mappers.getMapper(UserConvert.class);
+
+    @Mappings({
+            @Mapping(target = "phoneVerified", source = "phoneStatus")
+    })
+    CommonUserVO toCommonUserVO(User user);
 
     @Mappings({})
     LoginUserVO toVo(User user);

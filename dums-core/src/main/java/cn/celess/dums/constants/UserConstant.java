@@ -2,6 +2,7 @@ package cn.celess.dums.constants;
 
 
 import cn.celess.dums.entity.User;
+import cn.celess.dums.enums.SmsCodeType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.StandardCharsets;
@@ -24,8 +25,8 @@ public class UserConstant {
      * 手机短信验证码缓存key
      * user:sms:+base64(手机号)
      */
-    public static String getCacheNameOfMobileVerifyCode(String phone) {
-        return String.format("user:sms:%s", Base64.getEncoder().encodeToString(phone.getBytes(StandardCharsets.UTF_8)));
+    public static String getCacheNameOfMobileVerifyCode(String phone, SmsCodeType type) {
+        return String.format("user:sms:%s", Base64.getEncoder().encodeToString((phone + type.code).getBytes(StandardCharsets.UTF_8)));
     }
 
     /**

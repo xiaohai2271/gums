@@ -2,7 +2,7 @@ package cn.celess.dums.service.impl;
 
 
 import cn.celess.dums.config.ApplicationConfig;
-import cn.celess.dums.constants.CommonConstant;
+import cn.celess.dums.enums.SmsCodeType;
 import cn.celess.dums.constants.UserConstant;
 import cn.celess.dums.dto.SmsDto;
 import cn.celess.dums.entity.User;
@@ -56,7 +56,7 @@ public class CommonServiceImpl implements CommonService {
             throw new ArgumentMissingException(ResponseConstant.REQUEST_TOKEN_FIRST);
         }
         RedisUtil.delete(smsDto.getToken());
-        if (Integer.parseInt(cacheTokenValue) != smsDto.getType()) {
+        if (Integer.parseInt(cacheTokenValue) != smsDto.getSmsCodeType().code) {
             throw new ArgumentException(ResponseConstant.ARGUMENT_OF_TYPE_ERROR);
         }
 
@@ -71,35 +71,36 @@ public class CommonServiceImpl implements CommonService {
         if (!imageCode.equalsIgnoreCase(smsDto.getImgCode())) {
             throw new LoginFailedException(ResponseConstant.WRONG_IMAGE_VERIFY_CODE);
         }
+        // todo: 拆分
 
         User user = userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getPhone, smsDto.getPhone()));
         // 注册，验证手机号是否已经注册
-        if (Objects.equals(smsDto.getType(), CommonConstant.TokenType.SIGNUP_VERIFY_CODE.code)) {
+        if (Objects.equals(smsDto.getSmsCodeType(), SmsCodeType.SIGNUP_VERIFY_CODE)) {
             // 判断手机号是否已注册
-
             if (user != null) {
                 throw new CommonException(ResponseConstant.PHONE_HAS_REGISTERED);
             }
         }
         // 找回密码，需要手机号已注册
-        if (Objects.equals(smsDto.getType(), CommonConstant.TokenType.RESET_PASSWORD_VERIFY_CODE.code)
-                || Objects.equals(smsDto.getType(), CommonConstant.TokenType.LOGIN_VERIFY_CODE.code)) {
+        if (Objects.equals(smsDto.getSmsCodeType(), SmsCodeType.RESET_PASSWORD_VERIFY_CODE)
+                || Objects.equals(smsDto.getSmsCodeType(), SmsCodeType.LOGIN_VERIFY_CODE)) {
             if (user == null) {
                 throw new CommonException(ResponseConstant.PHONE_NOT_REGISTERED);
             }
         }
 
         // 获取/生成验证码
-        if (!RedisUtil.hasKey(UserConstant.getCacheNameOfMobileVerifyCode(smsDto.getPhone()))) {
+        String verifyCodeKey = UserConstant.getCacheNameOfMobileVerifyCode(smsDto.getPhone(), smsDto.getSmsCodeType());
+        if (!RedisUtil.hasKey(verifyCodeKey)) {
             Random random = new Random();
             StringBuilder sb = new StringBuilder();
             for (int i = 0; i < 6; i++) {
                 sb.append(random.nextInt(10));
             }
-            RedisUtil.setEx(UserConstant.getCacheNameOfMobileVerifyCode(smsDto.getPhone()), sb.toString(), 10, TimeUnit.MINUTES);
+            RedisUtil.setEx(verifyCodeKey, sb.toString(), 10, TimeUnit.MINUTES);
         }
 
-        String code = RedisUtil.get(UserConstant.getCacheNameOfMobileVerifyCode(smsDto.getPhone()));
+        String code = RedisUtil.get(verifyCodeKey);
 
         // TODO:: sdk 发送短信验证码
         log.debug(code);

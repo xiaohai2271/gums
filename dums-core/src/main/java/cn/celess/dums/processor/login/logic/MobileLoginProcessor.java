@@ -6,6 +6,7 @@ import cn.celess.dums.constants.UserConstant;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.entity.User;
 import cn.celess.dums.enums.LoginType;
+import cn.celess.dums.enums.SmsCodeType;
 import cn.celess.dums.exception.ArgumentException;
 import cn.celess.dums.exception.ArgumentMissingException;
 import cn.celess.dums.exception.CommonException;
@@ -60,7 +61,7 @@ public class MobileLoginProcessor extends AbstractLoginProcessor implements Logi
             throw new LoginFailedException(ResponseConstant.ACCOUNT_TEMP_LOCKED);
         }
         // 校验手机验证码
-        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(loginDto);
+        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(loginDto, SmsCodeType.LOGIN_VERIFY_CODE);
         if (!Objects.equals(code, loginDto.getSmsCode())) {
             loginFailedAction(user);
             throw new LoginFailedException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);

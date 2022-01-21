@@ -1,22 +1,30 @@
 package cn.celess.dums.service.impl;
 
+import cn.celess.dums.convert.UserConvert;
 import cn.celess.dums.dto.UserLoginDto;
 import cn.celess.dums.dto.UserPageQueryDto;
 import cn.celess.dums.dto.UserRegDto;
 import cn.celess.dums.dto.UserResetPwdDto;
 import cn.celess.dums.entity.User;
+import cn.celess.dums.enums.SmsCodeType;
+import cn.celess.dums.exception.CommonException;
 import cn.celess.dums.processor.login.LoginProcessorFactory;
 import cn.celess.dums.mapper.UserMapper;
 import cn.celess.dums.page.PageVO;
+import cn.celess.dums.response.ResponseConstant;
 import cn.celess.dums.service.UserService;
+import cn.celess.dums.util.DataProcessorUtil;
 import cn.celess.dums.util.ValidUtil;
 import cn.celess.dums.vo.CommonUserVO;
 import cn.celess.dums.vo.LoginUserVO;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  * <p>
@@ -43,41 +51,30 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
     @Override
     public CommonUserVO registration(UserRegDto regDto) {
-//        // 参数校验
-//        ValidUtil.validRegistrationArgs(regDto);
-//        // 校验手机验证码
-//        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(regDto);
-//        if (!Objects.equals(code, regDto.getCode())) {
-//            throw new CommonException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);
-//        }
-//        // 校验账号是否已经注册
-//        User user = new User();
-//        user.setUsername(regDto.getAccount());
-//        user = baseMapper.queryByUniqueKey(user);
-//        if (user != null) {
-//            throw new CommonException(ResponseConstant.ACCOUNT_EXIST);
-//        }
-//
-//        String encryptionPassword = DataProcessorUtil.handlerPassword(regDto);
-//
-//        User insertUser = new User();
-//        insertUser.setUsername(regDto.getAccount());
-//        insertUser.setPassword(encryptionPassword);
-//        insertUser.setPhone(regDto.getPhone());
-//        insertUser.setPhoneVerifyStatus(true);
-//        insertUser.setCreateDt(new Date());
-//        baseMapper.insert(insertUser);
-//
-//        // 设置权限
-//        UserPermission userPermission = new UserPermission()
-//                .setUserId(insertUser.getId())
-//                .setPermission(Permission.USER.toString())
-//                .setCreateDt(new Date());
-//
-//        userPermissionDao.insert(userPermission);
-//
-//        return UserModelConverter.toCommonUserVO(insertUser);
-        return null;
+        // 参数校验
+        ValidUtil.validRegistrationArgs(regDto);
+        // 校验手机验证码
+        String code = DataProcessorUtil.handlerAndRemoveVerifyCode(regDto, SmsCodeType.SIGNUP_VERIFY_CODE);
+        if (!Objects.equals(code, regDto.getSmsCode())) {
+            throw new CommonException(ResponseConstant.WRONG_MOBILE_VERIFY_CODE);
+        }
+        // 校验账号是否已经注册
+        User user = baseMapper.selectOne(new LambdaQueryWrapper<>(User.class).eq(User::getUsername, regDto.getUsername()));
+        if (user != null) {
+            throw new CommonException(ResponseConstant.ACCOUNT_EXIST);
+        }
+
+        String encryptionPassword = DataProcessorUtil.handlerPassword(regDto.getUsername(), regDto.getPassword());
+
+        User insertUser = new User();
+        insertUser.setUsername(regDto.getUsername());
+        insertUser.setPassword(encryptionPassword);
+        insertUser.setPhone(regDto.getPhone());
+        insertUser.setPhoneStatus(true);
+        insertUser.setCreateDt(LocalDateTime.now());
+        baseMapper.insert(insertUser);
+
+        return UserConvert.INSTANCE.toCommonUserVO(insertUser);
     }
 
     @Override

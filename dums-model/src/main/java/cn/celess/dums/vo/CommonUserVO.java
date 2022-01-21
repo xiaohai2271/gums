@@ -26,35 +26,15 @@ public class CommonUserVO {
     /**
      * 手机号验证状态
      */
-    private Boolean phoneVerifyStatus;
+    private Boolean phoneVerified;
 
     /**
      * 账户
      */
-    private String account;
-
-    /**
-     * 展示昵称
-     */
-    private String displayName;
-
-    /**
-     * 展示头像
-     */
-    private String avatar;
-
-    /**
-     * 上次登录日期
-     */
-    private Date lastLoginDt;
+    private String username;
 
     /**
      * 账户创建日期
      */
     private Date createDt;
-
-    /**
-     * 账户登录日期
-     */
-    private Date updateDt;
 }
