@@ -26,11 +26,24 @@ public class ApplicationConstant {
      * 配置文件路径,完整路径为:  ApplicationConfig.homeEnv + ApplicationConfig.configPath + ...
      */
     public static final String CONFIG_FILE_PATH = "/config/";
+    /**
+     * 配置文件，日志等文件存放的环境变量名，未定义环节变量则使用默认路径:
+     * <pre>~/dums/</pre>
+     */
+    public static final String HOME_ENV = "DUMS_HOME";
 
-    /** 默认日期时间格式 */
+    public static final String RUNTIME_CONFIG = "runtime.properties";
+
+    /**
+     * 默认日期时间格式
+     */
     public static final String DEFAULT_DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    /** 默认日期格式 */
+    /**
+     * 默认日期格式
+     */
     public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd";
-    /** 默认时间格式 */
+    /**
+     * 默认时间格式
+     */
     public static final String DEFAULT_TIME_FORMAT = "HH:mm:ss";
 }

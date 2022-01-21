@@ -69,6 +69,11 @@ public class MobileLoginProcessor extends AbstractLoginProcessor implements Logi
     }
 
     @Override
+    public Boolean enable() {
+        return ApplicationConfig.getInstance().enableMobileLogin;
+    }
+
+    @Override
     public void checkArg(UserLoginDto loginDto) throws CommonException {
         LoginProcessor.super.checkArg(loginDto);
         if (StringUtils.isBlank(loginDto.getPhone())) {

@@ -60,16 +60,6 @@ public class ApplicationConfig {
     public Integer tokenExpirationTime = 1;
 
     /**
-     * 配置文件，日志等文件存放的环境变量名，未定义环节变量则使用默认路径:
-     * <pre>~/dums/</pre>
-     */
-    public String homeEnv = "DUMS_HOME";
-
-
-    public String runtimeConfig = "runtime.properties";
-
-
-    /**
      * 登录用户信息保存时长（点击记住密码） 5天
      */
     public Long loginTokenExpirationTimeWithRememberMe = 5 * 24 * 60 * 60L;
@@ -78,4 +68,14 @@ public class ApplicationConfig {
      * 登录用户信息保存时长，两小时
      */
     public Long loginTokenExpirationTime = 2 * 60 * 60L;
+
+    /**
+     * 是否开启常规登录
+     */
+    public Boolean enableCustomLogin = true;
+
+    /**
+     * 是否开启手机登录
+     */
+    public Boolean enableMobileLogin = true;
 }

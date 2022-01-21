@@ -39,7 +39,7 @@ public class CommonEnvPostProcessor implements EnvironmentPostProcessor, Applica
         log.info("加载本地配置文件--");
         //获取环境变量
         String defaultEnvHome = EnvironmentUtil.getProperties("user.home");
-        String homeEnv = convertPathString(EnvironmentUtil.getEnv(ApplicationConfig.getInstance().homeEnv, defaultEnvHome)
+        String homeEnv = convertPathString(EnvironmentUtil.getEnv(ApplicationConstant.HOME_ENV, defaultEnvHome)
                 + File.separator + ApplicationConstant.APPLICATION_NAME + File.separator);
         log.info("HomeEnv: \t\t\t" + homeEnv);
 
@@ -47,7 +47,7 @@ public class CommonEnvPostProcessor implements EnvironmentPostProcessor, Applica
 
         initializeApplicationConfig(configPath);
 
-        String runtimeConfigPath = convertPathString(configPath + ApplicationConfig.getInstance().runtimeConfig);
+        String runtimeConfigPath = convertPathString(configPath + ApplicationConstant.RUNTIME_CONFIG);
         log.info("runtimeConfigPath: " + runtimeConfigPath);
         try (InputStream input = new FileInputStream(runtimeConfigPath)) {
             Properties properties = new Properties();

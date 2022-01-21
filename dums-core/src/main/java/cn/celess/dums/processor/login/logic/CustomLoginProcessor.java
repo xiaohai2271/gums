@@ -68,6 +68,11 @@ public class CustomLoginProcessor extends AbstractLoginProcessor implements Logi
     }
 
     @Override
+    public Boolean enable() {
+        return ApplicationConfig.getInstance().enableCustomLogin;
+    }
+
+    @Override
     public void checkArg(UserLoginDto loginDto) throws CommonException {
         LoginProcessor.super.checkArg(loginDto);
         if (StringUtils.isBlank(loginDto.getUsername())) {
