@@ -67,11 +67,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String encryptionPassword = DataProcessorUtil.handlerPassword(regDto.getUsername(), regDto.getPassword());
 
         User insertUser = new User();
-        insertUser.setUsername(regDto.getUsername());
-        insertUser.setPassword(encryptionPassword);
-        insertUser.setPhone(regDto.getPhone());
-        insertUser.setPhoneStatus(true);
-        insertUser.setCreateDt(LocalDateTime.now());
+        insertUser.setUsername(regDto.getUsername())
+                .setPassword(encryptionPassword)
+                .setPhone(regDto.getPhone())
+                .setPhoneStatus(true)
+                .setServiceId(regDto.getServiceId())
+                .setCreateDt(LocalDateTime.now());
         baseMapper.insert(insertUser);
 
         return UserConvert.INSTANCE.toCommonUserVO(insertUser);

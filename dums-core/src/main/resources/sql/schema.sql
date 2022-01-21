@@ -50,6 +50,7 @@ create table dums_user
     phone        varchar(11),
     phone_status bool      default false,
     email        varchar,
+    email_status bool      default false,
     password     varchar,
     service_id   int       not null,
     create_dt    timestamp not null,

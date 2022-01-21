@@ -16,4 +16,6 @@ public class UserRegDto extends UserMobileVerifyDto {
      * 确认密码
      */
     private String confirmPassword;
+
+    private Integer serviceId;
 }

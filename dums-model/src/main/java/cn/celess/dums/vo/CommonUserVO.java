@@ -28,6 +28,9 @@ public class CommonUserVO {
      */
     private Boolean phoneVerified;
 
+    private String email;
+
+    private String emailStatus;
     /**
      * 账户
      */

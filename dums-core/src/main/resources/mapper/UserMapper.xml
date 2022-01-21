@@ -9,6 +9,7 @@
         <result column="phone" property="phone" />
         <result column="phone_status" property="phoneStatus" />
         <result column="email" property="email" />
+        <result column="email_status" property="emailStatus" />
         <result column="password" property="password" />
         <result column="service_id" property="serviceId" />
         <result column="create_dt" property="createDt" />

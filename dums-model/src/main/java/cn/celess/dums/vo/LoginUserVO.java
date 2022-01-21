@@ -28,6 +28,10 @@ public class LoginUserVO {
      */
     private Boolean phoneStatus;
 
+    private String email;
+
+    private String emailStatus;
+
     /**
      * 账户
      */
