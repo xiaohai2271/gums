@@ -34,12 +34,7 @@ public class LoginUserVO {
     private String username;
 
     /**
-     * 展示头像
-     */
-    private String avatar;
-
-    /**
-     * 上次登录日期
+     * 上次登录信息
      */
     private LoginHistory longinHistory;
 

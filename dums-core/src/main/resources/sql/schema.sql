@@ -13,9 +13,9 @@ create table dums_service_cfg
     service_id varchar,
     cfg_key    varchar,
     cfg_value  varchar,
-    create_dt  date not null,
-    update_dt  date    default null,
-    remark     varchar default null
+    create_dt  timestamp not null,
+    update_dt  timestamp default null,
+    remark     varchar   default null
 );
 
 comment on table dums_service_cfg is '服务配置信息表';
@@ -32,9 +32,9 @@ create table dums_mservice
 (
     id           serial primary key,
     service_name varchar,
-    create_dt    date not null,
-    update_dt    date    default null,
-    remark       varchar default null
+    create_dt    timestamp not null,
+    update_dt    timestamp default null,
+    remark       varchar   default null
 );
 comment on table dums_mservice is '服务信息表';
 comment on column dums_mservice.id is '主键';
@@ -48,13 +48,13 @@ create table dums_user
     id           serial primary key,
     username     varchar,
     phone        varchar(11),
-    phone_status bool    default false,
+    phone_status bool      default false,
     email        varchar,
     password     varchar,
-    service_id   int  not null,
-    create_dt    date not null,
-    update_dt    date    default null,
-    remark       varchar default null
+    service_id   int       not null,
+    create_dt    timestamp not null,
+    update_dt    timestamp default null,
+    remark       varchar   default null
 );
 comment on table dums_user is '用户信息表';
 comment on column dums_user.id is '主键';
@@ -70,10 +70,10 @@ comment on column dums_user.remark is '备注';
 create table dums_permission
 (
     id              serial primary key,
-    permission_code varchar not null,
+    permission_code varchar   not null,
     permission_name varchar,
-    service_id      int     not null,
-    create_dt       date    not null,
+    service_id      int       not null,
+    create_dt       timestamp not null,
     remark          varchar default null
 );
 comment on table dums_permission is '权限表';
@@ -86,13 +86,13 @@ comment on column dums_permission.remark is '备注';
 create table dums_role
 (
     id         serial primary key,
-    role_code  varchar not null,
+    role_code  varchar   not null,
     role_name  varchar,
     p_role_id  int,
-    service_id int     not null,
-    create_dt  date    not null,
-    update_dt  date    default null,
-    remark     varchar default null
+    service_id int       not null,
+    create_dt  timestamp not null,
+    update_dt  timestamp default null,
+    remark     varchar   default null
 );
 comment on table dums_role is '服务配置信息表';
 comment on column dums_role.id is '主键';
@@ -128,12 +128,12 @@ comment on column dums_role_permission.prm_id is '权限id';
 create table dums_login_history
 (
     id         serial primary key,
-    user_id    int  not null,
-    service_id int  not null,
+    user_id    int       not null,
+    service_id int       not null,
     platform   varchar,
     ip         varchar,
     browser    varchar,
-    create_dt  date not null,
+    create_dt  timestamp not null,
     remark     varchar default null
 );
 comment on table dums_login_history is '登录信息表';

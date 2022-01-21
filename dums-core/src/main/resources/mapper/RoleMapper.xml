@@ -17,7 +17,6 @@
                     select="cn.celess.dums.mapper.PermissionMapper.getPermissionByRoleId" />
     </resultMap>
 
-
     <select id="getRoleByUid" resultType="cn.celess.dums.entity.Role">
         SELECT *
         FROM dums_role

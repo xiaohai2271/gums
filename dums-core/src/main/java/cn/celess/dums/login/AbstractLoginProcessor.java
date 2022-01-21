@@ -22,6 +22,7 @@ import cn.celess.dums.util.WebUtil;
 import cn.celess.dums.vo.LoginUserVO;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
@@ -33,6 +34,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -165,14 +167,18 @@ public abstract class AbstractLoginProcessor {
         User updateDt = new User()
                 .setId(user.getId());
 
-        LoginHistory history = loginHistoryMapper.selectList(new LambdaQueryWrapper<LoginHistory>()
+        LoginHistory history = null;
+        Page<LoginHistory> loginHistoryPage = loginHistoryMapper.selectPage(new Page<>(1, 1), new LambdaQueryWrapper<LoginHistory>()
                 .eq(LoginHistory::getUserId, user.getId())
                 .orderByDesc(LoginHistory::getCreateDt)
-        ).get(0);
+        );
+        if (loginHistoryPage.getRecords().size() > 0) {
+            history = loginHistoryPage.getRecords().get(0);
+        }
         history = Optional.ofNullable(history).orElse(new LoginHistory());
         LoginHistory loginHistory = new LoginHistory()
                 .setUserId(user.getId())
-                .setCreateDt(LocalDate.now())
+                .setCreateDt(LocalDateTime.now())
                 .setServiceId(-1); // todo:
 
         if (loginHistoryMapper.insert(loginHistory) == 0) {

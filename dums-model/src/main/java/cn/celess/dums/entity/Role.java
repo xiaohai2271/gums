@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Getter;
@@ -18,7 +18,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 禾几海
- * @since 2022/01/20
+ * @since 2022/01/21
  */
 @Getter
 @Setter
@@ -31,7 +31,7 @@ public class Role implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -57,12 +57,12 @@ public class Role implements Serializable {
     /**
      * 创建日期
      */
-    private LocalDate createDt;
+    private LocalDateTime createDt;
 
     /**
      * 更新日期
      */
-    private LocalDate updateDt;
+    private LocalDateTime updateDt;
 
     /**
      * 备注

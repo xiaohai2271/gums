@@ -3,9 +3,7 @@ package cn.celess.dums.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -16,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 禾几海
- * @since 2022/01/20
+ * @since 2022/01/21
  */
 @Getter
 @Setter
@@ -29,7 +27,7 @@ public class RolePermission implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**

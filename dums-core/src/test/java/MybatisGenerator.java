@@ -1,4 +1,5 @@
 import cn.celess.dums.DumsApplication;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.generator.FastAutoGenerator;
 import com.baomidou.mybatisplus.generator.config.OutputFile;
 import com.baomidou.mybatisplus.generator.config.TemplateType;
@@ -43,9 +44,10 @@ public class MybatisGenerator {
                 })
                 .strategyConfig(builder -> {
                     builder.entityBuilder().enableLombok() // 开启lombok
-                            .enableChainModel(); // 开启链式模式
+                            .enableChainModel() // 开启链式模式
+                            .idType(IdType.AUTO); // 设置主键策略
                     builder.serviceBuilder().formatServiceFileName("%sService")
-                                    .formatServiceImplFileName("%sServiceImpl");
+                            .formatServiceImplFileName("%sServiceImpl");
                     builder.mapperBuilder().enableBaseResultMap();
                     builder.addInclude(TABLE_NAME) // 设置需要生成的表名
                             .addTablePrefix("dums_"); // 设置过滤表前缀

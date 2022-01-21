@@ -3,9 +3,8 @@ package cn.celess.dums.entity;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import lombok.Getter;
@@ -18,12 +17,12 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author 禾几海
- * @since 2022/01/20
+ * @since 2022/01/21
  */
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName(value = "dums_user", resultMap = "BaseResultMap")
+@TableName(value = "dums_user",resultMap = "BaseResultMap")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -31,7 +30,7 @@ public class User implements Serializable {
     /**
      * 主键
      */
-    @TableId(type = IdType.AUTO)
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
@@ -64,12 +63,12 @@ public class User implements Serializable {
     /**
      * 创建日期
      */
-    private LocalDate createDt;
+    private LocalDateTime createDt;
 
     /**
      * 更新日期
      */
-    private LocalDate updateDt;
+    private LocalDateTime updateDt;
 
     /**
      * 备注
