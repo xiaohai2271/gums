@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DumsLoginComponent } from "./view/dums-login/dums-login.component";
 import { AuthGuard } from "./view/admin/auth.guard";
 
 const routes: Routes = [
@@ -11,7 +10,7 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    component: DumsLoginComponent,
+    loadChildren: () => import('./view/dums-login/dums-login.module').then(m => m.DumsLoginModule)
   },
   {
     path: 'admin',

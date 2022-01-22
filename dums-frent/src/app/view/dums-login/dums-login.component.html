@@ -1,1 +1,37 @@
-<p>dums-login works!</p>
+<div class="main">
+  <div class="main-login">
+    <form class="main-login-form">
+      <h3>登录</h3>
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input nzSize="large" placeholder="请输入用户名" [(ngModel)]="user.username" name="username" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <input nz-input nzSize="large" placeholder="请输入密码" [(ngModel)]="user.password" name="password" />
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <label nz-checkbox [(ngModel)]="user.isRememberMe" name="isRememberMe">记住密码</label>
+          <a class="login-form-forgot" (click)="forgotPwd()">忘记密码</a>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          还没有账号，去<a (click)="register()">注册账号</a>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" nzBlock nzSize="large" (click)="login()">登录</button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</div>

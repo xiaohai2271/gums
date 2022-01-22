@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dums-role-ms',
+  selector: 'viewdums-role-ms',
   templateUrl: './dums-role-ms.component.html',
   styleUrls: ['./dums-role-ms.component.less']
 })

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AuthService } from "./service/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,8 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.less']
 })
 export class AppComponent {
-  title = 'dums-web';
+
+  constructor(public authService: AuthService) {
+  }
+
 }

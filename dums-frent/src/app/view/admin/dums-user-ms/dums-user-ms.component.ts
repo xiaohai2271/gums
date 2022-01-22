@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-dums-user-ms',
+  selector: 'viewdums-user-ms',
   templateUrl: './dums-user-ms.component.html',
   styleUrls: ['./dums-user-ms.component.less']
 })
