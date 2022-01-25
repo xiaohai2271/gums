@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gums
+    username: postgres
+    password: zhenghai
+    driver-class-name: org.postgresql.Driver
+
+logging:
+  level:
+    cn:
+      celess:
+        gums: debug

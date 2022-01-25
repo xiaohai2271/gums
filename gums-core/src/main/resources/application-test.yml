@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/gums-test
+    username: postgres
+    password: zhenghai
+    driver-class-name: org.postgresql.Driver
+  sql:
+    init:
+      schema-locations: classpath*:sql/schema.sql
+      data-locations: classpath*:sql/data.sql
+      mode: always

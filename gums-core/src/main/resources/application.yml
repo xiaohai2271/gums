@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: gums
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    password: zhenghai
+    database: 3
+  profiles:
+    active: dev
+server:
+  port: 8765
+
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.slf4j.Slf4jImpl
+  global-config:
+    banner: off

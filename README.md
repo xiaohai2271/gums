@@ -1,5 +1,5 @@
-# 分布式用户管理系统（DUMS）
-> Distributed User Management System
+# 通用用户管理系统（GUMS）
+> General User Management System
 
 
 ## 主要功能

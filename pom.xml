@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.celess</groupId>
-    <artifactId>dums</artifactId>
+    <artifactId>gums</artifactId>
     <packaging>pom</packaging>
     <version>1.0.0</version>
 
@@ -22,8 +22,8 @@
     </properties>
 
     <modules>
-        <module>dums-core</module>
-        <module>dums-model</module>
+        <module>gums-core</module>
+        <module>gums-model</module>
     </modules>
 
     <dependencies>
