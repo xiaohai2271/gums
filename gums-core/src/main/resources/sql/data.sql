@@ -31,7 +31,7 @@ VALUES (6, 3, 4);
 
 
 INSERT INTO gums_user (id, username, phone, email, password, service_id, create_dt, update_dt, remark)
-VALUES (1, 'zhenghai', '13300000000', 'a@celess.cn', 'df75040e67dfdf213daadd6f55eef0ad', -1, '2022-01-20', null, null);
+VALUES (1, 'zhenghai', '13300000000', 'a@celess.cn', '5fd3c065c80dd84b2dcd3c30f2dd661b', -1, '2022-01-20', null, null);
 
 
 
