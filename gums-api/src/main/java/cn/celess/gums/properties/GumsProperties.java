@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  *
  * @author 禾几海
  */
-@Component
+@Component("gumsProperties")
 @ConfigurationProperties(prefix = "gums")
 @Data
 public class GumsProperties {
