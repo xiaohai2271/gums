@@ -1,6 +1,6 @@
 package cn.celess.gums.dto;
 
-import cn.celess.gums.enums.LoginType;
+import cn.celess.gums.common.enums.LoginType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;

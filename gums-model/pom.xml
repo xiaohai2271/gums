@@ -18,6 +18,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>cn.celess</groupId>
+            <artifactId>gums-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-annotation</artifactId>
             <version>3.5.0</version>

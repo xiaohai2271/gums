@@ -1,6 +1,6 @@
 package cn.celess.gums.dto;
 
-import cn.celess.gums.enums.SmsCodeType;
+import cn.celess.gums.common.enums.SmsCodeType;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

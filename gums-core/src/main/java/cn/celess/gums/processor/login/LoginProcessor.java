@@ -1,7 +1,7 @@
 package cn.celess.gums.processor.login;
 
 import cn.celess.gums.dto.UserLoginDto;
-import cn.celess.gums.enums.LoginType;
+import cn.celess.gums.common.enums.LoginType;
 import cn.celess.gums.exception.ArgumentMissingException;
 import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.exception.LoginFailedException;

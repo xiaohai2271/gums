@@ -2,7 +2,7 @@ package cn.celess.gums.util;
 
 import cn.celess.gums.config.ApplicationConfig;
 import cn.celess.gums.constants.ApplicationConstant;
-import cn.celess.gums.enums.SmsCodeType;
+import cn.celess.gums.common.enums.SmsCodeType;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.dto.UserMobileVerifyDto;

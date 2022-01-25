@@ -1,8 +1,6 @@
 package cn.celess.gums.properties;
 
 import lombok.Data;
-import org.springframework.beans.factory.BeanClassLoaderAware;
-import org.springframework.beans.factory.InitializingBean;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
@@ -17,7 +15,6 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "gums")
 @Data
-@Configuration
 public class GumsProperties {
     /**
      * 服务编号

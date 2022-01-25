@@ -1,4 +1,4 @@
-package cn.celess.gums.enums;
+package cn.celess.gums.common.enums;
 
 /**
  * <p>date: 2022/01/21</P>

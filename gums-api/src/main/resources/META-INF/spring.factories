@@ -1,1 +1,2 @@
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=cn.celess.gums.config.AutoConfiguration
+org.springframework.context.ApplicationListener=cn.celess.gums.listener.GumsApplicationListener

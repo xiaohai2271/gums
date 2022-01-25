@@ -5,7 +5,7 @@ import cn.celess.gums.config.ApplicationConfig;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.entity.User;
-import cn.celess.gums.enums.LoginType;
+import cn.celess.gums.common.enums.LoginType;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.ArgumentMissingException;
 import cn.celess.gums.exception.CommonException;

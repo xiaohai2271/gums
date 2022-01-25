@@ -1,7 +1,7 @@
 package cn.celess.gums.util;
 
 
-import cn.celess.gums.enums.SmsCodeType;
+import cn.celess.gums.common.enums.SmsCodeType;
 import cn.celess.gums.dto.SmsDto;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.dto.UserRegDto;

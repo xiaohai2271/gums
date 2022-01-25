@@ -2,7 +2,7 @@ package cn.celess.gums.constants;
 
 
 import cn.celess.gums.entity.User;
-import cn.celess.gums.enums.SmsCodeType;
+import cn.celess.gums.common.enums.SmsCodeType;
 import org.apache.commons.lang3.StringUtils;
 
 import java.nio.charset.StandardCharsets;

@@ -20,6 +20,11 @@
     <dependencies>
         <dependency>
             <groupId>cn.celess</groupId>
+            <artifactId>gums-common</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.celess</groupId>
             <artifactId>gums-model</artifactId>
             <version>1.0.0</version>
         </dependency>

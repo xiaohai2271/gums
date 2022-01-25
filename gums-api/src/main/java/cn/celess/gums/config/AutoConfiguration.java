@@ -3,6 +3,7 @@ package cn.celess.gums.config;
 import cn.celess.gums.properties.GumsProperties;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
@@ -14,8 +15,8 @@ import org.springframework.context.annotation.Configuration;
  * @author 禾几海
  */
 @Configuration
-@EnableAutoConfiguration
 @ComponentScan("cn.celess.gums")
+@EnableCaching
 @EnableConfigurationProperties({GumsProperties.class})
 public class AutoConfiguration {
 }

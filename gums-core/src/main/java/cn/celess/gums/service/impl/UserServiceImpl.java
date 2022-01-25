@@ -7,7 +7,7 @@ import cn.celess.gums.dto.UserPageQueryDto;
 import cn.celess.gums.dto.UserRegDto;
 import cn.celess.gums.dto.UserResetPwdDto;
 import cn.celess.gums.entity.User;
-import cn.celess.gums.enums.SmsCodeType;
+import cn.celess.gums.common.enums.SmsCodeType;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.model.UserDetail;
