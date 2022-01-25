@@ -5,7 +5,7 @@ import cn.celess.gums.config.ApplicationConfig;
 import cn.celess.gums.common.enums.SmsCodeType;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.dto.SmsDto;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.ArgumentMissingException;
 import cn.celess.gums.exception.CommonException;

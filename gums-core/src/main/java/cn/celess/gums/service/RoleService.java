@@ -1,6 +1,6 @@
 package cn.celess.gums.service;
 
-import cn.celess.gums.entity.Role;
+import cn.celess.gums.common.entity.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

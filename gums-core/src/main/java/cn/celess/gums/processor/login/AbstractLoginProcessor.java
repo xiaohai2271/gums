@@ -5,20 +5,19 @@ import cn.celess.gums.config.ApplicationConfig;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.convert.UserConvert;
 import cn.celess.gums.dto.UserLoginDto;
-import cn.celess.gums.entity.LoginHistory;
-import cn.celess.gums.entity.Permission;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.LoginHistory;
+import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.exception.ArgumentMissingException;
 import cn.celess.gums.exception.LoginFailedException;
 import cn.celess.gums.mapper.LoginHistoryMapper;
 import cn.celess.gums.mapper.PermissionMapper;
-import cn.celess.gums.mapper.RoleMapper;
 import cn.celess.gums.mapper.UserMapper;
-import cn.celess.gums.model.UserDetail;
+import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.response.ResponseConstant;
 import cn.celess.gums.util.JwtUtil;
 import cn.celess.gums.util.RedisUtil;
-import cn.celess.gums.util.UserContextUtil;
+import cn.celess.gums.common.utils.UserContextUtil;
 import cn.celess.gums.util.WebUtil;
 import cn.celess.gums.vo.LoginUserVO;
 
@@ -26,19 +25,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Collectors;
 
 /**
  * 2021/11/14

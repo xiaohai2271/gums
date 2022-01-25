@@ -1,21 +1,15 @@
 package cn.celess.gums.listener;
 
 import cn.celess.gums.common.annotations.PermissionRequest;
-import cn.celess.gums.entity.Permission;
+import cn.celess.gums.constants.GumsApiConstants;
+import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.properties.GumsProperties;
-import lombok.RequiredArgsConstructor;
-import lombok.experimental.Accessors;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.event.ApplicationContextInitializedEvent;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.event.ContextStartedEvent;
 import org.springframework.lang.NonNull;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 
 import java.lang.reflect.Method;
@@ -36,9 +30,6 @@ import java.util.stream.Collectors;
 public class GumsApplicationListener implements ApplicationListener<ApplicationStartedEvent> {
     private GumsProperties gumsProperties;
     private CacheManager cacheManager;
-
-    public static final String CACHE_NAME = "gums";
-    public static final String PERMISSION_KEY_NAME = "permission";
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
@@ -61,8 +52,8 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
             );
         }
 
-        Cache cache = cacheManager.getCache(CACHE_NAME);
-        Objects.requireNonNull(cache).put(PERMISSION_KEY_NAME, permissions);
+        Cache cache = cacheManager.getCache(GumsApiConstants.CACHE_NAME);
+        Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
 
         ctx.getBeansWithAnnotation(Controller.class).forEach((k, v) -> {
             List<Method> methodList = Arrays.stream(v.getClass().getMethods()).filter(m -> m.isAnnotationPresent(PermissionRequest.class)).collect(Collectors.toList());
@@ -82,7 +73,7 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
 
                     // 新增权限成功，更新权限缓存
                     permissions.add(permission);
-                    Objects.requireNonNull(cache).put(PERMISSION_KEY_NAME, permissions);
+                    Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
                 }
             });
         });

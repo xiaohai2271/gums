@@ -1,6 +1,6 @@
 package cn.celess.gums.mapper;
 
-import cn.celess.gums.entity.Permission;
+import cn.celess.gums.common.entity.Permission;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;

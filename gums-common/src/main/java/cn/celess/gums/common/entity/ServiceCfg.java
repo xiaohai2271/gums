@@ -1,19 +1,17 @@
-package cn.celess.gums.entity;
+package cn.celess.gums.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 用户信息表
+ * 服务配置信息表
  * </p>
  *
  * @author 禾几海
@@ -22,8 +20,8 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName(value = "gums_user",resultMap = "BaseResultMap")
-public class User implements Serializable {
+@TableName("gums_service_cfg")
+public class ServiceCfg implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -34,34 +32,19 @@ public class User implements Serializable {
     private Integer id;
 
     /**
-     * 用户名
+     * 服务表id
      */
-    private String username;
+    private String serviceId;
 
     /**
-     * 手机号
+     * 配置信息主键
      */
-    private String phone;
-
-    private Boolean phoneStatus;
+    private String cfgKey;
 
     /**
-     * 邮箱
+     * 配置信息值
      */
-    private String email;
-
-    private Boolean emailStatus;
-
-
-    /**
-     * 密码
-     */
-    private String password;
-
-    /**
-     * 关联服务id
-     */
-    private Integer serviceId;
+    private String cfgValue;
 
     /**
      * 创建日期
@@ -78,5 +61,5 @@ public class User implements Serializable {
      */
     private String remark;
 
-    private transient List<Role> roles;
+
 }

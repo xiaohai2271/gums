@@ -1,13 +1,13 @@
-package cn.celess.gums.model;
+package cn.celess.gums.common.model;
 
-import cn.celess.gums.entity.LoginHistory;
-import cn.celess.gums.entity.Permission;
-import cn.celess.gums.entity.Role;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.LoginHistory;
+import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.common.entity.User;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import javax.management.relation.Role;
 import java.util.List;
 
 /**

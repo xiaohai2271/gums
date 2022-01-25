@@ -1,7 +1,7 @@
 package cn.celess.gums.mapper;
 
 import cn.celess.gums.dto.UserPageQueryDto;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;

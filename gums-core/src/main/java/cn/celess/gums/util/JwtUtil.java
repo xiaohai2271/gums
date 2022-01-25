@@ -1,7 +1,7 @@
 package cn.celess.gums.util;
 
 import cn.celess.gums.config.ApplicationConfig;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.response.Response;
 import cn.celess.gums.response.ResponseConstant;

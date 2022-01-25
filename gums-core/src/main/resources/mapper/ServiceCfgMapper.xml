@@ -3,7 +3,7 @@
 <mapper namespace="cn.celess.gums.mapper.ServiceCfgMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.celess.gums.entity.ServiceCfg">
+    <resultMap id="BaseResultMap" type="cn.celess.gums.common.entity.ServiceCfg">
         <id column="id" property="id" />
         <id column="service_id" property="serviceId" />
         <result column="cfg_key" property="cfgKey" />

@@ -1,17 +1,20 @@
-package cn.celess.gums.entity;
+package cn.celess.gums.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
+
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 登录信息表
+ * 服务配置信息表
  * </p>
  *
  * @author 禾几海
@@ -20,8 +23,8 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName("gums_login_history")
-public class LoginHistory implements Serializable {
+@TableName(value = "gums_role", resultMap = "BaseResultMap")
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -32,9 +35,19 @@ public class LoginHistory implements Serializable {
     private Integer id;
 
     /**
-     * 用户id
+     * 角色编码
      */
-    private Integer userId;
+    private String roleCode;
+
+    /**
+     * 角色名称
+     */
+    private String roleName;
+
+    /**
+     * 父角色id
+     */
+    private Integer pRoleId;
 
     /**
      * 服务id
@@ -42,29 +55,19 @@ public class LoginHistory implements Serializable {
     private Integer serviceId;
 
     /**
-     * 登录平台
-     */
-    private String platform;
-
-    /**
-     * 登录ip
-     */
-    private String ip;
-
-    /**
-     * 登录浏览器
-     */
-    private String browser;
-
-    /**
      * 创建日期
      */
     private LocalDateTime createDt;
+
+    /**
+     * 更新日期
+     */
+    private LocalDateTime updateDt;
 
     /**
      * 备注
      */
     private String remark;
 
-
+    private transient List<Permission> permissions;
 }

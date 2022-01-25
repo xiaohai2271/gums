@@ -1,9 +1,8 @@
-package cn.celess.gums.util;
+package cn.celess.gums.common.utils;
 
-
-import cn.celess.gums.entity.Permission;
-import cn.celess.gums.model.UserDetail;
-import org.springframework.lang.NonNull;
+import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.common.model.UserDetail;
+import lombok.NonNull;
 
 /**
  * 2021/12/04

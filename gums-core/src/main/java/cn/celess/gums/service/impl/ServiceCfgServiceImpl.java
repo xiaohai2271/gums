@@ -1,6 +1,6 @@
 package cn.celess.gums.service.impl;
 
-import cn.celess.gums.entity.ServiceCfg;
+import cn.celess.gums.common.entity.ServiceCfg;
 import cn.celess.gums.mapper.ServiceCfgMapper;
 import cn.celess.gums.service.ServiceCfgService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

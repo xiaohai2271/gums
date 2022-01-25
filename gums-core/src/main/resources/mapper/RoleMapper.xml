@@ -3,7 +3,7 @@
 <mapper namespace="cn.celess.gums.mapper.RoleMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.celess.gums.entity.Role">
+    <resultMap id="BaseResultMap" type="cn.celess.gums.common.entity.Role">
         <id column="id" property="id" />
         <id column="role_code" property="roleCode" />
         <result column="role_name" property="roleName" />
@@ -13,11 +13,11 @@
         <result column="update_dt" property="updateDt" />
         <result column="remark" property="remark" />
         <collection property="permissions"
-                    ofType="cn.celess.gums.entity.Permission" column="id"
+                    ofType="cn.celess.gums.common.entity.Permission" column="id"
                     select="cn.celess.gums.mapper.PermissionMapper.getPermissionByRoleId" />
     </resultMap>
 
-    <select id="getRoleByUid" resultType="cn.celess.gums.entity.Role">
+    <select id="getRoleByUid" resultType="cn.celess.gums.common.entity.Role">
         SELECT *
         FROM gums_role
         WHERE id IN (SELECT role_id FROM gums_user_role WHERE user_id = #{uId})

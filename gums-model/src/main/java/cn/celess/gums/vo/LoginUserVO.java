@@ -1,6 +1,6 @@
 package cn.celess.gums.vo;
 
-import cn.celess.gums.entity.LoginHistory;
+import cn.celess.gums.common.entity.LoginHistory;
 import lombok.Data;
 import lombok.experimental.Accessors;
 

@@ -1,20 +1,17 @@
-package cn.celess.gums.entity;
+package cn.celess.gums.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.List;
-
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 
 /**
  * <p>
- * 服务配置信息表
+ * 服务信息表
  * </p>
  *
  * @author 禾几海
@@ -23,8 +20,8 @@ import lombok.experimental.Accessors;
 @Getter
 @Setter
 @Accessors(chain = true)
-@TableName(value = "gums_role", resultMap = "BaseResultMap")
-public class Role implements Serializable {
+@TableName("gums_mservice")
+public class Mservice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -35,24 +32,9 @@ public class Role implements Serializable {
     private Integer id;
 
     /**
-     * 角色编码
+     * 服务名称
      */
-    private String roleCode;
-
-    /**
-     * 角色名称
-     */
-    private String roleName;
-
-    /**
-     * 父角色id
-     */
-    private Integer pRoleId;
-
-    /**
-     * 服务id
-     */
-    private Integer serviceId;
+    private String serviceName;
 
     /**
      * 创建日期
@@ -69,5 +51,5 @@ public class Role implements Serializable {
      */
     private String remark;
 
-    private transient List<Permission> permissions;
+
 }

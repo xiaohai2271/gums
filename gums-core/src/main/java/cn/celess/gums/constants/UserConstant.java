@@ -1,7 +1,7 @@
 package cn.celess.gums.constants;
 
 
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.common.enums.SmsCodeType;
 import org.apache.commons.lang3.StringUtils;
 

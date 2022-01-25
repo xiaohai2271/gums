@@ -4,7 +4,7 @@ import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.dto.UserPageQueryDto;
 import cn.celess.gums.dto.UserRegDto;
 import cn.celess.gums.dto.UserResetPwdDto;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.page.PageVO;
 import cn.celess.gums.vo.CommonUserVO;
 import cn.celess.gums.vo.LoginUserVO;

@@ -1,16 +1,17 @@
 package cn.celess.gums.service.impl;
 
+import cn.celess.gums.common.utils.UserContextUtil;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.convert.UserConvert;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.dto.UserPageQueryDto;
 import cn.celess.gums.dto.UserRegDto;
 import cn.celess.gums.dto.UserResetPwdDto;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.common.enums.SmsCodeType;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.CommonException;
-import cn.celess.gums.model.UserDetail;
+import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.page.Pageable;
 import cn.celess.gums.processor.login.LoginProcessorFactory;
 import cn.celess.gums.mapper.UserMapper;

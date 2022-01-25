@@ -2,15 +2,14 @@ package cn.celess.gums.filter;
 
 import cn.celess.gums.constants.ApplicationConstant;
 import cn.celess.gums.constants.UserConstant;
-import cn.celess.gums.model.UserDetail;
+import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.util.JwtUtil;
 import cn.celess.gums.util.RedisUtil;
-import cn.celess.gums.util.UserContextUtil;
+import cn.celess.gums.common.utils.UserContextUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.assertj.core.util.Strings;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 

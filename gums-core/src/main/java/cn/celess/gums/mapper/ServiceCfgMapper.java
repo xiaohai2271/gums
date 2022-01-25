@@ -1,6 +1,6 @@
 package cn.celess.gums.mapper;
 
-import cn.celess.gums.entity.ServiceCfg;
+import cn.celess.gums.common.entity.ServiceCfg;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

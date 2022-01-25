@@ -4,7 +4,7 @@ package cn.celess.gums.processor.login.logic;
 import cn.celess.gums.config.ApplicationConfig;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.dto.UserLoginDto;
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.common.enums.LoginType;
 import cn.celess.gums.common.enums.SmsCodeType;
 import cn.celess.gums.exception.ArgumentException;

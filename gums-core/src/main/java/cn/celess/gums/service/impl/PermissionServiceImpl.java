@@ -1,6 +1,6 @@
 package cn.celess.gums.service.impl;
 
-import cn.celess.gums.entity.Permission;
+import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.mapper.PermissionMapper;
 import cn.celess.gums.service.PermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

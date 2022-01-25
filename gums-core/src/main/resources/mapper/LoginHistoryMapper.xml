@@ -3,7 +3,7 @@
 <mapper namespace="cn.celess.gums.mapper.LoginHistoryMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="cn.celess.gums.entity.LoginHistory">
+    <resultMap id="BaseResultMap" type="cn.celess.gums.common.entity.LoginHistory">
         <id column="id" property="id" />
         <id column="user_id" property="userId" />
         <result column="service_id" property="serviceId" />

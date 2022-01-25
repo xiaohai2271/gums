@@ -1,6 +1,6 @@
 package cn.celess.gums.service.impl;
 
-import cn.celess.gums.entity.Role;
+import cn.celess.gums.common.entity.Role;
 import cn.celess.gums.mapper.RoleMapper;
 import cn.celess.gums.service.RoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

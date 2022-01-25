@@ -1,12 +1,11 @@
 package cn.celess.gums.convert;
 
-import cn.celess.gums.entity.User;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.vo.CommonUserVO;
 import cn.celess.gums.vo.LoginUserVO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
-import org.mapstruct.ReportingPolicy;
 import org.mapstruct.factory.Mappers;
 
 /**

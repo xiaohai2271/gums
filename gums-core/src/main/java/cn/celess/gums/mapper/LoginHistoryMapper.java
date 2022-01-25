@@ -1,6 +1,6 @@
 package cn.celess.gums.mapper;
 
-import cn.celess.gums.entity.LoginHistory;
+import cn.celess.gums.common.entity.LoginHistory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
