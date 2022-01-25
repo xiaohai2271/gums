@@ -3,6 +3,8 @@ package cn.celess.gums.dto;
 import cn.celess.gums.page.Pageable;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 /**
  * 2021/12/04
  *
@@ -20,15 +22,23 @@ public class UserPageQueryDto {
      */
     private String phone;
 
+    private String email;
+
+    private Boolean phoneStatus;
+
+    private Boolean emailStatus;
     /**
      * 账户账号
      */
-    private String account;
+    private String username;
 
-    /**
-     * 密码
-     */
-    private String password;
+    private String remark;
+
+    private Integer serviceId;
+
+    private LocalDateTime createDtStart;
+
+    private LocalDateTime createDtEnd;
 
     private Pageable pageable;
 }

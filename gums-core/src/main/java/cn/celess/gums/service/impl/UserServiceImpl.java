@@ -11,6 +11,7 @@ import cn.celess.gums.enums.SmsCodeType;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.model.UserDetail;
+import cn.celess.gums.page.Pageable;
 import cn.celess.gums.processor.login.LoginProcessorFactory;
 import cn.celess.gums.mapper.UserMapper;
 import cn.celess.gums.page.PageVO;
@@ -20,6 +21,8 @@ import cn.celess.gums.util.*;
 import cn.celess.gums.vo.CommonUserVO;
 import cn.celess.gums.vo.LoginUserVO;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -40,8 +43,6 @@ import java.util.Objects;
 @RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
-    @Resource
-    private UserMapper userMapper;
     @Resource
     private LoginProcessorFactory loginProcessorFactory;
 
@@ -135,7 +136,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public CommonUserVO queryById(Integer id) {
         User user = baseMapper.selectById(id);
-        return null;
+        return UserConvert.INSTANCE.toCommonUserVO(user);
     }
 
 
@@ -146,11 +147,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
      */
     @Override
     public PageVO<CommonUserVO> pageQuery(UserPageQueryDto pageQueryDto) {
-//        Pageable pageable = DataProcessorUtil.handlePageable(pageQueryDto.getPageable());
-//        PageHelper.startPage(pageable.getPageNum(), pageable.getPageSize());
-//        Page<User> users = (Page<User>) baseMapper.queryAll(pageQueryDto);
-//        return PageVOUtil.of(users, UserModelConverter::toCommonUserVO);
-        return null;
+        Pageable pageable = pageQueryDto.getPageable();
+        IPage<CommonUserVO> page = baseMapper.pageQuery(new Page<>(pageable.getPageNum(), pageable.getPageSize()), pageQueryDto)
+                .convert(UserConvert.INSTANCE::toCommonUserVO);
+        PageVO<CommonUserVO> pageVO = new PageVO<>(page.getTotal(), page.getRecords());
+        pageVO.setPageNum(pageable.getPageNum())
+                .setPageSize(pageable.getPageSize());
+        return pageVO;
     }
 
     /**
@@ -162,7 +165,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public CommonUserVO insert(User user) {
         baseMapper.insert(user);
-        return null;
+        return UserConvert.INSTANCE.toCommonUserVO(user);
     }
 
     /**

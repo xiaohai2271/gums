@@ -4,20 +4,52 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="cn.celess.gums.entity.User">
-        <id column="id" property="id" />
-        <id column="username" property="username" />
-        <result column="phone" property="phone" />
-        <result column="phone_status" property="phoneStatus" />
-        <result column="email" property="email" />
-        <result column="email_status" property="emailStatus" />
-        <result column="password" property="password" />
-        <result column="service_id" property="serviceId" />
-        <result column="create_dt" property="createDt" />
-        <result column="update_dt" property="updateDt" />
-        <result column="remark" property="remark" />
+        <id column="id" property="id"/>
+        <id column="username" property="username"/>
+        <result column="phone" property="phone"/>
+        <result column="phone_status" property="phoneStatus"/>
+        <result column="email" property="email"/>
+        <result column="email_status" property="emailStatus"/>
+        <result column="password" property="password"/>
+        <result column="service_id" property="serviceId"/>
+        <result column="create_dt" property="createDt"/>
+        <result column="update_dt" property="updateDt"/>
+        <result column="remark" property="remark"/>
         <collection property="roles"
                     ofType="cn.celess.gums.entity.Role" column="id"
-                    select="cn.celess.gums.mapper.RoleMapper.getRoleByUid" />
+                    select="cn.celess.gums.mapper.RoleMapper.getRoleByUid"/>
     </resultMap>
+    <select id="pageQuery" resultMap="BaseResultMap">
+        select * from gums_user
+        <where>
+            <if test="query.username != null and query.username != ''">
+                and username like %#{query.username}%
+            </if>
+            <if test="query.remark != null and query.remark != ''">
+                and remark like %#{query.remark}%
+            </if>
+            <if test="query.phone != null and query.phone != ''">
+                and phone like %#{query.phone}%
+            </if>
+            <if test="query.email != null and query.email != ''">
+                and email like %#{query.email}%
+            </if>
+            <if test="query.serviceId != null">
+                and service_id = #{query.serviceId}
+            </if>
+            <if test="query.phoneStatus != null">
+                and phone_status = #{query.phoneStatus}
+            </if>
+            <if test="query.emailStatus != null">
+                and email_status = #{query.emailStatus}
+            </if>
+            <if test="query.createDtStart != null">
+                and create_dt &gt;= #{query.createDtStart}
+            </if>
+            <if test="query.createDtEnd != null">
+                and create_dt &lt;= #{query.createDtEnd}
+            </if>
+        </where>
+    </select>
 
 </mapper>
