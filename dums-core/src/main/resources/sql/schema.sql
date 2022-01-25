@@ -32,6 +32,8 @@ create table dums_mservice
 (
     id           serial primary key,
     service_name varchar,
+    redirect_uri varchar,
+    data_url     varchar,
     create_dt    timestamp not null,
     update_dt    timestamp default null,
     remark       varchar   default null
@@ -39,6 +41,8 @@ create table dums_mservice
 comment on table dums_mservice is '服务信息表';
 comment on column dums_mservice.id is '主键';
 comment on column dums_mservice.service_name is '服务名称';
+comment on column dums_mservice.redirect_uri is '登录成功后重定向页面到应用的地址';
+comment on column dums_mservice.data_url is '数据推送地址';
 comment on column dums_mservice.create_dt is '创建日期';
 comment on column dums_mservice.update_dt is '更新日期';
 comment on column dums_mservice.remark is '备注';
@@ -52,6 +56,7 @@ create table dums_user
     email        varchar,
     email_status bool      default false,
     password     varchar,
+    data         jsonb,
     service_id   int       not null,
     create_dt    timestamp not null,
     update_dt    timestamp default null,
@@ -63,6 +68,7 @@ comment on column dums_user.username is '用户名';
 comment on column dums_user.phone is '手机号';
 comment on column dums_user.email is '邮箱';
 comment on column dums_user.password is '密码';
+comment on column dums_user.data is '用户详细信息，由服务决定其格式';
 comment on column dums_user.service_id is '关联服务id';
 comment on column dums_user.create_dt is '创建日期';
 comment on column dums_user.update_dt is '更新日期';
