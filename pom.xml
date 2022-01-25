@@ -25,6 +25,7 @@
         <module>gums-core</module>
         <module>gums-model</module>
         <module>gums-api</module>
+        <module>gums-example</module>
     </modules>
 
     <dependencies>
