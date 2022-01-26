@@ -2,7 +2,7 @@ package cn.celess.gums.service;
 
 import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.dto.PrmQueryDTO;
-import cn.celess.gums.page.PageVO;
+import cn.celess.gums.common.page.PageVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

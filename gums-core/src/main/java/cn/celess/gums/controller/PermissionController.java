@@ -2,13 +2,12 @@ package cn.celess.gums.controller;
 
 import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.dto.PrmQueryDTO;
-import cn.celess.gums.page.PageVO;
+import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.response.Response;
 import cn.celess.gums.service.PermissionService;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>date: 2022/01/25</P>

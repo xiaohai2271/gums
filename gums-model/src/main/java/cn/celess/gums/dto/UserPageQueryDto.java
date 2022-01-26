@@ -1,6 +1,6 @@
 package cn.celess.gums.dto;
 
-import cn.celess.gums.page.Pageable;
+import cn.celess.gums.common.page.Pageable;
 import lombok.Data;
 
 import java.time.LocalDateTime;

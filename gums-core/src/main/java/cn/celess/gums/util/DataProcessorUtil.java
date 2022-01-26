@@ -8,7 +8,7 @@ import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.dto.UserMobileVerifyDto;
 import cn.celess.gums.exception.ArgumentMissingException;
 import cn.celess.gums.exception.CommonException;
-import cn.celess.gums.page.Pageable;
+import cn.celess.gums.common.page.Pageable;
 import cn.celess.gums.response.ResponseConstant;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

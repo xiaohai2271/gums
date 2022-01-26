@@ -2,7 +2,7 @@ package cn.celess.gums.util;
 
 import cn.celess.gums.convert.AbstractConverter;
 import cn.celess.gums.interfaces.Privacy;
-import cn.celess.gums.page.PageVO;
+import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.response.Response;
 import lombok.AllArgsConstructor;
 import lombok.Data;

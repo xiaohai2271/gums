@@ -5,12 +5,9 @@ import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.dto.PrmQueryDTO;
 import cn.celess.gums.mapper.MserviceMapper;
 import cn.celess.gums.mapper.PermissionMapper;
-import cn.celess.gums.page.PageVO;
-import cn.celess.gums.service.MserviceService;
+import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.service.PermissionService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 

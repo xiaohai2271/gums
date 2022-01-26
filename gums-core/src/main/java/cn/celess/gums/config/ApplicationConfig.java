@@ -1,6 +1,6 @@
 package cn.celess.gums.config;
 
-import cn.celess.gums.page.Pageable;
+import cn.celess.gums.common.page.Pageable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
