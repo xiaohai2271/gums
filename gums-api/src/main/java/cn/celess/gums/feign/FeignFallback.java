@@ -4,6 +4,9 @@ import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.common.response.Response;
 import cn.celess.gums.dto.PrmQueryDTO;
+import cn.celess.gums.dto.PrmSaveDTO;
+
+import java.util.List;
 
 /**
  * <p>date: 2022/01/26</P>
@@ -15,6 +18,11 @@ import cn.celess.gums.dto.PrmQueryDTO;
 public class FeignFallback implements GumsApiService{
     @Override
     public Response<PageVO<Permission>> queryPermission(Integer serviceId, PrmQueryDTO permission) {
+        return null;
+    }
+
+    @Override
+    public Response<List<Permission>> batchSavePermission(PrmSaveDTO permissions) {
         return null;
     }
 }

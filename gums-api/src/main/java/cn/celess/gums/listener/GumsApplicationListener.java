@@ -7,6 +7,7 @@ import cn.celess.gums.common.response.Response;
 import cn.celess.gums.constants.GumsApiConstants;
 import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.dto.PrmQueryDTO;
+import cn.celess.gums.dto.PrmSaveDTO;
 import cn.celess.gums.feign.GumsApiService;
 import cn.celess.gums.properties.GumsProperties;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
@@ -47,16 +48,22 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
                         .setSecretKey(gumsProperties.getSecretKey())
         );
 
-        PageVO<Permission> pageVO = Optional.of(pageVOResponse.getData()).orElseThrow(() -> new RuntimeException("获取权限列表失败"));
+        PageVO<Permission> pageVO = Optional.of(pageVOResponse.getData())
+                .orElseThrow(() -> new RuntimeException("获取权限列表失败"));
 
         List<Permission> permissions = pageVO.getList();
 
         Cache cache = cacheManager.getCache(GumsApiConstants.CACHE_NAME);
         Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
 
-        ctx.getBeansWithAnnotation(Controller.class).forEach((k, v) -> {
-            List<Method> methodList = Arrays.stream(v.getClass().getMethods()).filter(m -> m.isAnnotationPresent(PermissionRequest.class)).collect(Collectors.toList());
-            methodList.forEach(m -> {
+        List<Permission> batchSaveList = new ArrayList<>();
+        Map<String, Object> objectMap = ctx.getBeansWithAnnotation(Controller.class);
+        for (Map.Entry<String, Object> entry : objectMap.entrySet()) {
+
+            List<Method> methodList = Arrays.stream(entry.getValue().getClass().getMethods())
+                    .filter(m -> m.isAnnotationPresent(PermissionRequest.class))
+                    .collect(Collectors.toList());
+            for (Method m : methodList) {
                 PermissionRequest permissionRequest = m.getAnnotation(PermissionRequest.class);
                 Permission permission = new Permission();
                 permission.setServiceId(gumsProperties.getServiceId())
@@ -66,15 +73,18 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
                 if (!isExist) {
                     // 接口查询权限不存在，调接口新增权限
                     permission.setPermissionName(permissionRequest.name())
-                            .setRemark(permissionRequest.description())
-                            .setCreateDt(LocalDateTime.now());
-                    // todo: 存数据库
-
+                            .setRemark(permissionRequest.description());
+                    batchSaveList.add(permission);
                     // 新增权限成功，更新权限缓存
-                    permissions.add(permission);
-                    Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
                 }
-            });
-        });
+            }
+        }
+        PrmSaveDTO prmSaveDTO = new PrmSaveDTO().setPermissions(batchSaveList)
+                .setServiceId(gumsProperties.getServiceId())
+                .setSecretKey(gumsProperties.getSecretKey());
+        Response<List<Permission>> listResponse = apiService.batchSavePermission(prmSaveDTO);
+
+        List<Permission> response = Optional.of(listResponse.getData()).orElseThrow(() -> new RuntimeException("新增权限失败"));
+        permissions.addAll(response);
     }
 }

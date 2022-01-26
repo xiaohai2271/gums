@@ -3,7 +3,10 @@ package cn.celess.gums.service;
 import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.dto.PrmQueryDTO;
 import cn.celess.gums.common.page.PageVO;
+import cn.celess.gums.dto.PrmSaveDTO;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -23,4 +26,12 @@ public interface PermissionService extends IService<Permission> {
      * @return 权限列表
      */
     PageVO<Permission> queryPage(PrmQueryDTO permission, Integer serviceId);
+
+    /**
+     * 新增权限
+     *
+     * @param permission 权限信息
+     * @return 新增权限
+     */
+    List<Permission> savePermission(PrmSaveDTO permission);
 }

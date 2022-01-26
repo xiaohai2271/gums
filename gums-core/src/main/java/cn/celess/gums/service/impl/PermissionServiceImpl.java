@@ -5,6 +5,7 @@ import cn.celess.gums.common.entity.Permission;
 import cn.celess.gums.common.entity.ServiceCfg;
 import cn.celess.gums.constants.ServiceConstant;
 import cn.celess.gums.dto.PrmQueryDTO;
+import cn.celess.gums.dto.PrmSaveDTO;
 import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.mapper.MserviceMapper;
 import cn.celess.gums.mapper.PermissionMapper;
@@ -17,7 +18,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * <p>
@@ -37,10 +42,26 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
 
     @Override
     public PageVO<Permission> queryPage(PrmQueryDTO permission, Integer serviceId) {
+        Mservice mservice = checkServiceReq(serviceId, permission.getSecretKey());
+        return PageVO.of(
+                baseMapper.selectPage(permission.getPageable().build(),
+                        new LambdaQueryWrapper<>(Permission.class)
+                                .eq(Permission::getServiceId, mservice.getId()))
+        );
+    }
 
+    @Override
+    public List<Permission> savePermission(PrmSaveDTO permission) {
+        checkServiceReq(permission.getServiceId(), permission.getSecretKey());
+        List<Permission> permissionList = permission.getPermissions();
+        permissionList.forEach(p -> p.setId(null).setCreateDt(LocalDateTime.now()));
+        saveBatch(permissionList);
+        return permissionList;
+    }
+
+    private Mservice checkServiceReq(Integer serviceId, String secretKey) {
         Mservice mservice = Optional.of(mserviceMapper.selectById(serviceId))
                 .orElseThrow(() -> new CommonException(ResponseConstant.SERVICE_NOT_EXIST));
-        String secretKey = permission.getSecretKey();
         ServiceCfg serviceCfg = Optional.of(serviceCfgMapper.selectOne(new LambdaQueryWrapper<ServiceCfg>()
                 .eq(ServiceCfg::getServiceId, serviceId)
                 .eq(ServiceCfg::getCfgKey, ServiceConstant.SERVICE_CFG_SECRET_KEY)
@@ -49,11 +70,6 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
         if (!secretKey.equals(serviceCfg.getCfgValue())) {
             throw new CommonException(ResponseConstant.SERVICE_SECRET_KEY_NOT_MATCH);
         }
-
-        return PageVO.of(
-                baseMapper.selectPage(permission.getPageable().build(),
-                        new LambdaQueryWrapper<>(Permission.class)
-                                .eq(Permission::getServiceId, mservice.getId()))
-        );
+        return mservice;
     }
 }
