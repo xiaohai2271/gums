@@ -19,6 +19,6 @@ public class PrmQueryDTO {
     private String type;
     private String description;
     private String remark;
-    private String key;
+    private String secretKey;
     private Pageable pageable;
 }

@@ -10,7 +10,7 @@ drop table if exists gums_user_role;
 create table gums_service_cfg
 (
     id         serial primary key,
-    service_id varchar,
+    service_id int,
     cfg_key    varchar,
     cfg_value  varchar,
     create_dt  timestamp not null,

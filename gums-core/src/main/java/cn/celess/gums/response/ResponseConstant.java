@@ -41,6 +41,7 @@ public enum ResponseConstant {
     ARGUMENT_ERROR(2200, "参数错误"),
     ARGUMENT_OF_TYPE_ERROR(2201, "类型参数错误"),
     CONFIRM_PASSWORD_NOT_MATCH(2202, "确认密码不匹配"),
+    SERVICE_SECRET_KEY_NOT_MATCH(2203,"服务密钥不匹配" ),
 
     ACCOUNT_EXIST(2300, "账户已存在"),
     ACCOUNT_NOT_EXIST(2301, "账户不存在"),
@@ -55,8 +56,10 @@ public enum ResponseConstant {
     PERMISSION_DENIED(2301, "权限不足"),
 
     UNKNOWN_ERROR(9999, "未知错误"),
-    LOGIN_TYPE_NOT_SUPPORT(2401, "该登录方式暂时无法使用");
+    LOGIN_TYPE_NOT_SUPPORT(2401, "该登录方式暂时无法使用"),
 
+    SERVICE_NOT_EXIST(2501, "该服务不存在"),
+    SERVICE_SECRET_KEY_NOT_EXIST(2502, "服务密钥不存在");
 
     private final Integer status;
     private final String message;
