@@ -1,4 +1,4 @@
-package cn.celess.gums.response;
+package cn.celess.gums.common.response;
 
 import lombok.Getter;
 

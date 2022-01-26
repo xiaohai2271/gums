@@ -1,7 +1,7 @@
 package cn.celess.gums.exception;
 
-import cn.celess.gums.response.Response;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.Response;
+import cn.celess.gums.common.response.ResponseConstant;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

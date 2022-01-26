@@ -1,7 +1,7 @@
 package cn.celess.gums.exception;
 
 
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 
 /**
  * 2021/12/29

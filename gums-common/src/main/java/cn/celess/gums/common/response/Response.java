@@ -1,6 +1,7 @@
-package cn.celess.gums.response;
+package cn.celess.gums.common.response;
 
 import lombok.Data;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 /**
@@ -11,6 +12,7 @@ import lombok.experimental.Accessors;
  */
 @Data
 @Accessors(chain = true)
+@ToString
 public class Response<T> {
     private Integer status;
     private String message;

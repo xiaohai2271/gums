@@ -11,7 +11,7 @@ import cn.celess.gums.exception.ArgumentMissingException;
 import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.exception.LoginFailedException;
 import cn.celess.gums.mapper.UserMapper;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import cn.celess.gums.service.CommonService;
 import cn.celess.gums.util.RedisUtil;
 import cn.celess.gums.util.ValidUtil;

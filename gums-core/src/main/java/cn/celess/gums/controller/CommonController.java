@@ -2,7 +2,7 @@ package cn.celess.gums.controller;
 
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.dto.SmsDto;
-import cn.celess.gums.response.Response;
+import cn.celess.gums.common.response.Response;
 import cn.celess.gums.service.CommonService;
 import cn.celess.gums.util.ImageVerifyCodeUtil;
 import io.swagger.annotations.Api;

@@ -1,3 +1,4 @@
 gums:
   service-name: gums-example
-  service-id: 2
+  service-id: 1
+  secret-key: 6c8e7923f116a85dd3ed7fafd7353b5a

@@ -8,7 +8,7 @@ import cn.celess.gums.dto.UserRegDto;
 import cn.celess.gums.dto.UserResetPwdDto;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.ArgumentMissingException;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;

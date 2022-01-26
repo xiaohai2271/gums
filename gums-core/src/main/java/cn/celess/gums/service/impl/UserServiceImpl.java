@@ -16,7 +16,7 @@ import cn.celess.gums.common.page.Pageable;
 import cn.celess.gums.processor.login.LoginProcessorFactory;
 import cn.celess.gums.mapper.UserMapper;
 import cn.celess.gums.common.page.PageVO;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import cn.celess.gums.service.UserService;
 import cn.celess.gums.util.*;
 import cn.celess.gums.vo.CommonUserVO;

@@ -13,7 +13,7 @@ import cn.celess.gums.exception.CommonException;
 import cn.celess.gums.exception.LoginFailedException;
 import cn.celess.gums.processor.login.AbstractLoginProcessor;
 import cn.celess.gums.processor.login.LoginProcessor;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import cn.celess.gums.util.DataProcessorUtil;
 import cn.celess.gums.util.RedisUtil;
 import cn.celess.gums.util.RegexUtil;

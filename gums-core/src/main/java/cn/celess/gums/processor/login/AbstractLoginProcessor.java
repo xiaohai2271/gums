@@ -14,7 +14,7 @@ import cn.celess.gums.mapper.LoginHistoryMapper;
 import cn.celess.gums.mapper.PermissionMapper;
 import cn.celess.gums.mapper.UserMapper;
 import cn.celess.gums.common.model.UserDetail;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import cn.celess.gums.util.JwtUtil;
 import cn.celess.gums.util.RedisUtil;
 import cn.celess.gums.common.utils.UserContextUtil;

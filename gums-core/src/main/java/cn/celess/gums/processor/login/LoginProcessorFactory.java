@@ -4,7 +4,7 @@ import cn.celess.gums.context.GumsApplicationContext;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.LoginFailedException;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import cn.celess.gums.util.DataProcessorUtil;
 import cn.celess.gums.vo.LoginUserVO;
 import lombok.extern.slf4j.Slf4j;

@@ -10,7 +10,7 @@ import cn.celess.gums.mapper.MserviceMapper;
 import cn.celess.gums.mapper.PermissionMapper;
 import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.mapper.ServiceCfgMapper;
-import cn.celess.gums.response.ResponseConstant;
+import cn.celess.gums.common.response.ResponseConstant;
 import cn.celess.gums.service.PermissionService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

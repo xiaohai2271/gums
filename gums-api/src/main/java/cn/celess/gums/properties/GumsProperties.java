@@ -25,4 +25,6 @@ public class GumsProperties {
      * 服务名称
      */
     private String serviceName;
+
+    private String secretKey;
 }
