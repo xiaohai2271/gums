@@ -1,7 +1,14 @@
 package cn.celess.gums.controller;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.dto.PrmQueryDTO;
+import cn.celess.gums.page.PageVO;
+import cn.celess.gums.response.Response;
+import cn.celess.gums.service.PermissionService;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>date: 2022/01/25</P>
@@ -13,4 +20,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/permission")
 public class PermissionController {
+
+    @Resource
+    private PermissionService permissionService;
+
+    @PostMapping("/list/{serviceId}")
+    public Response<PageVO<Permission>> queryPermission(@PathVariable("serviceId") Integer serviceId,
+                                                        @RequestBody PrmQueryDTO permission) {
+        return Response.success(permissionService.queryPage(permission, serviceId));
+    }
 }

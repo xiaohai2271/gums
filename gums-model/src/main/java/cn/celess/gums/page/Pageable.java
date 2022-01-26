@@ -1,5 +1,7 @@
 package cn.celess.gums.page;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,11 @@ import java.io.Serializable;
 public class Pageable implements Serializable {
     private static final long serialVersionUID = -8231258776829592435L;
 
-    private Integer pageNum;
-    private Integer pageSize;
+    private Long pageNum;
+    private Long pageSize;
+
+
+    public <T> Page<T> build() {
+        return new Page<>(pageNum, pageSize);
+    }
 }

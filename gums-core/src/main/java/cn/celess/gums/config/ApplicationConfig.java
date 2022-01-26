@@ -36,7 +36,7 @@ public class ApplicationConfig {
         return ApplicationConfigHolder.instance;
     }
 
-    public Pageable defaultPageable = new Pageable(1, 10);
+    public Pageable defaultPageable = new Pageable(1L, 10L);
     /**
      * 最大错误登录次数
      * TODO (setting): 后台可调
