@@ -1,8 +1,13 @@
 package cn.celess.gums.listener;
 
 import cn.celess.gums.common.annotations.PermissionRequest;
+import cn.celess.gums.common.page.PageVO;
+import cn.celess.gums.common.page.Pageable;
+import cn.celess.gums.common.response.Response;
 import cn.celess.gums.constants.GumsApiConstants;
 import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.dto.PrmQueryDTO;
+import cn.celess.gums.feign.GumsApiService;
 import cn.celess.gums.properties.GumsProperties;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cache.Cache;
@@ -14,10 +19,7 @@ import org.springframework.stereotype.Controller;
 
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -38,19 +40,16 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
         gumsProperties = ctx.getBean("gumsProperties", GumsProperties.class);
         cacheManager = ctx.getBean(CacheManager.class);
 
-        List<Permission> permissions = new ArrayList<>(); // todo: 查数据库， 本service的权限
+        GumsApiService apiService = ctx.getBean(GumsApiService.class);
 
-        // fixme: test data
-        {
-            permissions.add(new Permission()
-                    .setPermissionCode("test1")
-                    .setPermissionName("测试权限1")
-                    .setId(1)
-                    .setRemark("测试权限1")
-                    .setServiceId(1)
-                    .setCreateDt(LocalDateTime.now())
-            );
-        }
+        Response<PageVO<Permission>> pageVOResponse = apiService.queryPermission(gumsProperties.getServiceId(),
+                new PrmQueryDTO().setPageable(new Pageable(1L, Long.MAX_VALUE))
+                        .setSecretKey(gumsProperties.getSecretKey())
+        );
+
+        PageVO<Permission> pageVO = Optional.of(pageVOResponse.getData()).orElseThrow(() -> new RuntimeException("获取权限列表失败"));
+
+        List<Permission> permissions = pageVO.getList();
 
         Cache cache = cacheManager.getCache(GumsApiConstants.CACHE_NAME);
         Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
