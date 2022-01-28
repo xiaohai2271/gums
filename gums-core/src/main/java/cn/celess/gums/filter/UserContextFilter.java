@@ -1,6 +1,6 @@
 package cn.celess.gums.filter;
 
-import cn.celess.gums.constants.ApplicationConstant;
+import cn.celess.gums.common.constant.CommonConstant;
 import cn.celess.gums.constants.UserConstant;
 import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.util.JwtUtil;
@@ -35,10 +35,10 @@ public class UserContextFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
         try {
-            String auth = ((HttpServletRequest) request).getHeader(ApplicationConstant.AUTH_HEADER_KEY);
+            String auth = ((HttpServletRequest) request).getHeader(CommonConstant.AUTH_HEADER_KEY);
             if (auth != null) {
                 // FIXME: 2021年12月4日 用户信息存在redis中，需要改进，不需要每次都进行查询
-                String token = auth.replaceFirst(ApplicationConstant.AUTH_HEADER_VALUE_PREFIX, "");
+                String token = auth.replaceFirst(CommonConstant.AUTH_HEADER_VALUE_PREFIX, "");
                 String userJson = RedisUtil.get(UserConstant.getCacheNameOfUser(JwtUtil.getUserIdFromToken(token)));
                 try {
                     if (StringUtils.isNoneBlank(userJson)) {

@@ -9,14 +9,6 @@ package cn.celess.gums.constants;
 public class ApplicationConstant {
     public static final String APPLICATION_NAME = "gums";
 
-    /**
-     * 请求头存放token的key
-     */
-    public static final String AUTH_HEADER_KEY = "Authorization";
-    /**
-     * Token 格式 Bearer token
-     */
-    public static final String AUTH_HEADER_VALUE_PREFIX = "Bearer";
 
     /**
      * ApplicationConfig 的本地配置
