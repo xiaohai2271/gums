@@ -18,12 +18,13 @@ import java.io.IOException;
  * @author 禾几海
  */
 @Slf4j
-@Order(1)
+@Order(2)
 @Component
-@WebFilter(filterName = "userContextFilter", urlPatterns = "/*")
+@WebFilter(filterName = "permissionFilter", urlPatterns = "/*")
 public class PermissionFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        log.info("permissionFilter");
         UserDetail user = UserContextUtil.getUser();
         // todo: 1.获取到待调用的method 和对应的权限
 
