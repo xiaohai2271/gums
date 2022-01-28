@@ -21,7 +21,7 @@ public class TestPermissionController {
     }
 
 
-    @GetMapping("/permission/test1")
+    @GetMapping({"/permission/test1","/test1"})
     @PermissionRequest("test1")
     public String test1Permission() {
         return "Now you see me! I`m test1";

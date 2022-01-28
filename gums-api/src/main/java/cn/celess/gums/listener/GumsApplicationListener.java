@@ -39,8 +39,6 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
         ConfigurableApplicationContext ctx = event.getApplicationContext();
 
-
-
         gumsProperties = ctx.getBean("gumsProperties", GumsProperties.class);
         cacheManager = ctx.getBean(CacheManager.class);
 
