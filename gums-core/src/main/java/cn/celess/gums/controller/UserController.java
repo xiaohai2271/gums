@@ -1,6 +1,8 @@
 package cn.celess.gums.controller;
 
 import cn.celess.gums.common.annotations.PermissionRequest;
+import cn.celess.gums.common.model.UserDetail;
+import cn.celess.gums.common.utils.UserContextUtil;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.dto.UserPageQueryDto;
 import cn.celess.gums.dto.UserRegDto;
@@ -55,6 +57,13 @@ public class UserController {
     public Response<CommonUserVO> userInfo() {
         return Response.success(userService.getUserInfo());
     }
+
+    @GetMapping("/detail")
+    @ApiOperation("服务-获取当前登录用户详细信息")
+    public Response<UserDetail> detailUserInfo() {
+        return Response.success(UserContextUtil.getUser());
+    }
+
 
     @PostMapping("/reset/pwd")
     @ApiOperation("重置密码")

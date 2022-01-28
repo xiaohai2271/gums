@@ -11,6 +11,7 @@ import lombok.NonNull;
  */
 public class UserContextUtil {
     private static final ThreadLocal<UserDetail> userThreadLocal = new ThreadLocal<>();
+    private static final ThreadLocal<String> tokenThreadLocal = new ThreadLocal<>();
 
     /**
      * 设置用户
@@ -46,5 +47,13 @@ public class UserContextUtil {
             }
         }
         return false;
+    }
+
+    public static String getToken() {
+        return tokenThreadLocal.get();
+    }
+
+    public static void setToken(String token) {
+        tokenThreadLocal.set(token.trim());
     }
 }

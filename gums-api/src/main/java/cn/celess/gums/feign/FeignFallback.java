@@ -1,10 +1,12 @@
 package cn.celess.gums.feign;
 
 import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.common.response.Response;
 import cn.celess.gums.dto.PrmQueryDTO;
 import cn.celess.gums.dto.PrmSaveDTO;
+import cn.celess.gums.vo.CommonUserVO;
 
 import java.util.List;
 
@@ -15,7 +17,7 @@ import java.util.List;
  *
  * @author 禾几海
  */
-public class FeignFallback implements GumsApiService{
+public class FeignFallback implements GumsApiService {
     @Override
     public Response<PageVO<Permission>> queryPermission(Integer serviceId, PrmQueryDTO permission) {
         return null;
@@ -23,6 +25,21 @@ public class FeignFallback implements GumsApiService{
 
     @Override
     public Response<List<Permission>> batchSavePermission(PrmSaveDTO permissions) {
+        return null;
+    }
+
+    @Override
+    public Response<CommonUserVO> userInfo() {
+        return null;
+    }
+
+    @Override
+    public Response<String> getCache(String key) {
+        return null;
+    }
+
+    @Override
+    public Response<UserDetail> detailUserInfo() {
         return null;
     }
 }

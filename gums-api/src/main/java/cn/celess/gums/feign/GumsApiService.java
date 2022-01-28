@@ -1,15 +1,14 @@
 package cn.celess.gums.feign;
 
 import cn.celess.gums.common.entity.Permission;
+import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.common.response.Response;
 import cn.celess.gums.dto.PrmQueryDTO;
 import cn.celess.gums.dto.PrmSaveDTO;
+import cn.celess.gums.vo.CommonUserVO;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,10 +25,20 @@ import java.util.List;
         fallback = FeignFallback.class
 )
 public interface GumsApiService {
-    @PostMapping("/permission/list/{serviceId}")
+    @PostMapping("/api/permission/list/{serviceId}")
     Response<PageVO<Permission>> queryPermission(@PathVariable("serviceId") Integer serviceId, @RequestBody PrmQueryDTO permission);
 
+    @GetMapping("/api/user/")
+    public Response<CommonUserVO> userInfo();
 
-    @PutMapping("/permission/save")
+    @PutMapping("/api/permission/save")
     Response<List<Permission>> batchSavePermission(@RequestBody PrmSaveDTO permissions);
+
+
+    @GetMapping("/api/cache")
+    Response<String> getCache(String key);
+
+    @GetMapping("/api/user/detail")
+    Response<UserDetail> detailUserInfo();
+
 }

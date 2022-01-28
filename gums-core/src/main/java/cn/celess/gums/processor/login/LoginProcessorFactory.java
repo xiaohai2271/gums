@@ -1,6 +1,6 @@
 package cn.celess.gums.processor.login;
 
-import cn.celess.gums.context.GumsApplicationContext;
+import cn.celess.gums.common.context.GumsApplicationContext;
 import cn.celess.gums.dto.UserLoginDto;
 import cn.celess.gums.exception.ArgumentException;
 import cn.celess.gums.exception.LoginFailedException;

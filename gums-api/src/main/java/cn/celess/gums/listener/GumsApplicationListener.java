@@ -1,6 +1,7 @@
 package cn.celess.gums.listener;
 
 import cn.celess.gums.common.annotations.PermissionRequest;
+import cn.celess.gums.common.context.GumsApplicationContext;
 import cn.celess.gums.common.page.PageVO;
 import cn.celess.gums.common.page.Pageable;
 import cn.celess.gums.common.response.Response;
@@ -37,6 +38,8 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
         ConfigurableApplicationContext ctx = event.getApplicationContext();
+
+
 
         gumsProperties = ctx.getBean("gumsProperties", GumsProperties.class);
         cacheManager = ctx.getBean(CacheManager.class);

@@ -1,9 +1,9 @@
-package cn.celess.gums.context;
+package cn.celess.gums.common.context;
 
+import lombok.NonNull;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 /**

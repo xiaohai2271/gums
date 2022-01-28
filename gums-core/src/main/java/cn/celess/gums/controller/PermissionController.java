@@ -20,7 +20,7 @@ import java.util.List;
  * @author 禾几海
  */
 @RestController
-@RequestMapping("/permission")
+@RequestMapping("/api/permission")
 public class PermissionController {
 
     @Resource
