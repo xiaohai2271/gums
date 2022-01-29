@@ -50,7 +50,6 @@ public class PermissionFilter implements Filter {
                     PermissionRequest permissionRequest = method.getMethodAnnotation(PermissionRequest.class);
                     if (permissionRequest != null && !UserContextUtil.hasPermission(permissionRequest.value())) {
                         log.info("没有权限");
-                        // todo:: 给个response
                         if (requirePrmResponse != null) {
                             String res = requirePrmResponse.response((HttpServletRequest) request, (HttpServletResponse) response);
                             response.getWriter().println(res);

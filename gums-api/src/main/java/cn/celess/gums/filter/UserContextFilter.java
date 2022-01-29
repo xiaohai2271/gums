@@ -38,7 +38,7 @@ public class UserContextFilter implements Filter {
             UserContextUtil.setToken(token);
 
             Response<UserDetail> userDetailResponse = gumsApiService.detailUserInfo();
-            if (userDetailResponse != null && userDetailResponse.getData() != null) {
+            if (userDetailResponse.getData() != null) {
                 UserContextUtil.setUser(userDetailResponse.getData());
             }
         }

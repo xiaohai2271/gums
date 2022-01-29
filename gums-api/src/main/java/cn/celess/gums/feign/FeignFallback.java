@@ -20,26 +20,26 @@ import java.util.List;
 public class FeignFallback implements GumsApiService {
     @Override
     public Response<PageVO<Permission>> queryPermission(Integer serviceId, PrmQueryDTO permission) {
-        return null;
+        return Response.fail();
     }
 
     @Override
     public Response<List<Permission>> batchSavePermission(PrmSaveDTO permissions) {
-        return null;
+        return Response.fail();
     }
 
     @Override
     public Response<CommonUserVO> userInfo() {
-        return null;
+        return Response.fail();
     }
 
     @Override
     public Response<String> getCache(String key) {
-        return null;
+        return Response.fail();
     }
 
     @Override
     public Response<UserDetail> detailUserInfo() {
-        return null;
+        return Response.fail();
     }
 }
