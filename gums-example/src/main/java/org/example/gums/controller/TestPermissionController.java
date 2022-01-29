@@ -21,14 +21,14 @@ public class TestPermissionController {
     }
 
 
-    @GetMapping({"/permission/test1","/test1"})
-    @PermissionRequest("test1")
+    @GetMapping({"/permission/test1", "/test1"})
+    @PermissionRequest(value = "test1", name = "测试权限1", description = "测试权限1的描述")
     public String test1Permission() {
         return "Now you see me! I`m test1";
     }
 
     @GetMapping("/permission/test2")
-    @PermissionRequest("test2")
+    @PermissionRequest(value = "test2", name = "测试权限2", description = "测试权限2的描述")
     public String test2Permission() {
         return "Now you see me! I`m test2";
     }

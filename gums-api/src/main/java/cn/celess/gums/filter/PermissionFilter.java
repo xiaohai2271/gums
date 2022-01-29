@@ -49,7 +49,7 @@ public class PermissionFilter implements Filter {
                     HandlerMethod method = handler.get(info);
                     PermissionRequest permissionRequest = method.getMethodAnnotation(PermissionRequest.class);
                     if (permissionRequest != null && !UserContextUtil.hasPermission(permissionRequest.value())) {
-                        log.info("没有权限");
+                        log.info("[{}]<->[{}]权限校验不通过，用户无该权限，请求被拦截", ((HttpServletRequest) request).getServletPath(), permissionRequest.value());
                         if (requirePrmResponse != null) {
                             String res = requirePrmResponse.response((HttpServletRequest) request, (HttpServletResponse) response);
                             response.getWriter().println(res);

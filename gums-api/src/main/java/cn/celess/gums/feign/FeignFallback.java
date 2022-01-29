@@ -7,6 +7,7 @@ import cn.celess.gums.common.response.Response;
 import cn.celess.gums.dto.PrmQueryDTO;
 import cn.celess.gums.dto.PrmSaveDTO;
 import cn.celess.gums.vo.CommonUserVO;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 
@@ -17,29 +18,36 @@ import java.util.List;
  *
  * @author 禾几海
  */
+@Slf4j
 public class FeignFallback implements GumsApiService {
+
+    private <T> Response<T> fail() {
+        log.debug("调用失败");
+        return Response.fail();
+    }
+
     @Override
     public Response<PageVO<Permission>> queryPermission(Integer serviceId, PrmQueryDTO permission) {
-        return Response.fail();
+        return fail();
     }
 
     @Override
     public Response<List<Permission>> batchSavePermission(PrmSaveDTO permissions) {
-        return Response.fail();
+        return fail();
     }
 
     @Override
     public Response<CommonUserVO> userInfo() {
-        return Response.fail();
+        return fail();
     }
 
     @Override
     public Response<String> getCache(String key) {
-        return Response.fail();
+        return fail();
     }
 
     @Override
     public Response<UserDetail> detailUserInfo() {
-        return Response.fail();
+        return fail();
     }
 }

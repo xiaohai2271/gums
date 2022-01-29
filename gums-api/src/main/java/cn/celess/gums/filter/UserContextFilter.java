@@ -1,6 +1,7 @@
 package cn.celess.gums.filter;
 
 import cn.celess.gums.common.constant.CommonConstant;
+import cn.celess.gums.common.entity.User;
 import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.common.response.Response;
 import cn.celess.gums.common.utils.UserContextUtil;
@@ -39,6 +40,8 @@ public class UserContextFilter implements Filter {
 
             Response<UserDetail> userDetailResponse = gumsApiService.detailUserInfo();
             if (userDetailResponse.getData() != null) {
+                User user = userDetailResponse.getData().getUser();
+                log.debug("成功获取用户信息, [id: {}, username: '{}']", user.getId(), user.getUsername());
                 UserContextUtil.setUser(userDetailResponse.getData());
             }
         }
