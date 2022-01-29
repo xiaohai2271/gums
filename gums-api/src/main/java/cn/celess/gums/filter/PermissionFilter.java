@@ -1,9 +1,12 @@
 package cn.celess.gums.filter;
 
+import cn.celess.gums.RequirePrmResponse;
 import cn.celess.gums.common.annotations.PermissionRequest;
 import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.common.utils.UserContextUtil;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.method.HandlerMethod;
@@ -15,6 +18,7 @@ import javax.annotation.Resource;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Map;
 
@@ -29,9 +33,11 @@ import java.util.Map;
 @Order(2)
 @Component
 @WebFilter(filterName = "permissionFilter", urlPatterns = "/*")
+@RequiredArgsConstructor
 public class PermissionFilter implements Filter {
     @Resource
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
+    private final RequirePrmResponse requirePrmResponse;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -45,6 +51,10 @@ public class PermissionFilter implements Filter {
                     if (permissionRequest != null && !UserContextUtil.hasPermission(permissionRequest.value())) {
                         log.info("没有权限");
                         // todo:: 给个response
+                        if (requirePrmResponse != null) {
+                            String res = requirePrmResponse.response((HttpServletRequest) request, (HttpServletResponse) response);
+                            response.getWriter().println(res);
+                        }
                         return;
                     }
                 }
