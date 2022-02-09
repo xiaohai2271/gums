@@ -34,13 +34,10 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class GumsApplicationListener implements ApplicationListener<ApplicationStartedEvent> {
-    public static ApplicationContext context;
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
         ConfigurableApplicationContext ctx = event.getApplicationContext();
-
-        GumsApplicationListener.context = ctx;
 
         GumsProperties gumsProperties = ctx.getBean("gumsProperties", GumsProperties.class);
         CacheManager cacheManager = ctx.getBean(CacheManager.class);

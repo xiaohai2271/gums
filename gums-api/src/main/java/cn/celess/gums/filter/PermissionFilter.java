@@ -2,6 +2,7 @@ package cn.celess.gums.filter;
 
 import cn.celess.gums.RequirePrmResponse;
 import cn.celess.gums.common.annotations.PermissionRequest;
+import cn.celess.gums.common.context.GumsApplicationContext;
 import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.common.utils.UserContextUtil;
 import cn.celess.gums.listener.GumsApplicationListener;
@@ -50,7 +51,7 @@ public class PermissionFilter implements Filter {
                 if (permissionRequest != null && !UserContextUtil.hasPermission(permissionRequest.value())) {
                     log.info("[{}]<->[{}]权限校验不通过，用户无该权限，请求被拦截", ((HttpServletRequest) request).getServletPath(), permissionRequest.value());
                     try {
-                        RequirePrmResponse requirePrmResponse = GumsApplicationListener.context.getBean(RequirePrmResponse.class);
+                        RequirePrmResponse requirePrmResponse = GumsApplicationContext.getApplicationContext().getBean(RequirePrmResponse.class);
                         requirePrmResponse.response((HttpServletRequest) request, (HttpServletResponse) response);
                     } catch (NoSuchBeanDefinitionException e) {
                         ((HttpServletResponse) response).sendError(403);
