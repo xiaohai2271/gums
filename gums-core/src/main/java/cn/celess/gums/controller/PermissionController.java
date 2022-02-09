@@ -32,8 +32,8 @@ public class PermissionController {
         return Response.success(permissionService.queryPage(permission, serviceId));
     }
 
-    @PutMapping("/save")
-    public Response<List<Permission>> batchSavePermission(@RequestBody PrmSaveDTO permissions) {
-        return Response.success(permissionService.savePermission(permissions));
+    @PutMapping("/batch")
+    public Response<List<Permission>> batchSaveOrUpdatePermission(@RequestBody PrmSaveDTO permissions) {
+        return Response.success(permissionService.saveOrUpdatePermission(permissions));
     }
 }

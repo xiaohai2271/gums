@@ -31,8 +31,8 @@ public interface GumsApiService {
     @GetMapping("/api/user/")
     public Response<CommonUserVO> userInfo();
 
-    @PutMapping("/api/permission/save")
-    Response<List<Permission>> batchSavePermission(@RequestBody PrmSaveDTO permissions);
+    @PutMapping("/api/permission/batch")
+    Response<List<Permission>> batchSaveOrUpdatePermission(@RequestBody PrmSaveDTO permissions);
 
 
     @GetMapping("/api/cache")

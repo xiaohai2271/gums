@@ -28,10 +28,10 @@ public interface PermissionService extends IService<Permission> {
     PageVO<Permission> queryPage(PrmQueryDTO permission, Integer serviceId);
 
     /**
-     * 新增权限
+     * 新增/更新权限
      *
      * @param permission 权限信息
      * @return 新增权限
      */
-    List<Permission> savePermission(PrmSaveDTO permission);
+    List<Permission>  saveOrUpdatePermission(PrmSaveDTO permission);
 }

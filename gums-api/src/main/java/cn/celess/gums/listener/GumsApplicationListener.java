@@ -21,7 +21,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Controller;
 
 import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -51,15 +50,10 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
 
         PageVO<Permission> pageVO = Optional.of(pageVOResponse.getData())
                 .orElseThrow(() -> new RuntimeException("获取权限列表失败"));
-        log.info("获取远程平台权限列表成功");
+        log.info("获取应用权限列表成功，共{}条", pageVO.getTotal());
 
         List<Permission> permissions = pageVO.getList();
         permissions.forEach(permission -> log.debug("权限[code:{}, name:{}, desc:{}]", permission.getPermissionCode(), permission.getPermissionName(), permission.getRemark()));
-
-        Cache cache = cacheManager.getCache(GumsApiConstants.CACHE_NAME);
-        Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
-
-        // TODO: 增加自动更新权限功能
 
         List<Permission> batchSaveList = new ArrayList<>();
         Map<String, Object> objectMap = ctx.getBeansWithAnnotation(Controller.class);
@@ -69,31 +63,50 @@ public class GumsApplicationListener implements ApplicationListener<ApplicationS
                     .collect(Collectors.toList());
             for (Method m : methodList) {
                 PermissionRequest permissionRequest = m.getAnnotation(PermissionRequest.class);
-                Permission permission = new Permission();
-                permission.setServiceId(gumsProperties.getServiceId())
+                Permission permission = new Permission()
+                        .setServiceId(gumsProperties.getServiceId())
                         .setPermissionCode(permissionRequest.value());
-                boolean isExist = permissions.stream().anyMatch(p -> p.getPermissionCode().equals(permission.getPermissionCode()));
+                Optional<Permission> prmOptional = permissions.stream().filter(p -> p.getPermissionCode().equals(permissionRequest.value())).findFirst();
                 // 查询权限是否存在
-                if (!isExist) {
+                if (prmOptional.isEmpty()) {
                     log.info("权限[code:'{}', name:'{}', desc:'{}']不存在，将自动创建", permissionRequest.value(), permissionRequest.name(), permissionRequest.description());
                     // 接口查询权限不存在，调接口新增权限
                     permission.setPermissionName(permissionRequest.name())
                             .setRemark(permissionRequest.description());
                     batchSaveList.add(permission);
                     // 新增权限成功，更新权限缓存
+                    continue;
+                }
+                // 检查是否有更新
+                Permission prm = prmOptional.get();
+                if (!prm.getPermissionName().equals(permissionRequest.name())
+                        || !prm.getRemark().equals(permissionRequest.description())) {
+                    log.info("权限[code:'{}', name:'{}', desc:'{}']发生更新", permissionRequest.value(), permissionRequest.name(), permissionRequest.description());
+                    permission.setId(prm.getId())
+                            .setPermissionName(permissionRequest.name())
+                            .setRemark(permissionRequest.description());
+                    batchSaveList.add(permission);
                 }
             }
         }
         if (!batchSaveList.isEmpty()) {
-            PrmSaveDTO prmSaveDTO = new PrmSaveDTO().setPermissions(batchSaveList)
+            PrmSaveDTO prmSaveDTO = new PrmSaveDTO()
+                    .setPermissions(batchSaveList)
                     .setServiceId(gumsProperties.getServiceId())
                     .setSecretKey(gumsProperties.getSecretKey());
-            Response<List<Permission>> listResponse = apiService.batchSavePermission(prmSaveDTO);
+            Response<List<Permission>> listResponse = apiService.batchSaveOrUpdatePermission(prmSaveDTO);
             List<Permission> response = Optional.of(listResponse.getData()).orElseThrow(() -> new RuntimeException("新增权限失败"));
-            log.info("自动创建 {} 条权限: [{}]", batchSaveList.size(),
-                    batchSaveList.stream().map(Permission::getPermissionCode).collect(Collectors.joining(", "))
+            List<Permission> saveBatch = batchSaveList.stream().filter(p -> p.getId() == null).collect(Collectors.toList());
+            List<Permission> updateBatch = batchSaveList.stream().filter(p -> p.getId() != null).collect(Collectors.toList());
+            log.info("自动创建 {} 条权限: [{}], 更新 {} 条权限: [{}]", saveBatch.size(),
+                    saveBatch.stream().map(Permission::getPermissionCode).collect(Collectors.joining(", ")),
+                    updateBatch.size(),
+                    updateBatch.stream().map(Permission::getPermissionCode).collect(Collectors.joining(", "))
             );
+            permissions.removeIf(p -> updateBatch.stream().anyMatch(u -> u.getPermissionCode().equals(p.getPermissionCode())));
             permissions.addAll(response);
         }
+        Cache cache = cacheManager.getCache(GumsApiConstants.CACHE_NAME);
+        Objects.requireNonNull(cache).put(GumsApiConstants.PERMISSION_KEY_NAME, permissions);
     }
 }

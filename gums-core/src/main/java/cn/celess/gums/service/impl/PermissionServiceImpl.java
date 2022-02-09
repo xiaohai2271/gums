@@ -51,11 +51,11 @@ public class PermissionServiceImpl extends ServiceImpl<PermissionMapper, Permiss
     }
 
     @Override
-    public List<Permission> savePermission(PrmSaveDTO permission) {
+    public List<Permission>  saveOrUpdatePermission(PrmSaveDTO permission) {
         checkServiceReq(permission.getServiceId(), permission.getSecretKey());
         List<Permission> permissionList = permission.getPermissions();
-        permissionList.forEach(p -> p.setId(null).setCreateDt(LocalDateTime.now()));
-        saveBatch(permissionList);
+        permissionList.forEach(p -> p.setCreateDt(LocalDateTime.now()));
+        saveOrUpdateBatch(permissionList);
         return permissionList;
     }
 

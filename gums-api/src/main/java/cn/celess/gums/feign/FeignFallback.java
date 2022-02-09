@@ -32,7 +32,7 @@ public class FeignFallback implements GumsApiService {
     }
 
     @Override
-    public Response<List<Permission>> batchSavePermission(PrmSaveDTO permissions) {
+    public Response<List<Permission>> batchSaveOrUpdatePermission(PrmSaveDTO permissions) {
         return fail();
     }
 
