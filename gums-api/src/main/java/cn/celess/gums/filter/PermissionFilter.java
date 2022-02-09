@@ -4,8 +4,10 @@ import cn.celess.gums.RequirePrmResponse;
 import cn.celess.gums.common.annotations.PermissionRequest;
 import cn.celess.gums.common.model.UserDetail;
 import cn.celess.gums.common.utils.UserContextUtil;
+import cn.celess.gums.listener.GumsApplicationListener;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.NoSuchBeanDefinitionException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -33,34 +35,29 @@ import java.util.Map;
 @Order(2)
 @Component
 @WebFilter(filterName = "permissionFilter", urlPatterns = "/*")
-@RequiredArgsConstructor
 public class PermissionFilter implements Filter {
     @Resource
     private RequestMappingHandlerMapping requestMappingHandlerMapping;
-    private final RequirePrmResponse requirePrmResponse;
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        try {
-            Map<RequestMappingInfo, HandlerMethod> handler = requestMappingHandlerMapping.getHandlerMethods();
-            for (RequestMappingInfo info : handler.keySet()) {
-                boolean anyMatch = info.getDirectPaths().stream().anyMatch(a -> a.equals(((HttpServletRequest) request).getServletPath()));
-                if (anyMatch) {
-                    HandlerMethod method = handler.get(info);
-                    PermissionRequest permissionRequest = method.getMethodAnnotation(PermissionRequest.class);
-                    if (permissionRequest != null && !UserContextUtil.hasPermission(permissionRequest.value())) {
-                        log.info("[{}]<->[{}]权限校验不通过，用户无该权限，请求被拦截", ((HttpServletRequest) request).getServletPath(), permissionRequest.value());
-                        if (requirePrmResponse != null) {
-                            String res = requirePrmResponse.response((HttpServletRequest) request, (HttpServletResponse) response);
-                            response.getWriter().println(res);
-                        }
-                        return;
+        Map<RequestMappingInfo, HandlerMethod> handler = requestMappingHandlerMapping.getHandlerMethods();
+        for (RequestMappingInfo info : handler.keySet()) {
+            boolean anyMatch = info.getDirectPaths().stream().anyMatch(a -> a.equals(((HttpServletRequest) request).getServletPath()));
+            if (anyMatch) {
+                HandlerMethod method = handler.get(info);
+                PermissionRequest permissionRequest = method.getMethodAnnotation(PermissionRequest.class);
+                if (permissionRequest != null && !UserContextUtil.hasPermission(permissionRequest.value())) {
+                    log.info("[{}]<->[{}]权限校验不通过，用户无该权限，请求被拦截", ((HttpServletRequest) request).getServletPath(), permissionRequest.value());
+                    try {
+                        RequirePrmResponse requirePrmResponse = GumsApplicationListener.context.getBean(RequirePrmResponse.class);
+                        requirePrmResponse.response((HttpServletRequest) request, (HttpServletResponse) response);
+                    } catch (NoSuchBeanDefinitionException e) {
+                        ((HttpServletResponse) response).sendError(403);
                     }
+                    return;
                 }
             }
-
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         chain.doFilter(request, response);
     }

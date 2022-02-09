@@ -14,5 +14,5 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component("requirePrmResponse")
 public interface RequirePrmResponse {
-    String response(HttpServletRequest request, HttpServletResponse response);
+    void response(HttpServletRequest request, HttpServletResponse response);
 }

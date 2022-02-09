@@ -15,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.lang.NonNull;
@@ -33,10 +34,13 @@ import java.util.stream.Collectors;
  */
 @Slf4j
 public class GumsApplicationListener implements ApplicationListener<ApplicationStartedEvent> {
+    public static ApplicationContext context;
 
     @Override
     public void onApplicationEvent(@NonNull ApplicationStartedEvent event) {
         ConfigurableApplicationContext ctx = event.getApplicationContext();
+
+        GumsApplicationListener.context = ctx;
 
         GumsProperties gumsProperties = ctx.getBean("gumsProperties", GumsProperties.class);
         CacheManager cacheManager = ctx.getBean(CacheManager.class);

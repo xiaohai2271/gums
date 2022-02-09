@@ -41,6 +41,7 @@ public class UserContextUtil {
 
     public static boolean hasPermission(String permissionCode) {
         UserDetail user = getUser();
+        if (user == null) return false;
         for (Permission userPermission : user.getAllPermissions()) {
             if (userPermission.getPermissionCode().equals(permissionCode)) {
                 return true;

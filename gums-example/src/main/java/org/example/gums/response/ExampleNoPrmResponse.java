@@ -1,6 +1,7 @@
 package org.example.gums.response;
 
 import cn.celess.gums.RequirePrmResponse;
+import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,9 +16,12 @@ import javax.servlet.http.HttpServletResponse;
  */
 @Component
 public class ExampleNoPrmResponse implements RequirePrmResponse {
+    @SneakyThrows
     @Override
-    public String response(HttpServletRequest request, HttpServletResponse response) {
+    public void response(HttpServletRequest request, HttpServletResponse response) {
         response.setCharacterEncoding("UTF-8");
-        return "您无权访问该页面";
+        response.setContentType("application/json");
+        response.setStatus(200);
+        response.getWriter().println("{\"code\":\"-1\",\"message\": \"无权限\"}");
     }
 }
