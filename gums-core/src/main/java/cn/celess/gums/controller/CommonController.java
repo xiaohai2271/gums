@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Base64;
 
 /**
  * 2021/11/12
@@ -38,18 +39,14 @@ public class CommonController {
     /**
      * 返回验证码
      */
-    @GetMapping(value = "/imgCode", produces = MediaType.IMAGE_PNG_VALUE)
+    @GetMapping(value = "/imgCode")
     @ApiOperation("返回验证码")
-    public void getVerifyImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    public Response<String> getVerifyImage(HttpServletRequest request, HttpServletResponse response) throws IOException {
         Object[] obj = ImageVerifyCodeUtil.createImage();
         request.getSession().setAttribute(UserConstant.IMAGE_CODE_KEY, obj[0]);
         //将图片输出给浏览器
-        BufferedImage image = (BufferedImage) obj[1];
-        response.setContentType("image/png");
-        OutputStream os = response.getOutputStream();
-        ImageIO.write(image, "png", os);
-        // todo:: base64
-        os.close();
+        String pngBase64 = Base64.getEncoder().encodeToString((byte[]) obj[1]);//转换成base64串
+        return Response.success("data:image/png;base64," + pngBase64);
     }
 
     /**

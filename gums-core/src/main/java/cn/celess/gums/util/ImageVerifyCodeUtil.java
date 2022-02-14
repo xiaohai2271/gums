@@ -1,7 +1,10 @@
 package cn.celess.gums.util;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Random;
 
 /**
@@ -70,7 +73,13 @@ public class ImageVerifyCodeUtil {
                     ran.nextInt(WIDTH), ran.nextInt(HEIGHT));
         }
         // 7.返回验证码和图片
-        return new Object[]{sb.toString(), image};
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();//io流
+        try {
+            ImageIO.write(image, "png", baos);//写入流中
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new Object[]{sb.toString(), baos.toByteArray()};
     }
 
     /**
